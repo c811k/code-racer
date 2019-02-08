@@ -1,9 +1,26 @@
 import React from "react";
 
-function Play() {
-    return (
-        <h1>Play</h1>
-    );
+class Play extends React.Component {
+
+    state=  {
+        input: "State statet state"
+    }
+    
+    render(){
+        return (
+            <div>
+    
+            
+                <span>Sample Text</span>
+                <input type="text" defaultValue={this.state.input}/>
+    
+                <br></br>
+                <input type="text"/>
+            </div>
+        );
+        
+    }
+    
     
 }
 
