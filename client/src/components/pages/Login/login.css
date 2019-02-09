@@ -10,6 +10,17 @@ body {
   padding-bottom: 40px;
 }
 
+.nav-pills > li {
+  float:none;
+  display:inline-block;
+  zoom:1;
+}
+
+.nav-pills {
+  text-align:center;
+}
+
+
 .form-signin {
   width: 100%;
   max-width: 330px;
