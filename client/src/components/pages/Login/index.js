@@ -35,6 +35,7 @@ class Auth extends Component {
 
     handleFormSubmit = () => {
         axios.post("/api/user", this.state);
+        window.location.reload();
     };
 
     handleLogin = () => {
@@ -60,7 +61,7 @@ class Auth extends Component {
                     handleInputChange={this.handleInputChange}
                     handleLogin={this.handleLogin}
                 />}
-                
+
                 {this.state.isRegisterOpen && 
                 <Signup
                     username={this.state.username}
