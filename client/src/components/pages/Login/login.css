@@ -18,14 +18,14 @@ body {
 }
 
 .login-tab {
+  display: flex;
+  justify-content: center;
   padding-top: 50px;
-  margin: auto;
 }
 
 .login-register {
   width: 100%;
-  max-width: 175px;
-  margin: auto;
+  max-width: 155px;
 }
 
 .form-signin .form-control {

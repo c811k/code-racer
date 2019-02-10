@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
 import "./login.css";
@@ -38,20 +37,32 @@ class Auth extends Component {
         axios.post("/api/user", this.state);
     };
 
+    handleLogin = () => {
+
+    };
+
     render() {
         return(
             <div>
-                <div className="login-tab">
-                    <div className="login-register text-center btn btn-light" onClick={this.showLoginBox}>
+                <div className="login-tab btn-group btn-group-toggle">
+                    <div className={"login-register text-center btn btn-light " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
                         LOGIN
                     </div>
-                    <div className="login-register text-center btn btn-light" onClick={this.showRegisterBox}>
+                    <div className={"login-register text-center btn btn-light " + (this.state.isRegisterOpen ? "active" : null)} onClick={this.showRegisterBox}>
                         REGISTER
-                    </div>
+                    </div>                    
                 </div>
 
-                {this.state.isLoginOpen && <Login />}
-                {this.state.isRegisterOpen && <Signup
+                {this.state.isLoginOpen && 
+                <Login 
+                    username={this.state.username}
+                    password={this.state.password}
+                    handleInputChange={this.handleInputChange}
+                    handleLogin={this.handleLogin}
+                />}
+                
+                {this.state.isRegisterOpen && 
+                <Signup
                     username={this.state.username}
                     password={this.state.password}
                     handleInputChange={this.handleInputChange}

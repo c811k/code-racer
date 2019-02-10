@@ -6,7 +6,7 @@ function Signup(props) {
         <div className="login">
             <form className="form-signin text-center">
                 <img className="mb-4" src="http://cdn.onlinewebfonts.com/svg/img_363996.png" alt="" width="72" height="72" />
-                <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+                <h1 className="h3 mb-3 font-weight-normal">REGISTER</h1>
                 <label className="sr-only">Username</label>
                 <input 
                     type="username"
@@ -25,7 +25,7 @@ function Signup(props) {
                     id="newPassword" className="form-control" placeholder="Password" required 
                 />
             
-                <button className="btn btn-lg btn-light btn-block shadow-lg" type="submit"onClick={props.handleFormSubmit}>SIGN UP</button>
+                <button className="btn btn-lg btn-light btn-block shadow-lg" type="submit" onClick={props.handleFormSubmit}>SIGN UP</button>
                 <p className="mt-5 pt-5">Code Racer &copy; 2019</p>
             </form>
         </div>       
