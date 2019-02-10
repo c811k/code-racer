@@ -6,25 +6,25 @@ body {
 .login {
   display: flex;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 40px;
   padding-bottom: 40px;
 }
-
-.nav-pills > li {
-  float:none;
-  display:inline-block;
-  zoom:1;
-}
-
-.nav-pills {
-  text-align:center;
-}
-
 
 .form-signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
+  margin: auto;
+}
+
+.login-tab {
+  padding-top: 50px;
+  margin: auto;
+}
+
+.login-register {
+  width: 100%;
+  max-width: 175px;
   margin: auto;
 }
 

@@ -11,7 +11,7 @@ function Signup(props) {
                 <input 
                     type="username"
                     name="username"
-                    value={props.newUsername}
+                    value={props.username}
                     onChange={props.handleInputChange} 
                     id="newUsername"
                     className="form-control" placeholder="Username" required autoFocus 
@@ -20,7 +20,7 @@ function Signup(props) {
                 <input 
                     type="password"
                     name="password"
-                    value={props.newPassword}
+                    value={props.password}
                     onChange={props.handleInputChange}
                     id="newPassword" className="form-control" placeholder="Password" required 
                 />
