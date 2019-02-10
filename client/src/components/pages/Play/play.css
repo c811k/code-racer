@@ -2,26 +2,14 @@
     margin: 20px
 }
 
-.card {
-    opacity: 0.85;
-    background-color: black;
-    color: white;
-
-}
-
-.card-body {
-    user-select: none;
-}
-
 .list-group-item {
     opacity: 0.85;
 }
 
 .progress {
-    height: 65px;
+    height: 50px;
 }
 
-textarea.form-control {
-    opacity: 0.85;
-    background-color: black;
+#prompt {
+    margin-top: -12px;
 }
