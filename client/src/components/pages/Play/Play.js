@@ -31,7 +31,7 @@ class Play extends Component {
             <div className="play">
             <div className="row text-center">
                 <div className="col-md-9">
-                    <h5>CLICK test TO BEGIN</h5><button className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                    <h5>CLICK START TO BEGIN</h5><button className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
