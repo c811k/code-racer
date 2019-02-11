@@ -6,42 +6,45 @@ import "brace/theme/tomorrow_night";
 
 import "./play.css";
 
-var str = "Test";
-console.log(str.length);
+var str = "";
 
 class Play extends Component {
+
     state = {
         percentage: 0,
-        message: ""
+        value: "",
+        topEditor: "for (let i = 0; i< array.length; i++) {"
     }
+
     componentDidMount() {
-
     }
 
 
+    checkProgress = (value, event) => {
+        if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ){
+            console.log('hit')
+            value = value.substring(0, value.length - 1);
+        } 
+        this.setState({value}, () => {
+            const {value} = this.state;
+            console.log(value)
+            //Create new index to align user's input with the prompt's.
+            let characterIndex = value.length - 1,
+                strToMatch = this.state.topEditor.substr(0,characterIndex + 1);
 
+                console.log(value, strToMatch);
 
-    handleProgressBar = (event) => {
-        if(str.includes(event.key)) {
-            this.setState({
-                percentage: this.state.percentage + 5
-          });  
-        }
-        else {
-            this.setState({
-                percentage: this.state.percentage - 5
-          });  
-        }
-    };
+            if (strToMatch === value){
+                console.log("good");
+            } else {
+                console.log("no");
+            }
+        })
 
-    checkProgress = (event) => {
-        
-        console.log(event);
-    }
+   }
     
 
     render() {
-        console.log(this.state.percentage);
         return(
             <div className="play">
             <div className="row text-center">
@@ -50,13 +53,15 @@ class Play extends Component {
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
-                        defaultValue= {str}
-                        onChange={this.onChange}
+                        defaultValue= {this.state.topEditor}
+                        value = {this.state.topEditor}
+                        // onChange={this.onChange}
                         name="UNIQUE_ID_OF_DIV"
                         style={{width: "100%"}}
                         editorProps={{
                             $blockScrolling: true
                         }}
+                        readOnly={true}
                         setOptions={{
                             fontSize: '10pt',
                             minLines: 10,
@@ -69,19 +74,21 @@ class Play extends Component {
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
-                        onChange={this.onChange}
-                        onInput={this.checkProgress}
-                        name="UNIQUE_ID_OF_DIV"
+                        onChange={this.checkProgress}
+                        name="UNIQUE_ID_OF_DIV2"
                         style={{width: "100%"}}
+                        value={this.state.value}
                         editorProps={{
                             $blockScrolling: true,
-                            enableLiveAutocompletion: true
+                            
                         }}
                         setOptions={{
                             fontSize: '10pt',
                             minLines: 10,
                             maxLines: 10,
-                            tabSize: 2
+                            tabSize: 2,
+                            enableBasicAutocompletion: false
+                            
                         }}
                     />
                     <div className="progress mt-2">
