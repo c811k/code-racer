@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
-import levenshtein from "./levenshtein.js";
+import ProgressBar from "../../ProgressBar.js";
+import LeaderBoard from "../../LeaderBoard.js";
+import Timer from "../../Timer/Timer.js";
+import Login from "../Login/Login.js";
+import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 
 import "./play.css";
 
-var str = "";
 
 class Play extends Component {
 
     state = {
         percentage: 0,
         value: "",
-        topEditor: "for (let i = 0; i< array.length; i++) {"
+        topEditor: "for (let i = 0; i< array.length; i++) {",
+        time: 0,
+        username: ""
+    
     }
 
     componentDidMount() {
@@ -43,6 +49,25 @@ class Play extends Component {
 
    }
     
+    handleTimer = () => {
+        var timer = 0;
+        setInterval(() => {
+            timer++;
+            this.setState({
+                time: timer
+            });
+        }, 1);
+    }
+
+    handleUsername = () => {
+        axios.get("/api/user").then((response) => {
+            this.setState({
+                username: response.username
+            });
+        });
+
+        
+    }
 
     render() {
         return(
@@ -131,6 +156,12 @@ class Play extends Component {
                     </ul>
                 </div>
             </div>
+            <Timer
+            time={this.state.time}
+            handleTimer={this.handleTimer}
+            />
+            <ProgressBar />
+            <LeaderBoard Username={Login.inputUsername}/>
             </div>
         );
     }

@@ -1,0 +1,8 @@
+#timer {
+    align-content: center;
+    position: absolute;
+    left: 50%;
+    float: flex;
+    margin-left: -50px;
+    top: 70px;
+}

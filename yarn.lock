@@ -1915,6 +1915,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-stopwatch@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-stopwatch/-/react-stopwatch-2.0.3.tgz#5a68ee6be159e5274ae68b40ce1b0331c4aa8e4f"
+  integrity sha512-wXLqhWcs3sVaBmgDYkxbbi5c8zFu9jjWqgB5K8VoFtamTMLbWUA8rUrkHlNYHWeOVGY0HHhgX5Lj5kqcjo5MuQ==
+  dependencies:
+    ms "^2.1.1"
+
 read-pkg@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-4.0.1.tgz#963625378f3e1c4d48c85872b5a6ec7d5d093237"

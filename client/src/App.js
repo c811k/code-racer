@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/pages/Home/Home";
 import Play from "./components/pages/Play/Play";
 import About from "./components/pages/About/About";
-import Login from "./components/pages/Login/Login";
+import Auth from "./components/pages/Login";
 import Profile from "./components/pages/Profile/Profile";
 import "./app.css";
 
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/play" component={Play} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/login" component={Auth} />
         <Route exact path="/profile" component={Profile} />
       </div>
     </Router>
