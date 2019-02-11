@@ -7,7 +7,6 @@ import Login from "../Login/Login.js";
 import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
-
 import "./play.css";
 
 
@@ -16,7 +15,9 @@ class Play extends Component {
     state = {
         percentage: 0,
         value: "",
-        topEditor: "for (let i = 0; i< array.length; i++) {",
+        topEditor: `for (let i = 0; i< array.length; i++) {
+    console.log("Hello")
+}`,
         time: 0,
         username: ""
     
@@ -27,23 +28,33 @@ class Play extends Component {
 
 
     checkProgress = (value, event) => {
+        
+        // Gets rid of autoclosing parentheses.
         if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ){
-            console.log('hit')
             value = value.substring(0, value.length - 1);
-        } 
+        }
+        /* // Gets rid of autoclosing brackets.
+        else if(value[value.length - 1] === "}" && value[value.length - 2] === "{" ){
+            value = value.substring (0, value.length - 1);
+        } */
+         
+
+        // Whatever code is in current box will be saved in state
         this.setState({value}, () => {
             const {value} = this.state;
-            console.log(value)
-            //Create new index to align user's input with the prompt's.
+
+            //Aligning user's current Index with the the prompts.
             let characterIndex = value.length - 1,
                 strToMatch = this.state.topEditor.substr(0,characterIndex + 1);
-
                 console.log(value, strToMatch);
 
+            // Increment percentages accordingly
             if (strToMatch === value){
-                console.log("good");
+                this.setState({percentage: this.state.percentage + 100/(this.state.topEditor.length)})
+                console.log(this.state.percentage);
+
             } else {
-                console.log("no");
+                this.setState({percentage: this.state.percentage - 100/(this.state.topEditor.length)})
             }
         })
 
@@ -80,7 +91,6 @@ class Play extends Component {
                         theme="tomorrow_night"
                         defaultValue= {this.state.topEditor}
                         value = {this.state.topEditor}
-                        // onChange={this.onChange}
                         name="UNIQUE_ID_OF_DIV"
                         style={{width: "100%"}}
                         editorProps={{
