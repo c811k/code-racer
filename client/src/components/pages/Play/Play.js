@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import ProgressBar from "../../ProgressBar.js";
 import LeaderBoard from "../../LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
+import Login from "../Login/Login.js";
+import axios from "axios";
 
 class Play extends Component {
 
     state = {
-        time: 0
+        time: 0,
+        username: ""
     }
     
     handleTimer = () => {
@@ -18,8 +21,22 @@ class Play extends Component {
             });
         }, 1);
     }
+
+    handleUsername = () => {
+        axios.get("/api/user").then((response) => {
+            this.setState({
+                username: response.username
+            });
+        });
+
+        if (response.username ) {
+
+        }
+
+    }
     
     render() {
+        console.log(Login);
         return(
             <div>
             <h1>Play</h1>
@@ -28,7 +45,7 @@ class Play extends Component {
             handleTimer={this.handleTimer}
             />
             <ProgressBar />
-            <LeaderBoard />
+            <LeaderBoard Username={Login.inputUsername}/>
             </div>
         );
     };

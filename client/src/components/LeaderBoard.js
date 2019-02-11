@@ -11,7 +11,7 @@ function LeaderBoard(props) {
                         <th>Fastest Time</th>
                     </tr>
                     <tr>
-                        <td>{props.topName}</td>
+                        <td>{props.Username}</td>
                         <td>{props.topTime}</td>
                     </tr>
                 </tbody>

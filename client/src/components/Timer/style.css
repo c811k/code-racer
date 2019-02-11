@@ -1,7 +1,8 @@
 #timer {
-    text-align: center;
-    display: block;
-    background-attachment: fixed;
-    background-position: center;
-    margin: auto;
+    align-content: center;
+    position: absolute;
+    left: 50%;
+    float: flex;
+    margin-left: -50px;
+    top: 70px;
 }
