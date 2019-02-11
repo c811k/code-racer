@@ -9,6 +9,14 @@ router.get("/api/scores", (req, res) => {
     });;
 });
 
+router.get("/api/users", (req, res) => {
+    db.User.find({}).then( (data) => {
+        res.json(data);
+    }).catch( (err) => {
+        res.json(err);
+    });
+});
+
 router.post("/api/user", (req, res) => {
     db.User.create(req.body).then( ()=> {
         res.end();
