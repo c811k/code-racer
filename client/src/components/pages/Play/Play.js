@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
+import levenshtein from "./levenshtein.js";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 
 import "./play.css";
-var str = "Proident esse mollit ex id eiusmod enim. Adipisicing ad eiusmod dolore cupidatat adipisicing officia non. Excepteur proident est consequat pariatur est aute non exercitation consequat esse id eiusmod. Amet commodo culpa commodo elit exercitation. Sunt ipsum dolor ipsum commodo aliquip ad ullamco velit eu nulla enim nulla cillum duis.";
+
+var str = "Test";
 console.log(str.length);
 
 class Play extends Component {
     state = {
-        percentage: 0
+        percentage: 0,
+        message: ""
     }
+    componentDidMount() {
+
+    }
+
+
+
 
     handleProgressBar = (event) => {
         if(str.includes(event.key)) {
@@ -24,7 +33,13 @@ class Play extends Component {
           });  
         }
     };
+
+    checkProgress = (event) => {
+        
+        console.log(event);
+    }
     
+
     render() {
         console.log(this.state.percentage);
         return(
@@ -35,6 +50,7 @@ class Play extends Component {
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
+                        defaultValue= {str}
                         onChange={this.onChange}
                         name="UNIQUE_ID_OF_DIV"
                         style={{width: "100%"}}
@@ -54,6 +70,7 @@ class Play extends Component {
                         mode="javascript"
                         theme="tomorrow_night"
                         onChange={this.onChange}
+                        onInput={this.checkProgress}
                         name="UNIQUE_ID_OF_DIV"
                         style={{width: "100%"}}
                         editorProps={{

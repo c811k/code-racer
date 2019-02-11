@@ -6,7 +6,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 // Compute the edit distance between the two given strings
-exports.getEditDistance = function(a, b){
+var levenshtein = function(a, b){
   if(a.length === 0) return b.length; 
   if(b.length === 0) return a.length; 
 
@@ -39,3 +39,5 @@ exports.getEditDistance = function(a, b){
 
   return matrix[b.length][a.length];
 };
+
+export default levenshtein;
