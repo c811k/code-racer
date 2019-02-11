@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Signup from "./Signup";
 import Login from "./Login";
 import "./login.css";
@@ -33,14 +33,14 @@ class Auth extends Component {
         });
     };
 
-    handleFormSubmit = () => {
-        axios.post("/api/user", this.state);
-        window.location.reload();
-    };
+    // handleFormSubmit = () => {
+    //     axios.post("/api/user", this.state);
+    //     window.location.reload();
+    // };
 
-    handleLogin = () => {
+    // handleLogin = () => {
 
-    };
+    // };
 
     render() {
         return(

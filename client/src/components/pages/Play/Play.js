@@ -11,6 +11,20 @@ class Play extends Component {
         time: 0,
         username: ""
     }
+
+    handleLeaderboard = () => {
+        axios.get("/api/users").then((response) => {
+            // console.log(response.data.User.username);
+            var users = response.data.sort(function(a, b){return a - b});
+            console.log(users);
+            
+        });
+
+    }
+    
+    componentDidMount() {
+        this.handleLeaderboard();
+    }
     
     handleTimer = () => {
         var timer = 0;
@@ -21,19 +35,9 @@ class Play extends Component {
             });
         }, 1);
     }
-
-    handleUsername = () => {
-        axios.get("/api/user").then((response) => {
-            this.setState({
-                username: response.username
-            });
-        });
-
-        
-    }
     
     render() {
-        console.log(Login);
+
         return(
             <div>
             <h1>Play</h1>
@@ -42,7 +46,10 @@ class Play extends Component {
             handleTimer={this.handleTimer}
             />
             <ProgressBar />
-            <LeaderBoard Username={Login.inputUsername}/>
+            <LeaderBoard
+            topUser={this.userName}
+            topTime={this.userName}
+            />
             </div>
         );
     };
