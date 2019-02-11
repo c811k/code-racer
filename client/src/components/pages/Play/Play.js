@@ -29,10 +29,7 @@ class Play extends Component {
             });
         });
 
-        if (response.username ) {
-
-        }
-
+        
     }
     
     render() {
