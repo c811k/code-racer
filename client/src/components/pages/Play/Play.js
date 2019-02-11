@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ProgressBar from "../../ProgressBar.js";
 import LeaderBoard from "../../LeaderBoard.js";
-import Timer from "../../Timer.js"
+import Timer from "../../Timer/Timer.js";
 
 class Play extends Component {
 
