@@ -7,10 +7,10 @@ function PromptMenu() {
             PROMPT
             </button>
             <div className="dropdown-menu" aria-labelledby="prompts">
-            <a className="dropdown-item">forLoop</a>
-            <a className="dropdown-item">fizzBuzz</a>
-            <a className="dropdown-item">expressServer</a>
-            <a className="dropdown-item">newObj</a>
+            <button className="dropdown-item">forLoop</button>
+            <button className="dropdown-item">fizzBuzz</button>
+            <button className="dropdown-item">expressServer</button>
+            <button className="dropdown-item">newObj</button>
             </div>
         </div>
     );
