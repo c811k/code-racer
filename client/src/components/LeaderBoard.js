@@ -1,6 +1,8 @@
 import React from "react";
+import timeFormat from "./utils/timeFormat.js"
 
 function LeaderBoard(props) {
+
     return (
         <div>
             <h2>Top Player</h2>
@@ -21,16 +23,23 @@ function LeaderBoard(props) {
 
             <h2>Leader Board</h2>
             <table style={{ "width": "75%" }}>
-                <tbody>
-                    <tr>
-                        <th>Username</th>
-                        <th>Fastest Time</th>
-                    </tr>
-                    <tr>
-                        <td>{props.name}</td>
-                        <td>{props.time}</td>
-                    </tr>
-                </tbody>
+                {props.users.map((p) => {
+
+                    
+    
+                    return (
+                        <tbody>
+                            <tr>
+                                <th>Username</th>
+                                <th>Fastest Time</th>
+                            </tr>
+                            <tr>
+                                <td>{p.username}</td>
+                                <td>{timeFormat(p.time)}</td>
+                            </tr>
+                        </tbody>
+                    );
+                })}
             </table>
         </div>
     );
