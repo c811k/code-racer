@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
-import LeaderBoard from "../../LeaderBoard.js";
+import LeaderBoard from "../../LeaderBoard/LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
 import Login from "../Login/Login.js";
 import axios from "axios";
@@ -93,6 +93,7 @@ class Play extends Component {
                         </div>
                         <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
                         <AceEditor
+                            className="editor"
                             mode="javascript"
                             theme="tomorrow_night"
                             defaultValue={this.state.topEditor}
@@ -118,6 +119,7 @@ class Play extends Component {
                         </div>
                         <hr className="my-3" />
                         <AceEditor
+                            className="editor"
                             mode="javascript"
                             theme="tomorrow_night"
                             onChange={this.checkProgress}
@@ -148,6 +150,7 @@ class Play extends Component {
                             FOR LOOP
                     </div>
                         <LeaderBoard
+                            key={this.state.Users.username}
                             users={this.state.Users}
                         />
                     </div>
