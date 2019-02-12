@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
-import ProgressBar from "../../ProgressBar.js";
+import ProgressBar from "../../ProgressBar";
 import PromptMenu from "../../promptMenu/PromptMenu";
-import LeaderBoard from "../../LeaderBoard/LeaderBoard.js";
-import Timer from "../../Timer/Timer.js";
+import LeaderBoard from "../../LeaderBoard/LeaderBoard";
+import Timer from "../../Timer/Timer";
 import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
 import "./play.css";
-// import Login from "../Login/Login.js";
-// import LeaderBoard from "../../LeaderBoard.js";
 
 class Play extends Component {
 
@@ -85,16 +83,6 @@ class Play extends Component {
             }
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
         });
-    };
-
-    handleTimer = () => {
-        var timer = 0;
-        setInterval(() => {
-            timer++;
-            this.setState({
-                time: timer
-            });
-        }, 1);
     };
 
     handleUsername = () => {
