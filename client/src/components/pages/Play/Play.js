@@ -112,6 +112,7 @@ class Play extends Component {
                         time={this.state.time}
                         handleTimer={this.handleTimer}
                     />
+                    <div className="ace shadow-lg">
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
@@ -130,7 +131,9 @@ class Play extends Component {
                             tabSize: 2
                         }} 
                     />
+                    </div>
                     <hr className="my-3" />
+                    
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
@@ -149,21 +152,20 @@ class Play extends Component {
                             behavioursEnabled: false
                         }}
                     />
-                    
                 </div>
 
-                <div className="col-md-3">
-                    <div className="alert alert-light">
+                <div className="col-md-3" id="sidebar">
+                    <div className="alert alert-secondary" id="language">
                         LANGUAGE: JAVASCRIPT
                     </div>
                     <PromptMenu 
                         handlePrompt={this.handlePrompt}
                     />
-                    <div className="alert alert-secondary mt-5">
+                    <div className="alert alert-secondary border-bottom-0 mt-4">
                         LEADERBOARD
                     </div>
                     <hr className="my-3" />
-                    <ul className="list-group list-group-flush mt-4">
+                    <ul className="list-group list-group-flush mt-2">
                         <li className="list-group-item d-flex justify-content-between align-items-center">
                             <i className="fas fa-trophy"></i>Jonathan
                             <h5><span className="badge badge-secondary">14.2</span></h5>
@@ -185,6 +187,11 @@ class Play extends Component {
                             <h5><span className="badge badge-secondary">20.4</span></h5>
                         </li>
                     </ul>
+                    <hr className="my-4" />
+                    <div class="progress" id="fun">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{ width: "100%" }}>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="row mt-3">

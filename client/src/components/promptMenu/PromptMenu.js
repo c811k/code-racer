@@ -1,10 +1,10 @@
 import React from "react";
-import "./promptmenu.css";
+import "../pages/Play/play.css";
 
 function PromptMenu(props) {
     return(
         <div className="btn-group btn-block mb-1" role="group">
-            <button id="prompts" type="button" className="alert-info btn btn-info btn-lg dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="prompts" type="button" className="alert btn btn-light dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             PROMPT
             </button>
             

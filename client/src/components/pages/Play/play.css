@@ -1,5 +1,5 @@
 .play {
-    margin: 20px
+    margin: 50px
 }
 
 .list-group-item {
@@ -12,4 +12,30 @@
 
 #prompt {
     margin-top: -12px;
+}
+
+.ace {
+    opacity: 0.9;
+}
+
+#language {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#prompts {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.dropdown-item:active {
+    background-color: #6c757d;
+}
+
+#prompts:hover {
+    background-color: #6c757d;
+}
+
+#fun {
+    height: 10px;
 }
