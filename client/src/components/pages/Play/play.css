@@ -27,15 +27,6 @@
 }
 
 
-.editor {
+.ace_editor {
     border-radius: 6px;
-    height: 200px;
-}
-
-#UNIQUE_ID_OF_DIV2 {
-    height: 200px;
-}
-
-#UNIQUE_ID_OF_DIV {
-    height: 200px;
 }

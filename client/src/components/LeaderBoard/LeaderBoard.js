@@ -1,9 +1,7 @@
 import React from "react";
 import TableData from "./TableData.js"
-import timeFormat from "../utils/timeFormat.js"
 
 function LeaderBoard(props) {
-
     return (
         <div>
             <h2>Top Player</h2>
