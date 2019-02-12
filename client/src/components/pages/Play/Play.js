@@ -42,48 +42,35 @@ class Play extends Component {
                 topEditor: data
             });
         });
-    }
+    }        
+    checkProgress = (value, event) => {
 
-    checkProgress = (value) => {
-
-        // if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ) {
-        //     console.log('hit');
-        //     value = value.substring(0, value.length - 1);
-        // }
-        
         this.setState({value}, () => {
+
+            // Value of the keypress, with RegEx that removes whitespaces globally.
             var {value} = this.state;
             value = value.replace(/\s/g, '');
-            console.log(value);
-
-            //Create new index to align user's input with the prompt's.
+           
             let strToMatch = this.state.topEditor.replace(/\s/g, '');
-            for(let i = 0; i < value.length; i++) {
-                if(strToMatch[i] === value[i]) {
-                    this.setState({
-                        percentage: this.state.percentage + 100/strToMatch.length
-                    });
-                }
-                
-                else {
-                    this.setState({
-                        percentage: this.state.percentage - 100/strToMatch.length
-                    });
-                    
-                }
-            }
-            console.log(value, strToMatch);
+            var currentIndex = 0;
 
-            // let characterIndex = value.length - 1,
-            //     strToMatch = this.state.topEditor.replace(/\s/g, '').substr(0,characterIndex + 1);
-            //     console.log(value, strToMatch);
-            // if (strToMatch === value){
-            //     console.log("good");
-            // } else {
-            //     console.log("no");
-            // }
+            for(let i = 0; i < value.length; i++) {
+               
+                if(strToMatch[i] === value[i]) {
+                    currentIndex = ++currentIndex;
+                }
+                else {
+                    return this.state.currentIndex;    
+                } 
+
+               
+            }
+            this.setState({percentage: 100/(strToMatch.length) * currentIndex});
+            //console.log(value, strToMatch);
+            
         });
     };
+
     
     handleTimer = () => {
         var timer = 0;
@@ -146,7 +133,7 @@ class Play extends Component {
                             minLines: 12,
                             maxLines: 12,
                             tabSize: 2,
-                            behavioursEnabled: false
+                            behavioursEnabled: false                            
                         }}
                     />
                     
