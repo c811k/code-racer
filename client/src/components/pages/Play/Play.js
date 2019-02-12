@@ -27,42 +27,31 @@ class Play extends Component {
     }
 
 
-    checkProgress = (value) => {
+    checkProgress = (value, event) => {
 
-        // if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ) {
-        //     console.log('hit');
-        //     value = value.substring(0, value.length - 1);
-        // }
-        
         this.setState({value}, () => {
+
+            // Value of the keypress, with RegEx that removes whitespaces globally.
             var {value} = this.state;
             value = value.replace(/\s/g, '');
-            console.log(value);
-
-            //Create new index to align user's input with the prompt's.
+           
             let strToMatch = this.state.topEditor.replace(/\s/g, '');
+            var currentIndex = 0;
+
             for(let i = 0; i < value.length; i++) {
+               
                 if(strToMatch[i] === value[i]) {
-                    console.log("good");
-                    this.setState({percentage: this.state.percentage + 100/(this.state.topEditor.length)})
+                    currentIndex = ++currentIndex;
                 }
                 else {
-                    console.log("no");
-                    this.setState({percentage: this.state.percentage - 100/(this.state.topEditor.length)})
+                    return this.state.currentIndex;    
+                } 
 
-                    
-                }
+               
             }
-            console.log(value, strToMatch);
+            this.setState({percentage: 100/(strToMatch.length) * currentIndex});
+            //console.log(value, strToMatch);
             
-
-            // let characterIndex = value.length - 1,
-            //     strToMatch = this.state.topEditor.replace(/\s/g, '').substr(0,characterIndex + 1);
-            //     console.log(value, strToMatch);
-            // if (strToMatch === value){
-            //     console.log("good");
-            // } else {
-            //     console.log("no");
         });
     };
 
