@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
-<<<<<<< HEAD
 import PromptMenu from "../../PromptMenu";
 import LeaderBoard from "../../LeaderBoard.js";
-=======
 // import LeaderBoard from "../../LeaderBoard.js";
->>>>>>> progressbar
 import Timer from "../../Timer/Timer.js";
 // import Login from "../Login/Login.js";
 import axios from "axios";
