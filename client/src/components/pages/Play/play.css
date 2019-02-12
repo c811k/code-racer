@@ -19,6 +19,7 @@
     background: rgba(255, 255, 255, .40);
     padding-bottom: 30px;
     border-radius: 10px;
+    height: 645px;
 }
 
 .col-md-3 {
@@ -28,4 +29,13 @@
 
 .editor {
     border-radius: 6px;
+    height: 200px;
+}
+
+#UNIQUE_ID_OF_DIV2 {
+    height: 200px;
+}
+
+#UNIQUE_ID_OF_DIV {
+    height: 200px;
 }
