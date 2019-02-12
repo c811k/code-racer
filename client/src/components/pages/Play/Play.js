@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
 import PromptMenu from "../../promptMenu/PromptMenu";
+import LeaderBoard from "../../LeaderBoard/LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
 import axios from "axios";
 import "brace/mode/javascript";
@@ -18,7 +19,9 @@ class Play extends Component {
         value: "",
         topEditor: "",
         time: 0,
-        username: ""
+        username: "",
+        hasBeenClicked: false,
+        Users: []
     }
 
     componentDidMount() {
@@ -32,29 +35,30 @@ class Play extends Component {
         });
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     handleLeaderboard = () => {
         axios.get("/api/users").then((response) => {
-            // console.log(response.data.User.username);
-            var users = response.data.sort(function(a, b){return a - b});
-            console.log(users);
-            
-        });
+            // var scores = []
+            // for (var i = 0; i < response.data.length; i++) {
+            //     scores.push(response.data[i].time);
+            // }
+            // var scores = scores.sort(function (a, b) { return a - b });
+            // console.log(scores);
+            this.setState({
+                Users: response.data
+            });
 
+        });
     }
-    
+
     componentDidMount() {
         this.handleLeaderboard();
     }
-=======
-=======
+
     handlePrompt = event => {
         event.preventDefault();
         axios.get(`/api/prompt/${event.target.value}`)
             .then( (res) => {
             var data = res.data;
->>>>>>> 0a7f29d0b4e927b8255df7c65fc6c71a95d581ae
 
             this.setState({
                 topEditor: data
@@ -89,13 +93,8 @@ class Play extends Component {
                     });
                     
                 }
-            }
-            console.log(value, strToMatch);
 
-<<<<<<< HEAD
-   }
->>>>>>> 28f2eed379471b417b587d3e1180636304f6c361
-=======
+
             // let characterIndex = value.length - 1,
             //     strToMatch = this.state.topEditor.replace(/\s/g, '').substr(0,characterIndex + 1);
             //     console.log(value, strToMatch);
@@ -104,9 +103,9 @@ class Play extends Component {
             // } else {
             //     console.log("no");
             // }
+            }
         });
-    };
->>>>>>> 0a7f29d0b4e927b8255df7c65fc6c71a95d581ae
+}
     
     handleTimer = () => {
         var timer = 0;
@@ -116,16 +115,10 @@ class Play extends Component {
                 time: timer
             });
         }, 1);
-<<<<<<< HEAD
     }
-<<<<<<< HEAD
-    
-    render() {
 
-=======
-=======
-    };
->>>>>>> 0a7f29d0b4e927b8255df7c65fc6c71a95d581ae
+
+
 
     handleUsername = () => {
         axios.get("/api/user").then( (response) => {
@@ -135,16 +128,32 @@ class Play extends Component {
         });
     };
 
+    handleTimer = () => {
+        var timer = 0;
+        if (!this.state.hasBeenClicked) {
+                
+            setInterval(() => {
+                timer++;
+                this.setState({
+                    time: timer,
+                    hasBeenClicked: true
+                });
+            }, 1);
+        }
+    };
+
+
     render() {
->>>>>>> 28f2eed379471b417b587d3e1180636304f6c361
-        return(
+
+        return (
             <div className="play">
-            <div className="row text-center">
+                <div className="row text-center">
                 <div className="col-md-9">
                     <Timer
                         time={this.state.time}
                         handleTimer={this.handleTimer}
                     />
+                    <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
@@ -185,9 +194,9 @@ class Play extends Component {
                     
                 </div>
 
-                <div className="col-md-3">
-                    <div className="alert alert-light">
-                        LANGUAGE: JAVASCRIPT
+                    <div className="col-md-3">
+                        <div className="alert alert-light">
+                            LANGUAGE: JAVASCRIPT
                     </div>
                     <PromptMenu 
                         handlePrompt={this.handlePrompt}
@@ -220,17 +229,14 @@ class Play extends Component {
                     </ul>
                 </div>
             </div>
-<<<<<<< HEAD
             <Timer
             time={this.state.time}
             handleTimer={this.handleTimer}
             />
-            <ProgressBar />
             <LeaderBoard
             topUser={this.userName}
             topTime={this.userName}
             />
-=======
             <div className="row mt-3">
                 <div className="col-md-12">
                     <ProgressBar
@@ -238,12 +244,15 @@ class Play extends Component {
                     />
                 </div>
             </div>
-            
-            {/* <LeaderBoard Username={Login.inputUsername}/> */}
->>>>>>> 0a7f29d0b4e927b8255df7c65fc6c71a95d581ae
-            </div>
+            <LeaderBoard
+                key={this.state.Users.username}
+                users={this.state.Users}
+            />
+        </div>
+      
         );
     }
+
 }
 
 export default Play;
