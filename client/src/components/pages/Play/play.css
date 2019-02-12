@@ -13,3 +13,20 @@
 #prompt {
     margin-top: -12px;
 }
+
+.col-md-9 {
+    padding-top: 60px;
+    background: rgba(255, 255, 255, .40);
+    padding-bottom: 30px;
+    border-radius: 10px;
+    height: 645px;
+}
+
+.col-md-3 {
+    padding-top: 15px;
+}
+
+
+.ace_editor {
+    border-radius: 6px;
+}

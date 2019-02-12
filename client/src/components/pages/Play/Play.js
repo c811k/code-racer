@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
 import PromptMenu from "../../promptMenu/PromptMenu";
+import LeaderBoard from "../../LeaderBoard/LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
 import axios from "axios";
 import "brace/mode/javascript";
@@ -18,29 +19,59 @@ class Play extends Component {
         value: "",
         topEditor: "",
         time: 0,
-        username: ""
+        username: "",
+        hasBeenClicked: false,
+        Users: []
     }
 
     componentDidMount() {
+        this.handleLeaderboard();
         axios.get(`/api/prompt/forLoop`)
-            .then( (res) => {
-            var data = res.data;
+            .then((res) => {
+                var data = res.data;
 
+                this.setState({
+                    topEditor: data
+                });
+            });
+    }
+
+    handleLeaderboard = () => {
+        axios.get("/api/users").then((response) => {
+            // var scores = []
+            // for (var i = 0; i < response.data.length; i++) {
+            //     scores.push(response.data[i].time);
+            // }
+            // var scores = scores.sort(function (a, b) { return a - b });
+            // console.log(scores);
+            console.log(response.data);
             this.setState({
-                topEditor: data
+                Users: response.data
             });
         });
+    }
+
+    componentDidMount() {
+        this.handleLeaderboard();
+        axios.get(`/api/prompt/forLoop`)
+            .then((res) => {
+                var data = res.data;
+
+                this.setState({
+                    topEditor: data
+                });
+            });
     }
 
     handlePrompt = event => {
         event.preventDefault();
         axios.get(`/api/prompt/${event.target.value}`)
-            .then( (res) => {
-            var data = res.data;
+            .then((res) => {
+                var data = res.data;
 
-            this.setState({
-                topEditor: data
-            });
+                this.setState({
+                    topEditor: data
+                });
         });
     }        
     checkProgress = (value, event) => {
@@ -80,112 +111,112 @@ class Play extends Component {
                 time: timer
             });
         }, 1);
-    };
+    }
+
+
+
 
     handleUsername = () => {
-        axios.get("/api/user").then( (response) => {
+        axios.get("/api/user").then((response) => {
             this.setState({
                 username: response.username
             });
         });
     };
 
-    render() {
-        return(
-            <div className="play">
-            <div className="row text-center">
-                <div className="col-md-9">
-                    <Timer
-                        time={this.state.time}
-                        handleTimer={this.handleTimer}
-                    />
-                    <AceEditor 
-                        mode="javascript"
-                        theme="tomorrow_night"
-                        value = {this.state.topEditor}
-                        name="UNIQUE_ID_OF_DIV"
-                        style={{width: "100%"}}
-                        editorProps={{
-                            $blockScrolling: true
-                            
-                        }}
-                        setOptions={{
-                            fontSize: '10pt',
-                            minLines: 12,
-                            maxLines: 12,
-                            readOnly: true,
-                            tabSize: 2
-                        }} 
-                    />
-                    <hr className="my-3" />
-                    <AceEditor 
-                        mode="javascript"
-                        theme="tomorrow_night"
-                        onChange={this.checkProgress}
-                        name="UNIQUE_ID_OF_DIV2"
-                        style={{width: "100%"}}
-                        value={this.state.value}
-                        editorProps={{
-                            $blockScrolling: true  
-                        }}
-                        setOptions={{
-                            fontSize: '10pt',
-                            minLines: 12,
-                            maxLines: 12,
-                            tabSize: 2,
-                            behavioursEnabled: false                            
-                        }}
-                    />
-                    
-                </div>
+    handleTimer = () => {
+        var timer = 0;
+        if (!this.state.hasBeenClicked) {
 
-                <div className="col-md-3">
-                    <div className="alert alert-light">
-                        LANGUAGE: JAVASCRIPT
+            setInterval(() => {
+                timer++;
+                this.setState({
+                    time: timer,
+                    hasBeenClicked: true
+                });
+            }, 1);
+        }
+    };
+
+
+    render() {
+
+        return (
+            <div className="play">
+                <div className="row text-center">
+                    <div className="col-md-9">
+                        <Timer
+                            time={this.state.time}
+                            handleTimer={this.handleTimer}
+                        />
+                        <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                        <AceEditor
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            value={this.state.topEditor}
+                            name="UNIQUE_ID_OF_DIV"
+                            style={{ width: "100%" }}
+                            editorProps={{
+                                $blockScrolling: true
+
+                            }}
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                readOnly: true,
+                                tabSize: 2
+                            }}
+                        />
+                        <hr className="my-3" />
+                        <ProgressBar
+                            percentage={this.state.percentage}
+                        />
+                        <hr className="my-3" />
+                        <AceEditor
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            onChange={this.checkProgress}
+                            name="UNIQUE_ID_OF_DIV2"
+                            style={{ width: "100%" }}
+                            value={this.state.value}
+                            editorProps={{
+                                $blockScrolling: true
+                            }}
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                tabSize: 2,
+                                behavioursEnabled: false
+                            }}
+                        />
+
                     </div>
-                    <PromptMenu 
-                        handlePrompt={this.handlePrompt}
-                    />
-                    <div className="alert alert-secondary mt-5">
-                        LEADERBOARD
+
+                    <div className="col-md-3">
+                        <div className="alert alert-light">
+                            LANGUAGE: JAVASCRIPT
                     </div>
-                    <hr className="my-3" />
-                    <ul className="list-group list-group-flush mt-4">
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <i className="fas fa-trophy"></i>Jonathan
-                            <h5><span className="badge badge-secondary">14.2</span></h5>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <i>2.</i>Clark
-                            <h5><span className="badge badge-secondary">15.7</span></h5>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <i>3.</i>Patrick
-                            <h5><span className="badge badge-secondary">17.3</span></h5>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <i>4.</i>Irwing
-                            <h5><span className="badge badge-secondary">19.8</span></h5>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                            <i>5.</i>Clint
-                            <h5><span className="badge badge-secondary">20.4</span></h5>
-                        </li>
-                    </ul>
+                        <PromptMenu
+                            handlePrompt={this.handlePrompt}
+                        />
+                        <LeaderBoard
+                    key={this.state.Users.username}
+                    users={this.state.Users}
+                />
+
+                    </div>
+                </div>
+                <div className="row mt-3">
+                    <div className="col-md-12">
+                    </div>
                 </div>
             </div>
-            <div className="row mt-3">
-                <div className="col-md-12">
-                    <ProgressBar
-                        percentage={this.state.percentage}
-                    />
-                </div>
-            </div>
-            
-            {/* <LeaderBoard Username={Login.inputUsername}/> */}
-            </div>
+
         );
     }
+
 }
 
 export default Play;

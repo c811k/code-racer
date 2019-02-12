@@ -11,11 +11,12 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-    win : Number,
+    win: Number,
     loss: Number,
     time: {
-        type: Schema.Types.ObjectId,
-        ref: "Score"
+        type: String
+        // type: Schema.Types.ObjectId,
+        // ref: "Score"
     }
 
 });
