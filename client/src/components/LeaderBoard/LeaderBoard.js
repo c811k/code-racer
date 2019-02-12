@@ -1,9 +1,11 @@
 import React from "react";
+import "./LeaderBoard.css"
 import TableData from "./TableData.js"
+import timeFormat from "../utils/timeFormat.js";
 
 function LeaderBoard(props) {
     return (
-        <div>
+        <div className="topPlayer" >
             <h2>Top Player</h2>
             <table style={{ "width": "75%" }}>
                 <tbody>
@@ -12,8 +14,8 @@ function LeaderBoard(props) {
                         <th>Fastest Time</th>
                     </tr>
                     <tr>
-                        <td>{props.topUser}</td>
-                        <td>{props.topTime}</td>
+                        <td>{props.topScore.player}</td>
+                        <td>{timeFormat(props.topScore.time)}</td>
                     </tr>
                 </tbody>
             </table>
@@ -27,12 +29,13 @@ function LeaderBoard(props) {
                         <th>Username</th>
                         <th>Fastest Time</th>
                     </tr>
-                    {props.users.map((p) => {
+                    {props.allScores.map((p) => {
                         return (
                         <TableData 
-                        key={p.username}
-                        username={p.username}
+                        key={p.player}
+                        username={p.player}
                         time={p.time}
+                        handleLeaderBoard={props.handleLeaderBoard}
                         />
                         );
                     })}
