@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
-import LeaderBoard from "../../LeaderBoard.js";
+// import LeaderBoard from "../../LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
-import Login from "../Login/Login.js";
+// import Login from "../Login/Login.js";
 import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
+import 'brace/ext/language_tools';
+
 
 import "./play.css";
 
@@ -16,38 +18,59 @@ class Play extends Component {
     state = {
         percentage: 0,
         value: "",
-        topEditor: "for (let i = 0; i< array.length; i++) {",
+        topEditor: 
+        `for (let i = 0; i< array.length; i++) {
+    console.log(i)
+}`,
         time: 0,
         username: ""
-    
     }
 
     componentDidMount() {
     }
 
-
     checkProgress = (value, event) => {
-        if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ){
-            console.log('hit')
-            value = value.substring(0, value.length - 1);
-        } 
+
+        // if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ) {
+        //     console.log('hit');
+        //     value = value.substring(0, value.length - 1);
+        // }
+        
         this.setState({value}, () => {
-            const {value} = this.state;
-            console.log(value)
+            var {value} = this.state;
+            value = value.replace(/\s/g, '');
+            console.log(value);
+
             //Create new index to align user's input with the prompt's.
-            let characterIndex = value.length - 1,
-                strToMatch = this.state.topEditor.substr(0,characterIndex + 1);
-
-                console.log(value, strToMatch);
-
-            if (strToMatch === value){
-                console.log("good");
-            } else {
-                console.log("no");
+            let strToMatch = this.state.topEditor.replace(/\s/g, '');
+            for(let i = 0; i < value.length; i++) {
+                if(strToMatch[i] === value[i]) {
+                    this.setState({
+                        percentage: this.state.percentage + 100/strToMatch.length
+                    });
+                }
+                
+                else {
+                    this.setState({
+                        percentage: this.state.percentage - 100/strToMatch.length
+                    });
+                    
+                }
             }
-        })
+            console.log(value, strToMatch);
 
-   }
+            // let characterIndex = value.length - 1,
+            //     strToMatch = this.state.topEditor.replace(/\s/g, '').substr(0,characterIndex + 1);
+            //     console.log(value, strToMatch);
+            // if (strToMatch === value){
+            //     console.log("good");
+            // } else {
+            //     console.log("no");
+            // }
+        });
+
+
+    }
     
     handleTimer = () => {
         var timer = 0;
@@ -60,13 +83,11 @@ class Play extends Component {
     }
 
     handleUsername = () => {
-        axios.get("/api/user").then((response) => {
+        axios.get("/api/user").then( (response) => {
             this.setState({
                 username: response.username
             });
         });
-
-        
     }
 
     render() {
@@ -74,26 +95,29 @@ class Play extends Component {
             <div className="play">
             <div className="row text-center">
                 <div className="col-md-9">
-                    <h5>CLICK START TO BEGIN</h5><button className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                    <Timer
+                        time={this.state.time}
+                        handleTimer={this.handleTimer}
+                    />
                     <AceEditor 
                         mode="javascript"
                         theme="tomorrow_night"
-                        defaultValue= {this.state.topEditor}
                         value = {this.state.topEditor}
-                        // onChange={this.onChange}
                         name="UNIQUE_ID_OF_DIV"
                         style={{width: "100%"}}
                         editorProps={{
                             $blockScrolling: true
+                            
                         }}
-                        readOnly={true}
                         setOptions={{
                             fontSize: '10pt',
                             minLines: 10,
                             maxLines: 10,
                             readOnly: true,
                             tabSize: 2
+                        
                         }}
+                                
                     />
                     <hr className="my-3" />
                     <AceEditor 
@@ -104,21 +128,19 @@ class Play extends Component {
                         style={{width: "100%"}}
                         value={this.state.value}
                         editorProps={{
-                            $blockScrolling: true,
-                            
+                            $blockScrolling: true  
                         }}
                         setOptions={{
                             fontSize: '10pt',
                             minLines: 10,
                             maxLines: 10,
                             tabSize: 2,
-                            enableBasicAutocompletion: false
-                            
+                            behavioursEnabled: false
                         }}
                     />
-                    <div className="progress mt-2">
-                        <div className="progress-bar bg-secondary progress-bar-striped progress-bar-animated shadow" aria-valuemin="0" style={{ width: `${this.state.percentage}%` }}>Jonathan<i className="fas fa-running fa-2x"></i></div>
-                    </div>
+                    <ProgressBar
+                            percentage={this.state.percentage}    
+                    />
                 </div>
 
                 <div className="col-md-3">
@@ -156,12 +178,8 @@ class Play extends Component {
                     </ul>
                 </div>
             </div>
-            <Timer
-            time={this.state.time}
-            handleTimer={this.handleTimer}
-            />
-            <ProgressBar />
-            <LeaderBoard Username={Login.inputUsername}/>
+            
+            {/* <LeaderBoard Username={Login.inputUsername}/> */}
             </div>
         );
     }
