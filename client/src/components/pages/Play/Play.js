@@ -27,38 +27,45 @@ class Play extends Component {
     }
 
 
-    checkProgress = (value, event) => {
+    checkProgress = (value) => {
+
+        // if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ) {
+        //     console.log('hit');
+        //     value = value.substring(0, value.length - 1);
+        // }
         
-        // Gets rid of autoclosing parentheses.
-        if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ){
-            value = value.substring(0, value.length - 1);
-        }
-        /* // Gets rid of autoclosing brackets.
-        else if(value[value.length - 1] === "}" && value[value.length - 2] === "{" ){
-            value = value.substring (0, value.length - 1);
-        } */
-         
-
-        // Whatever code is in current box will be saved in state
         this.setState({value}, () => {
-            const {value} = this.state;
+            var {value} = this.state;
+            value = value.replace(/\s/g, '');
+            console.log(value);
 
-            //Aligning user's current Index with the the prompts.
-            let characterIndex = value.length - 1,
-                strToMatch = this.state.topEditor.substr(0,characterIndex + 1);
-                console.log(value, strToMatch);
+            //Create new index to align user's input with the prompt's.
+            let strToMatch = this.state.topEditor.replace(/\s/g, '');
+            for(let i = 0; i < value.length; i++) {
+                if(strToMatch[i] === value[i]) {
+                    console.log("good");
+                    this.setState({percentage: this.state.percentage + 100/(this.state.topEditor.length)})
+                }
+                else {
+                    console.log("no");
+                    this.setState({percentage: this.state.percentage - 100/(this.state.topEditor.length)})
 
-            // Increment percentages accordingly
-            if (strToMatch === value){
-                this.setState({percentage: this.state.percentage + 100/(this.state.topEditor.length)})
-                console.log(this.state.percentage);
-
-            } else {
-                this.setState({percentage: this.state.percentage - 100/(this.state.topEditor.length)})
+                    
+                }
             }
-        })
+            console.log(value, strToMatch);
+            
 
-   }
+            // let characterIndex = value.length - 1,
+            //     strToMatch = this.state.topEditor.replace(/\s/g, '').substr(0,characterIndex + 1);
+            //     console.log(value, strToMatch);
+            // if (strToMatch === value){
+            //     console.log("good");
+            // } else {
+            //     console.log("no");
+        });
+    };
+
     
     handleTimer = () => {
         var timer = 0;
@@ -122,8 +129,7 @@ class Play extends Component {
                             minLines: 10,
                             maxLines: 10,
                             tabSize: 2,
-                            enableBasicAutocompletion: false
-                            
+                            behavioursEnabled: false                            
                         }}
                     />
                     <div className="progress mt-2">
