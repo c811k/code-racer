@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
-import PromptMenu from "../../PromptMenu";
+import PromptMenu from "../../promptMenu/PromptMenu";
 import Timer from "../../Timer/Timer.js";
 import axios from "axios";
 import "brace/mode/javascript";
@@ -16,18 +16,35 @@ class Play extends Component {
     state = {
         percentage: 0,
         value: "",
-        topEditor: 
-        `for (let i = 0; i< array.length; i++) {
-    console.log(i);
-}`,
+        topEditor: "",
         time: 0,
         username: ""
     }
 
     componentDidMount() {
+        axios.get(`/api/prompt/forLoop`)
+            .then( (res) => {
+            var data = res.data;
+
+            this.setState({
+                topEditor: data
+            });
+        });
     }
 
-    checkProgress = (value, event) => {
+    handlePrompt = event => {
+        event.preventDefault();
+        axios.get(`/api/prompt/${event.target.value}`)
+            .then( (res) => {
+            var data = res.data;
+
+            this.setState({
+                topEditor: data
+            });
+        });
+    }
+
+    checkProgress = (value) => {
 
         // if(value[value.length - 1] === ")" && value[value.length - 2] === "(" ) {
         //     console.log('hit');
@@ -107,8 +124,8 @@ class Play extends Component {
                         }}
                         setOptions={{
                             fontSize: '10pt',
-                            minLines: 10,
-                            maxLines: 10,
+                            minLines: 12,
+                            maxLines: 12,
                             readOnly: true,
                             tabSize: 2
                         }} 
@@ -126,27 +143,27 @@ class Play extends Component {
                         }}
                         setOptions={{
                             fontSize: '10pt',
-                            minLines: 10,
-                            maxLines: 10,
+                            minLines: 12,
+                            maxLines: 12,
                             tabSize: 2,
                             behavioursEnabled: false
                         }}
                     />
-                    <ProgressBar
-                        percentage={this.state.percentage}    
-                    />
+                    
                 </div>
 
                 <div className="col-md-3">
                     <div className="alert alert-light">
                         LANGUAGE: JAVASCRIPT
                     </div>
-                    <PromptMenu />
+                    <PromptMenu 
+                        handlePrompt={this.handlePrompt}
+                    />
                     <div className="alert alert-secondary mt-5">
                         LEADERBOARD
                     </div>
-                    
-                    <ul className="list-group list-group-flush">
+                    <hr className="my-3" />
+                    <ul className="list-group list-group-flush mt-4">
                         <li className="list-group-item d-flex justify-content-between align-items-center">
                             <i className="fas fa-trophy"></i>Jonathan
                             <h5><span className="badge badge-secondary">14.2</span></h5>
@@ -170,6 +187,14 @@ class Play extends Component {
                     </ul>
                 </div>
             </div>
+            <div className="row mt-3">
+                <div className="col-md-12">
+                    <ProgressBar
+                        percentage={this.state.percentage}
+                    />
+                </div>
+            </div>
+            
             {/* <LeaderBoard Username={Login.inputUsername}/> */}
             </div>
         );

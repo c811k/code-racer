@@ -1,0 +1,7 @@
+.dropdown-item:active {
+    background-color: #6c757d;
+}
+
+#prompts:hover {
+    background-color: #6c757d;
+}
