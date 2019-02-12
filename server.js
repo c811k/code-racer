@@ -1,9 +1,19 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-
+const session = require("express-session");
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+require("dotenv").config();
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: "yolo", 
+  resave: false,
+  saveUninitialized: true,
+  cookie: {secure: "auto"}
+}));
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -18,10 +28,12 @@ if (process.env.NODE_ENV === "production") {
 const routes = require("./routes/api.js");
 app.use(routes);
 
+const userRoutes = require("./routes/user-routes");
+app.use( userRoutes);
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/coderacer", { useNewUrlParser: true });

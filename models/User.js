@@ -16,6 +16,10 @@ const userSchema = new Schema({
     time: {
         type: Schema.Types.ObjectId,
         ref: "Score"
+    },
+    token: {
+        type: String,
+        default: null
     }
 
 });

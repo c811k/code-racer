@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Signup from "./Signup";
 import Login from "./Login";
-import "./login.css";
+// import "./style.css";
 
 class Auth extends Component {
     state = {
@@ -10,8 +10,8 @@ class Auth extends Component {
         isRegisterOpen: false,
         username: "",
         password: ""
-
-    };
+    }
+    
 
     showRegisterBox = () => {
         this.setState({
@@ -34,41 +34,62 @@ class Auth extends Component {
     };
 
     handleFormSubmit = () => {
-        axios.post("/api/user", this.state);
+        var {username, password} = this.state;
+        let payload = { username, password };
+        axios.post("/api/user", payload);
         window.location.reload();
     };
 
-    handleLogin = () => {
-
+    handleLogin = (event) => {
+    
+        event.preventDefault();
+        let { username, password } = this.state;
+        let payload = { username, password };
+        
+        // console.log(this.state);
+        // send credentials to back-end to check account
+        axios.post("/users/login", payload).then((res) => {
+            if (res.data) {
+                // if successful, set auth value on parent
+                this.props.setLogin();
+                this.props.history.push("/profile");
+            }
+            else {
+                // show error message
+                this.setState({
+                    error: "Failed to log in"
+                })
+            }
+        });
     };
-
+    
     render() {
-        return(
+        return (
             <div>
                 <div className="login-tab btn-group btn-group-toggle">
                     <div className={"login-register text-center btn btn-light " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
                         LOGIN
-                    </div>
+                        </div>
                     <div className={"login-register text-center btn btn-light " + (this.state.isRegisterOpen ? "active" : null)} onClick={this.showRegisterBox}>
                         REGISTER
-                    </div>                    
+                        </div>
                 </div>
 
-                {this.state.isLoginOpen && 
-                <Login 
-                    username={this.state.username}
-                    password={this.state.password}
-                    handleInputChange={this.handleInputChange}
-                    handleLogin={this.handleLogin}
-                />}
+                {this.state.isLoginOpen &&
+                    <Login
+                        username={this.state.username}
+                        password={this.state.password}
+                        handleInputChange={this.handleInputChange}
+                        handleLogin={this.handleLogin}
+                    />}
 
-                {this.state.isRegisterOpen && 
-                <Signup
-                    username={this.state.username}
-                    password={this.state.password}
-                    handleInputChange={this.handleInputChange}
-                    handleFormSubmit={this.handleFormSubmit}
-                />}
+                {this.state.isRegisterOpen &&
+                    <Signup
+                        username={this.state.username}
+                        password={this.state.password}
+                        handleInputChange={this.handleInputChange}
+                        handleFormSubmit={this.handleFormSubmit}
+                    />}
             </div>
         );
     }
