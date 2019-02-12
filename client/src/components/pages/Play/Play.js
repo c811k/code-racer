@@ -2,18 +2,14 @@ import React, { Component } from "react";
 import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar.js";
 import PromptMenu from "../../PromptMenu";
-import LeaderBoard from "../../LeaderBoard.js";
-// import LeaderBoard from "../../LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
-// import Login from "../Login/Login.js";
 import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
-
-
 import "./play.css";
-
+// import Login from "../Login/Login.js";
+// import LeaderBoard from "../../LeaderBoard.js";
 
 class Play extends Component {
 
@@ -22,7 +18,7 @@ class Play extends Component {
         value: "",
         topEditor: 
         `for (let i = 0; i< array.length; i++) {
-    console.log(i)
+    console.log(i);
 }`,
         time: 0,
         username: ""
@@ -70,9 +66,7 @@ class Play extends Component {
             //     console.log("no");
             // }
         });
-
-
-    }
+    };
     
     handleTimer = () => {
         var timer = 0;
@@ -82,7 +76,7 @@ class Play extends Component {
                 time: timer
             });
         }, 1);
-    }
+    };
 
     handleUsername = () => {
         axios.get("/api/user").then( (response) => {
@@ -90,7 +84,7 @@ class Play extends Component {
                 username: response.username
             });
         });
-    }
+    };
 
     render() {
         return(
@@ -117,9 +111,7 @@ class Play extends Component {
                             maxLines: 10,
                             readOnly: true,
                             tabSize: 2
-                        
-                        }}
-                                
+                        }} 
                     />
                     <hr className="my-3" />
                     <AceEditor 
@@ -141,7 +133,7 @@ class Play extends Component {
                         }}
                     />
                     <ProgressBar
-                            percentage={this.state.percentage}    
+                        percentage={this.state.percentage}    
                     />
                 </div>
 
@@ -175,11 +167,9 @@ class Play extends Component {
                             <i>5.</i>Clint
                             <h5><span className="badge badge-secondary">20.4</span></h5>
                         </li>
-                        
                     </ul>
                 </div>
             </div>
-            
             {/* <LeaderBoard Username={Login.inputUsername}/> */}
             </div>
         );
