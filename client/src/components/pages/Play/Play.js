@@ -34,7 +34,7 @@ class Play extends Component {
                     topEditor: data
                 });
             });
-    }
+    };
 
     handleLeaderboard = () => {
         axios.get("/api/users").then((response) => {
@@ -49,19 +49,7 @@ class Play extends Component {
                 Users: response.data
             });
         });
-    }
-
-    componentDidMount() {
-        this.handleLeaderboard();
-        axios.get(`/api/prompt/forLoop`)
-            .then((res) => {
-                var data = res.data;
-
-                this.setState({
-                    topEditor: data
-                });
-            });
-    }
+    };
 
     handlePrompt = event => {
         event.preventDefault();
@@ -73,8 +61,9 @@ class Play extends Component {
                     topEditor: data
                 });
         });
-    }        
-    checkProgress = (value, event) => {
+    };      
+
+    checkProgress = value => {
 
         this.setState({value}, () => {
 
@@ -93,16 +82,11 @@ class Play extends Component {
                 else {
                     return this.state.currentIndex;    
                 } 
-
-               
             }
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
-            //console.log(value, strToMatch);
-            
         });
     };
 
-    
     handleTimer = () => {
         var timer = 0;
         setInterval(() => {
@@ -111,10 +95,7 @@ class Play extends Component {
                 time: timer
             });
         }, 1);
-    }
-
-
-
+    };
 
     handleUsername = () => {
         axios.get("/api/user").then((response) => {
@@ -138,9 +119,7 @@ class Play extends Component {
         }
     };
 
-
     render() {
-
         return (
             <div className="play">
                 <div className="row text-center">
@@ -150,6 +129,7 @@ class Play extends Component {
                             handleTimer={this.handleTimer}
                         />
                         <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+
                         <AceEditor
                             mode="javascript"
                             theme="tomorrow_night"
@@ -168,11 +148,13 @@ class Play extends Component {
                                 tabSize: 2
                             }}
                         />
+
                         <hr className="my-3" />
                         <ProgressBar
                             percentage={this.state.percentage}
                         />
                         <hr className="my-3" />
+
                         <AceEditor
                             mode="javascript"
                             theme="tomorrow_night"
@@ -191,32 +173,26 @@ class Play extends Component {
                                 behavioursEnabled: false
                             }}
                         />
-
                     </div>
 
                     <div className="col-md-3">
                         <div className="alert alert-light">
                             LANGUAGE: JAVASCRIPT
                     </div>
-                        <PromptMenu
-                            handlePrompt={this.handlePrompt}
-                        />
-                        <LeaderBoard
+
+                    <PromptMenu
+                        handlePrompt={this.handlePrompt}
+                    />
+                    
+                    <LeaderBoard
                     key={this.state.Users.username}
                     users={this.state.Users}
-                />
-
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
+                    />
                     </div>
                 </div>
             </div>
-
         );
     }
-
 }
 
 export default Play;
