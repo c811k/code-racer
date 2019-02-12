@@ -6,3 +6,7 @@
     margin-left: -50px;
     top: 70px;
 }
+
+.text-center.alert.alert-light {
+    opacity: 0.8;
+}

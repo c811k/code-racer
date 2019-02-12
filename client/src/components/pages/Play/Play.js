@@ -155,13 +155,13 @@ class Play extends Component {
                 </div>
 
                 <div className="col-md-3" id="sidebar">
-                    <div className="alert alert-secondary" id="language">
+                    <div className="alert alert-secondary border-0" id="language">
                         LANGUAGE: JAVASCRIPT
                     </div>
                     <PromptMenu 
                         handlePrompt={this.handlePrompt}
                     />
-                    <div className="alert alert-secondary border-bottom-0 mt-4">
+                    <div className="alert alert-secondary rounded-top mt-4">
                         LEADERBOARD
                     </div>
                     <hr className="my-3" />
@@ -189,7 +189,7 @@ class Play extends Component {
                     </ul>
                     <hr className="my-4" />
                     <div class="progress" id="fun">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{ width: "100%" }}>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning rounded-0" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{ width: "100%" }}>
                         </div>
                     </div>
                 </div>
