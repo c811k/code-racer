@@ -1,0 +1,15 @@
+.play {
+    margin: 20px
+}
+
+.list-group-item {
+    opacity: 0.85;
+}
+
+.progress {
+    height: 50px;
+}
+
+#prompt {
+    margin-top: -12px;
+}
