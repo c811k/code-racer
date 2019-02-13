@@ -14,8 +14,9 @@ const userSchema = new Schema({
     win: Number,
     loss: Number,
     time: {
-        type: Schema.Types.ObjectId,
-        ref: "Score"
+        type: Number,
+        // type: Schema.Types.ObjectId,
+        // ref: "Score"
     },
     token: {
         type: String,

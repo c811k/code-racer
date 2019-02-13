@@ -19,55 +19,60 @@ class Play extends Component {
         time: 0,
         username: "",
         hasBeenClicked: false,
-        topScore: {},
+        topScore: {
+            player: "",
+            time: 0
+        },
         allScores: [],
         Users: []
     }
 
-    componentDidMount() {
-        this.handleTopPlayer();
-        this.handleLeaderboard();
-        axios.get(`/api/prompt/forLoop`)
-            .then((res) => {
-                var data = res.data;
-
-                this.setState({
-                    topEditor: data
-                });
-            });
-    };
-
-    handleLeaderboard = () => {
-
-        this.getScores(scores => {
-            var orderedScores = [];
-            for (let i = 0; i < scores.length; i++) {
-                axios.get("/api/users/" + scores[i]).then((response) => {
-                    orderedScores.push({
-                        player: response.data[0].username,
-                        time: scores[i]
+    componentDidMount = () => {
+        this.handleTopPlayer(() => {
+            this.handleLeaderboard(() => {
+                axios.get(`/api/prompt/forLoop`)
+                .then((res) => {
+                    var data = res.data;
+    
+                    this.setState({
+                        topEditor: data
                     });
                 });
-            }
+            });
+        });
+       
+    };
+
+    handleLeaderboard = (cb) => {
+
+            this.getScores(scores => {
+                var orderedScores = [];
+                for (let i = 0; i < scores.length; i++) {
+                    axios.get("/api/users/" + scores[i]).then((response) => {
+                        orderedScores.push({
+                            player: response.data[0].username,
+                            time: scores[i]
+                        });
+                    });
+                }
                 this.setState({
                     allScores: orderedScores
-                });
-            
-        });
+                }, cb);
+            });
+
     }
 
     getScores = (cb) => {
         var scores = [];
         axios.get("/api/users").then((response) => {
             for (var i = 0; i < response.data.length; i++) {
-                scores.push(parseInt(response.data[i].time));
+                scores.push(response.data[i].time);
             }
             cb(scores.sort(function (a, b) { return a - b }))
         });
-        console.log(scores);
     }
 
-    handleTopPlayer = () => {
+    handleTopPlayer = (cb) => {
         this.getScores(scores => {
             axios.get("/api/users/" + scores[0]).then((response) => {
                 this.setState({
@@ -75,7 +80,7 @@ class Play extends Component {
                         player: response.data[0].username,
                         time: scores[0]
                     }
-                });
+                }, cb);
             });
         });
     }
@@ -89,47 +94,32 @@ class Play extends Component {
                 this.setState({
                     topEditor: data
                 });
-        });
-    };      
+            });
+    };
 
     checkProgress = value => {
 
-        this.setState({value}, () => {
+        this.setState({ value }, () => {
 
             // Value of the keypress, with RegEx that removes whitespaces globally.
-            var {value} = this.state;
+            var { value } = this.state;
             value = value.replace(/\s/g, '');
-           
+
             let strToMatch = this.state.topEditor.replace(/\s/g, '');
             var currentIndex = 0;
 
-            for(let i = 0; i < value.length; i++) {
-               
-                if(strToMatch[i] === value[i]) {
+            for (let i = 0; i < value.length; i++) {
+
+                if (strToMatch[i] === value[i]) {
                     currentIndex = ++currentIndex;
                 }
                 else {
-                    return this.state.currentIndex;    
-                } 
+                    return this.state.currentIndex;
+                }
             }
-            this.setState({percentage: 100/(strToMatch.length) * currentIndex});
+            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex });
         });
-<<<<<<< HEAD
     };
-=======
-    }
-
-    handleTimer = () => {
-        var timer = 0;
-        setInterval(() => {
-            timer++;
-            this.setState({
-                time: timer
-            });
-        }, 1);
-    }
-
->>>>>>> thirdcf
 
     handleUsername = () => {
         axios.get("/api/user").then((response) => {
@@ -154,6 +144,7 @@ class Play extends Component {
     };
 
     render() {
+
         return (
             <div className="play">
                 <div className="row text-center">
@@ -213,17 +204,6 @@ class Play extends Component {
                         <div className="alert alert-light">
                             LANGUAGE: JAVASCRIPT
                     </div>
-<<<<<<< HEAD
-
-                    <PromptMenu
-                        handlePrompt={this.handlePrompt}
-                    />
-                    
-                    <LeaderBoard
-                    key={this.state.Users.username}
-                    users={this.state.Users}
-                    />
-=======
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
@@ -231,7 +211,6 @@ class Play extends Component {
                             key={this.state.Users.username}
                             users={this.state.Users}
                             topScore={this.state.topScore}
-                            handleLeaderboard={this.handleLeaderboard}
                             allScores={this.state.allScores}
                         />
 
@@ -239,7 +218,6 @@ class Play extends Component {
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
->>>>>>> thirdcf
                     </div>
                 </div>
             </div>
