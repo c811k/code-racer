@@ -83,7 +83,7 @@ class Play extends Component {
                 }, cb);
             });
         });
-    }
+    } 
 
     handlePrompt = event => {
         event.preventDefault();

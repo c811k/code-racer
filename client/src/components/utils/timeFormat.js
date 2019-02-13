@@ -15,9 +15,9 @@ export default function timeFormat(miliseconds) {
   remaining %= 100000;
 
   const mm = parseInt( remaining / 100, 10 );
-  const ss = parseInt( remaining % 100, 10 );
+  const ss = parseInt( remaining % 1000, 10 );
 
-  
+
 
   return `${ zeroPad( mm ) }.${ zeroPad( ss ) }`;
 }
