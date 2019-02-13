@@ -18,13 +18,21 @@ router.post("/users/login", function (req, res) {
   console.log(token);
   User.findOneAndUpdate(payload, {$set:{token: token}}, {new: true}, (err, user) => {
     //console.log(user);
-    if (err) throw err;
-    res.cookie("token", token, { expires: new Date(Date.now() + 999999999) });
+    if (err) {
+      throw err
+    } else if(user === null || user === undefined) {
+      console.log("user does not exist");
+      
+    } else {
+      res.cookie("token", token, { expires: new Date(Date.now() + 999999999) });
       // console.log(req.session);
+      // console.log(user);
       req.session.user = user;
       console.log('session user', req.session.user);
       return res.redirect("/users/login");
-  })
+    }
+    
+})
   
 });
 

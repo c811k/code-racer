@@ -49,9 +49,10 @@ class Auth extends Component {
         // console.log(this.state);
         // send credentials to back-end to check account
         axios.post("/users/login", payload).then((res) => {
+            console.log(res.data);
             if (res.data) {
                 // if successful, set auth value on parent
-                this.props.setLogin();
+                // this.props.setLogin();
                 this.props.history.push("/profile");
             }
             else {
@@ -96,3 +97,4 @@ class Auth extends Component {
 }
 
 export default Auth;
+//setLogin={this.setLogin}
