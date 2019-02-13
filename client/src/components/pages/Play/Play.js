@@ -25,6 +25,7 @@ class Play extends Component {
     }
 
     componentDidMount() {
+        
         /* this.handleTopPlayer();
         this.handleLeaderboard(); */
         axios.get(`/api/prompt/forLoop`)
@@ -113,6 +114,9 @@ class Play extends Component {
                 } 
             }
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
+
+
+            
         });
     };
 
@@ -138,6 +142,10 @@ class Play extends Component {
         }
     };
 
+    disableCopyPaste = () =>{
+        return window.location.reload();
+    }
+
     render() {
         return (
             <div className="play">
@@ -154,18 +162,25 @@ class Play extends Component {
                             theme="tomorrow_night"
                             value={this.state.topEditor}
                             name="UNIQUE_ID_OF_DIV"
+                            onCopy={this.disableCopyPaste}
                             style={{ width: "100%" }}
                             editorProps={{
                                 $blockScrolling: true
 
                             }}
+
                             setOptions={{
                                 fontSize: '10pt',
                                 minLines: 12,
                                 maxLines: 12,
                                 readOnly: true,
-                                tabSize: 2
-                            }}
+                                tabSize: 2,
+                                dragEnabled: false,
+                                highlightActiveLine: true,
+                                copyWithEmptySelection: false 
+
+                            }
+                        }
                         />
 
                         <hr className="my-3" />
