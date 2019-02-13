@@ -25,8 +25,8 @@ class Play extends Component {
     }
 
     componentDidMount() {
-        this.handleTopPlayer();
-        this.handleLeaderboard();
+        /* this.handleTopPlayer();
+        this.handleLeaderboard(); */
         axios.get(`/api/prompt/forLoop`)
             .then((res) => {
                 var data = res.data;
@@ -37,7 +37,7 @@ class Play extends Component {
             });
     };
 
-    handleLeaderboard = () => {
+    /* handleLeaderboard = () => {
 
         this.getScores(scores => {
             var orderedScores = [];
@@ -54,7 +54,7 @@ class Play extends Component {
                 });
             
         });
-    }
+    } */
 
     getScores = (cb) => {
         var scores = [];
@@ -67,7 +67,7 @@ class Play extends Component {
         console.log(scores);
     }
 
-    handleTopPlayer = () => {
+    /* handleTopPlayer = () => {
         this.getScores(scores => {
             axios.get("/api/users/" + scores[0]).then((response) => {
                 this.setState({
@@ -78,7 +78,7 @@ class Play extends Component {
                 });
             });
         });
-    }
+    } */
 
     handlePrompt = event => {
         event.preventDefault();
@@ -114,22 +114,7 @@ class Play extends Component {
             }
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
         });
-<<<<<<< HEAD
     };
-=======
-    }
-
-    handleTimer = () => {
-        var timer = 0;
-        setInterval(() => {
-            timer++;
-            this.setState({
-                time: timer
-            });
-        }, 1);
-    }
-
->>>>>>> thirdcf
 
     handleUsername = () => {
         axios.get("/api/user").then((response) => {
@@ -213,17 +198,6 @@ class Play extends Component {
                         <div className="alert alert-light">
                             LANGUAGE: JAVASCRIPT
                     </div>
-<<<<<<< HEAD
-
-                    <PromptMenu
-                        handlePrompt={this.handlePrompt}
-                    />
-                    
-                    <LeaderBoard
-                    key={this.state.Users.username}
-                    users={this.state.Users}
-                    />
-=======
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
@@ -239,7 +213,6 @@ class Play extends Component {
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
->>>>>>> thirdcf
                     </div>
                 </div>
             </div>
