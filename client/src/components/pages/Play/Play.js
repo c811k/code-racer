@@ -4,6 +4,7 @@ import ProgressBar from "../../ProgressBar.js";
 import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard.js";
 import Timer from "../../Timer/Timer.js";
+import StartButton from "../../StartButton/StartButton.js";
 import axios from "axios";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
@@ -18,11 +19,23 @@ class Play extends Component {
         percentage: 0,
         value: "",
         topEditor: "",
-        time: 0,
         username: "",
-        hasBeenClicked: false,
+        count: 5,
+        running: false,
         Users: []
     }
+
+    handleStart = (event)=> {
+        event.preventDefault();
+        console.log('hit');
+       
+        this.timer = setInterval(() => {
+          const newCount = this.state.count - 1;
+          this.setState(
+            {count: newCount >= 0 ? newCount : 0}
+          );
+        }, 1000);
+      }
 
     handleLeaderboard = () => {
         axios.get("/api/users").then((response) => {
@@ -32,7 +45,7 @@ class Play extends Component {
             // }
             // var scores = scores.sort(function (a, b) { return a - b });
             // console.log(scores);
-            console.log(response.data);
+            //console.log(response.data);
             this.setState({
                 Users: response.data
             });
@@ -103,32 +116,13 @@ class Play extends Component {
         });
     };
 
-    handleTimer = () => {
-        var timer = 0;
-        if (!this.state.hasBeenClicked) {
-
-            setInterval(() => {
-                timer++;
-                this.setState({
-                    time: timer,
-                    hasBeenClicked: true
-                });
-            }, 1);
-        }
-    };
-
-
     render() {
-
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
-                        <Timer
-                            time={this.state.time}
-                            handleTimer={this.handleTimer}
-                        />
-                        <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                        <Timer count={this.state.count}></Timer>
+                        <StartButton onClickHandler={this.handleStart.bind(this)}></StartButton>
                         <AceEditor
                             mode="javascript"
                             theme="tomorrow_night"
