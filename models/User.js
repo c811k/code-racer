@@ -11,15 +11,21 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-    win : Number,
+    win: Number,
     loss: Number,
     time: {
+<<<<<<< HEAD
         type: Schema.Types.ObjectId,
         ref: "Score"
     },
     token: {
         type: String,
         default: null
+=======
+        type: String
+        // type: Schema.Types.ObjectId,
+        // ref: "Score"
+>>>>>>> 871b3913a0720891d56a6dfd034e4694ef6826d4
     }
 
 });

@@ -2,6 +2,7 @@ import React from "react";
 // import "./Login.css"
 
 function Login(props) {
+    console.log(props.username);
     return(
         <div className="login">
             <div className="form-signin text-center">

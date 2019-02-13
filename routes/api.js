@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const db = require("../models");
+const fs = require("fs");
+const path = require("path");
 
 router.get("/api/scores", (req, res) => {
     db.Score.find({}).then( (data) => {
@@ -7,6 +9,14 @@ router.get("/api/scores", (req, res) => {
     }).catch( (err) => {
         res.json(err);
     });;
+});
+
+router.get("/api/users", (req, res) => {
+    db.User.find({}).then( (data) => {
+        res.json(data);
+    }).catch( (err) => {
+        res.json(err);
+    });
 });
 
 router.post("/api/user", (req, res) => {
@@ -40,6 +50,17 @@ router.delete("/api/user/:id", (req, res) => {
         res.json(data);
     }).catch( (err) => {
         res.json(err);
+    });
+});
+
+router.get("/api/prompt/:promptName", (req, res) => {
+    if(req.params.promptName) {
+        var promptName = req.params.promptName;
+    } else {
+        promptName = "forLoop";
+    }
+    fs.readFile(path.join(__dirname, "../client/src/components/prompts/" + promptName + ".js"), 'utf-8', function(err, data){
+        res.send(data);
     });
 });
 

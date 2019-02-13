@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Signup from "./Signup";
 import Login from "./Login";
 // import "./style.css";
@@ -33,6 +33,7 @@ class Auth extends Component {
         });
     };
 
+<<<<<<< HEAD
     handleFormSubmit = () => {
         var {username, password} = this.state;
         let payload = { username, password };
@@ -64,6 +65,17 @@ class Auth extends Component {
         });
     };
     
+=======
+    // handleFormSubmit = () => {
+    //     axios.post("/api/user", this.state);
+    //     window.location.reload();
+    // };
+
+    // handleLogin = () => {
+
+    // };
+
+>>>>>>> 871b3913a0720891d56a6dfd034e4694ef6826d4
     render() {
         return (
             <div>
