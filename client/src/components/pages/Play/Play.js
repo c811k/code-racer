@@ -24,18 +24,6 @@ class Play extends Component {
         Users: []
     }
 
-    componentDidMount() {
-        this.handleLeaderboard();
-        axios.get(`/api/prompt/forLoop`)
-            .then((res) => {
-                var data = res.data;
-
-                this.setState({
-                    topEditor: data
-                });
-            });
-    }
-
     handleLeaderboard = () => {
         axios.get("/api/users").then((response) => {
             // var scores = []
@@ -74,46 +62,37 @@ class Play extends Component {
                 });
         });
     }        
-    checkProgress = (value, event) => {
+    checkProgress = (value) => {
 
         this.setState({value}, () => {
 
-            // Value of the keypress, with RegEx that removes whitespaces globally.
+            //remove whitespaces from the keypress
             var {value} = this.state;
             value = value.replace(/\s/g, '');
            
+            // removes whitespace from prompt, this is target string that user wants to match.
             let strToMatch = this.state.topEditor.replace(/\s/g, '');
+            
+            //keep track of where user is when typing the prompt
             var currentIndex = 0;
 
             for(let i = 0; i < value.length; i++) {
-               
+                
+                // if what user types matches prompt, increase the index.
                 if(strToMatch[i] === value[i]) {
                     currentIndex = ++currentIndex;
                 }
+                
+                // stop increasing index if it doesn't match
                 else {
                     return this.state.currentIndex;    
                 } 
-
-               
             }
+            // increases progress bar according to the index defined above.
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
-            //console.log(value, strToMatch);
             
         });
     };
-
-    
-    handleTimer = () => {
-        var timer = 0;
-        setInterval(() => {
-            timer++;
-            this.setState({
-                time: timer
-            });
-        }, 1);
-    }
-
-
 
 
     handleUsername = () => {
