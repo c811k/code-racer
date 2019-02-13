@@ -40,6 +40,7 @@ class Play extends Component {
     }
 
     handleLeaderboard = () => {
+
         this.getScores(scores => {
             var orderedScores = [];
             for (let i = 0; i < scores.length; i++) {
@@ -65,6 +66,7 @@ class Play extends Component {
             }
             cb(scores.sort(function (a, b) { return a - b }))
         });
+        console.log(scores);
     }
 
     handleTopPlayer = () => {
