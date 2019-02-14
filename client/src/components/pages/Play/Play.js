@@ -31,46 +31,48 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`/api/prompt/forLoop`)
-        .then((res) => {
-            var data = res.data;
-
-            this.setState({
-                topEditor: data
+        this.getUserData(()=> {
+            this.handleLeaderboard();
+            axios.get(`/api/prompt/forLoop`)
+            .then((res) => {
+                var data = res.data;
+    
+                this.setState({
+                    topEditor: data
+                });
             });
-        });
+        })
     };
 
-    getUserData = () => {
+    getUserData = (cb) => {
         axios.get("/api/users").then(res => {
             this.setState({
                 userData: res.data
             });
-        });
+        }, cb);
     };
 
     handleLeaderboard = () => {
-        this.getUserData();
-        return (
-            <div>
-                <div className="alert alert-secondary rounded-top mt-4">
-                    LEADERBOARD
+            return (
+                <div>
+                    <div className="alert alert-secondary rounded-top mt-4">
+                        LEADERBOARD
+                    </div>
+                    <hr className="my-3" />
+                    <ul className="list-group list-group-flush mt-2">
+                        {this.state.userData.map(p => {
+                            return (
+                                <LeaderBoard 
+                                key={p._id}
+                                username={p.username}
+                                time={timeFormat(p.time)}
+                                topScore={this.state.topScore}
+                                />
+                            );
+                        })}
+                    </ul>
                 </div>
-                <hr className="my-3" />
-                <ul className="list-group list-group-flush mt-2">
-                    {this.state.userData.map(p => {
-                        return (
-                            <LeaderBoard 
-                            key={p.id}
-                            username={p.username}
-                            time={timeFormat(p.time)}
-                            topScore={this.state.topScore}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
-        );
+            );
     };
 
     handleCountDown = () => {
