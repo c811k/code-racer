@@ -178,27 +178,27 @@ class Play extends Component {
 
         axios.get("/api/profile").then((response) => {
             console.log(response.data);
-            this.setState({
-                id: response.data.id
-            });
-        });
-
-        axios.get("/api/user/" + (this.state.id)).then((response) => {
             if (this.state.time < response.data.time) {
-                
-            axios.post("/api/user", {
-                time: this.state.time*425,
-                username: this.state.username
-            }).then((response) => {
-                console.log(response);
-            }).catch((error) => {
-                console.log(error);
-            });
-            this.resetGame();
-        }
-    });
+                console.log(response.data.time);
+                this.setState({
+                    username: response.data.username
+                });
+                console.log(this.state.username);
 
-    }
+                axios.put("/api/user/" + this.state.username + "/" + this.state.time, {
+                    time: this.state.time*425,
+                    username: this.state.username
+                }).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                });
+                this.resetGame();
+            }
+
+        });
+                
+        }
 
     render() {
         let showEditor = this.state.hasBeenClicked ? <AceEditor
