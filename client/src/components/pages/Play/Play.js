@@ -5,6 +5,8 @@ import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
+import timeFormat from "../../utils/timeFormat";
+import Modal from "../Modal/Modal";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
@@ -28,8 +30,8 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => {
+        /* this.handleTopPlayer(() => {
+            this.handleLeaderboard(() => { */
                 axios.get(`/api/prompt/forLoop`)
                 .then((res) => {
                     var data = res.data;
@@ -38,8 +40,8 @@ class Play extends Component {
                         topEditor: data
                     });
                 });
-            });
-        });
+         /*    });
+        }); */
        
     };
 
@@ -143,12 +145,15 @@ class Play extends Component {
         }
     };
 
+  
+
     render() {
 
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
+                            
                         <Timer
                             time={this.state.time}
                             handleTimer={this.handleTimer}
