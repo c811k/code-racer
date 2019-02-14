@@ -6,7 +6,6 @@ import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
 import Example from "../Modal/Modal";
-import timeFormat from "../../utils/timeFormat";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
@@ -28,7 +27,8 @@ class Play extends Component {
         },
         allScores: [],
         Users: [],
-        count: 3
+        count: 3,
+        finished: false
     }
 
     componentDidMount = () => {
@@ -71,8 +71,9 @@ class Play extends Component {
         var countdown = setInterval(() => {
             this.setState({
                 count: this.state.count - 1
+            }, ()=>{
+                // console.log(this.state.count);
             });
-            console.log(this.state.count);
         if (this.state.count === 0 && this.state.hasBeenClicked === false) {
             console.log("passed");
             clearInterval(countdown);
@@ -136,7 +137,13 @@ class Play extends Component {
                     return this.state.currentIndex;
                 }
             }
-            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex });
+            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex }, ()=>{
+                if (this.state.percentage === 100) {
+                    this.setState({finished: true}, ()=>{
+                        this.setState({finished: false})
+                    })
+                }
+            });
         });
     };
 
@@ -161,6 +168,7 @@ class Play extends Component {
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
                     console.log(this.state.time);
+
                     this.handlePost();
                 }
             }, 1);
@@ -169,9 +177,15 @@ class Play extends Component {
 
     resetGame = () =>{
 
-        this.setState({stopwatch: 0});
-        this.setState({value: ""});
-        this.setState({percentage: 0});
+        this.setState({
+            stopwatch: 0,
+            value: "",
+            percentage: 0,
+            time: 0,
+            hasBeenClicked: false,
+            finished: false
+        });
+
     }
 
     handlePost = () => {
@@ -189,11 +203,13 @@ class Play extends Component {
     }
 
     render() {
-
+        console.log("Hit render");
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
+                    <Example finished={this.state.finished} userTime={this.state.time}/>
+
                         {this.state.count > 0 ? (
                             <h1 id="countdown">{this.state.count}</h1>
                         ) : (
@@ -202,7 +218,6 @@ class Play extends Component {
                             handleTimer={this.handleTimer}
                         />
                         )}
-                        <Example />
 
                         <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
