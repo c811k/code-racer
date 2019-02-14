@@ -6,6 +6,7 @@ import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
 import timeFormat from "../../utils/timeFormat";
+import Modal from "../Modal/Modal";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
@@ -116,6 +117,7 @@ class Play extends Component {
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
             
             if(this.state.percentage === 100) {
+                this.renderModal();
                 alert(`Wooohooo! Your time was ${timeFormat(this.state.time * 425)}`);
             }
 
@@ -144,6 +146,11 @@ class Play extends Component {
             }, 1);
         }
     };
+
+    renderModal = () => {
+        return <Modal></Modal>
+
+    }
     
 
     render() {
@@ -151,6 +158,7 @@ class Play extends Component {
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
+                        {this.renderModal()}
                         <Timer
                             time={this.state.time}
                             handleTimer={this.handleTimer}
