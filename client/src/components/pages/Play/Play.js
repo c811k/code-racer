@@ -5,12 +5,12 @@ import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
-import timeFormat from "../../utils/timeFormat";
-import Modal from "../Modal/Modal";
+import Example from "../Modal/Modal";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
 import "./play.css";
+
 
 class Play extends Component {
 
@@ -29,7 +29,8 @@ class Play extends Component {
         allScores: [],
         Users: [],
         count: 3,
-        id: ""
+        id: "",
+        finished: false
     }
 
     componentDidMount = () => {
@@ -69,17 +70,20 @@ class Play extends Component {
     }
 
     handleCountDown = () => {
+       this.resetGame(()=>{
         var countdown = setInterval(() => {
             this.setState({
                 count: this.state.count - 1
+            }, ()=>{
+                if (this.state.count === 0 && !this.state.hasBeenClicked) {
+                    clearInterval(countdown);
+                    this.handleTimer();
+                }
             });
-            console.log(this.state.count);
-        if (this.state.count === 0 && this.state.hasBeenClicked === false) {
-            console.log("passed");
-            clearInterval(countdown);
-            this.handleTimer();
-        }
+
     }, 1000);
+       })
+       
     }
 
     getScores = (cb) => {
@@ -137,7 +141,13 @@ class Play extends Component {
                     return this.state.currentIndex;
                 }
             }
-            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex });
+            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex }, ()=>{
+                if (this.state.percentage === 100) {
+                    this.setState({finished: true}, ()=>{
+                        this.setState({finished: false})
+                    })
+                }
+            });
         });
     };
 
@@ -161,18 +171,14 @@ class Play extends Component {
                 });
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
+                    this.resetGame();
                     this.handlePost();
                 }
             }, 1);
         }
     };
 
-    resetGame = () =>{
-
-        this.setState({stopwatch: 0});
-        this.setState({value: ""});
-        this.setState({percentage: 0});
-    }
+    
 
     handlePost = () => {
 
@@ -193,46 +199,41 @@ class Play extends Component {
                 }).catch((error) => {
                     console.log(error);
                 });
-                this.resetGame();
+                //this.resetGame();
             }
 
         });
                 
         }
 
+    resetGame = (cb) =>{
+
+        this.setState({
+            stopwatch: 0,
+            value: "",
+            percentage: 0,
+             time: 0,
+            count: 3,
+            hasBeenClicked: false,
+            finished: false
+        }, cb);
+
+    }
+
     render() {
-        let showEditor = this.state.hasBeenClicked ? <AceEditor
-                            handleInput
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            onChange={this.checkProgress}
-                            name="UNIQUE_ID_OF_DIV2"
-                            style={{ width: "100%" }}
-                            value={this.state.value}
-                            editorProps={{
-                                $blockScrolling: true
-                            }}
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                tabSize: 2,
-                                behavioursEnabled: false
-                            }}
-                        /> : null;
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
-                        {this.state.count > 0 ? (
-                            <h1 id="countdown">{this.state.count}</h1>
-                        ) : (
-                        <Timer
-                            time={this.state.time}
-                            handleTimer={this.handleTimer}
-                        />
-                        )}
-                        <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+
+                    {/* Modal */}
+                    <Example finished={this.state.finished} userTime={this.state.time}/>
+
+                    {/* Conditionally renders timer or stopwatch */}
+                    {this.state.count > 0 ? <h1 id="countdown">{this.state.count}</h1> : <Timer time={this.state.time} handleTimer={this.handleTimer}/>}
+
+        
+                    <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
                         <AceEditor
                             mode="javascript"
@@ -260,7 +261,25 @@ class Play extends Component {
                         />
                         <hr className="my-3" />
                         
-                        {showEditor}
+                        <AceEditor
+                            handleInput
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            onChange={this.checkProgress}
+                            name="UNIQUE_ID_OF_DIV2"
+                            style={{ width: "100%" }}
+                            value={this.state.value}
+                            editorProps={{
+                                $blockScrolling: true
+                            }}
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                tabSize: 2,
+                                behavioursEnabled: false
+                            }}
+                        />
                         
                     </div>
 
@@ -278,10 +297,6 @@ class Play extends Component {
                             allScores={this.state.allScores}
                         />
 
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
                     </div>
                 </div>
             </div>
