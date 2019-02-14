@@ -5,6 +5,7 @@ import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
+import Example from "../Modal/Modal";
 import timeFormat from "../../utils/timeFormat";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
@@ -201,6 +202,8 @@ class Play extends Component {
                             handleTimer={this.handleTimer}
                         />
                         )}
+                        <Example />
+
                         <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
                         <AceEditor
