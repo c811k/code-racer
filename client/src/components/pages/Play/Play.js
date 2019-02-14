@@ -197,7 +197,7 @@ class Play extends Component {
             stopwatch: 0,
             value: "",
             percentage: 0,
-            time: 0,
+             time: 0,
             count: 3,
             hasBeenClicked: false,
             finished: false
