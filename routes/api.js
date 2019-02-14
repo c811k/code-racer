@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 router.get("/api/users", (req, res) => {
-    User.find({}).sort({time: 1}).then((data) => {
+    User.find({}).sort({time: 1}).limit(3).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);

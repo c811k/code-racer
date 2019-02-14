@@ -51,24 +51,20 @@ class App extends Component {
   render() {
 
     return (
-      <div style={this.divStyle}>
-        <div className="container">
-          <Router>
-            <div>
-              <Navbar  username={this.state.username}/>
+      <div>
+        <Router>
+          <div>
+            <Navbar  username={this.state.username}/>
 
-              <Switch>
-                <Route exact path="/login" render={(props) => <Auth getLogin={this.getLogin} {...props} />} />
-                {/* {!this.state.authenticated ? <Redirect to="/login" /> : null} */}
-                <Route exact path="/" component={Home} />
-                <Route exact path="/play" component={Play} />
-                <Route exact path="/about" component={About} />
-                {/* <Route exact path="/login" component={Login} /> */}
-                <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} topscore={this.state.topscore} username={this.state.username} {...props} />} />
-              </Switch>
-            </div>
-          </Router>
-        </div>
+            <Switch>
+              <Route exact path="/login" render={(props) => <Auth getLogin={this.getLogin} {...props} />} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/play" component={Play} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} topscore={this.state.topscore} username={this.state.username} {...props} />} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }
