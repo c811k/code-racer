@@ -5,7 +5,7 @@ import timeFormat from "../utils/timeFormat.js";
 function LeaderBoard(props) {
     return (
         <div>
-            <div className="alert alert-secondary rounded-top mt-4">
+            <div className="alert alert-secondary rounded-top mt-5">
                 LEADERBOARD
             </div>
             <hr className="my-3" />
@@ -31,6 +31,12 @@ function LeaderBoard(props) {
                     <h5><span className="badge badge-secondary">20.4</span></h5>
                 </li>
             </ul>
+            <hr className="my-3" />
+
+            <div className="alert alert-warning rounded-top mt-4">
+                HAVE FUN CODING!
+            </div>
+            <hr className="my-3" />
         </div>
     );
 }

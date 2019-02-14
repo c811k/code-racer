@@ -179,14 +179,14 @@ class Play extends Component {
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
-                        {this.state.count > 0 ? 
-                        (<h1 id="countdown">{this.state.count}</h1>) : (
+                        {/* {this.state.count > 0 ? 
+                        (<h1 id="countdown">{this.state.count}</h1>) : ( */}
                         <Timer
                             time={this.state.time}
-                            handleTimer={this.handleTimer}
+                            handleCountDown={this.handleCountDown}
                         />
-                        )}
-                        <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                        {/* )}
+                        <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button> */}
 
                         <AceEditor
                             mode="javascript"
@@ -234,7 +234,7 @@ class Play extends Component {
                     </div>
 
                     <div className="col-md-3">
-                        <div className="alert alert-light">
+                        <div className="alert alert-secondary" id="language">
                             LANGUAGE: JAVASCRIPT
                     </div>
                         <PromptMenu

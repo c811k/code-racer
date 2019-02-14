@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/pages/Home/Home";
 import Play from "./components/pages/Play/Play";
@@ -37,23 +37,19 @@ class App extends Component {
   render() {
     
     return (
-      <div style={this.divStyle}>
-        <div className="container">
-          <Router>
-            <div>
-              <Navbar />
-              <Switch>
-                <Route exact path="/login" render={(props) => <Auth {...props}  />} />
-                {/* {!this.state.authenticated ? <Redirect to="/login" /> : null} */}
-                <Route exact path="/" component={Home} />
-                <Route exact path="/play" component={Play} />
-                <Route exact path="/about" component={About} />
-                {/* <Route exact path="/login" component={Login} /> */}
-                <Route exact path="/profile" render={(props) => <Profile {...props}/>} />
-              </Switch>
-            </div>
-          </Router>
-        </div>
+      <div>
+        <Router>
+          <div>
+            <Navbar />
+            <Switch>
+              <Route exact path="/login" render={(props) => <Auth {...props}  />} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/play" component={Play} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/profile" render={(props) => <Profile {...props}/>} />
+            </Switch>
+          </div>
+        </Router>      
       </div>
     );
   }

@@ -4,9 +4,17 @@ import "./style.css";
 
 function Timer(props) {
     return (
-        <div>
-            <h1 id="timer">{timeFormat(props.time * 425)}</h1>
+        <div className="text-center alert alert-light rounded-0 bg-light">
+            <h6>CLICK START TO BEGIN</h6>
+            <button className="btn btn-light btn-sm mb-2" onClick={props.handleCountDown}>Start <i className="far fa-play-circle"></i></button>
+            <h5 className="mb-2">
+            {timeFormat(props.time * 425)}
+            </h5>
         </div>
+
+        // <div>
+        //     <h1 id="timer">{timeFormat(props.time * 425)}</h1>
+        // </div>
     );
 }
 
