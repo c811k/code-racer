@@ -117,7 +117,7 @@ class Play extends Component {
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
             
             if(this.state.percentage === 100) {
-                this.renderModal();
+                this.setState({showModal: true});
                 alert(`Wooohooo! Your time was ${timeFormat(this.state.time * 425)}`);
             }
 
@@ -147,18 +147,17 @@ class Play extends Component {
         }
     };
 
-    renderModal = () => {
-        return <Modal></Modal>
-
-    }
-    
+  
 
     render() {
+    
+   
+
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
-                        {this.renderModal()}
+                            
                         <Timer
                             time={this.state.time}
                             handleTimer={this.handleTimer}
