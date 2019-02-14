@@ -41,36 +41,41 @@ class Play extends Component {
         });
     };
 
-    getUserData = () => {
+    getUserData = (cb) => {
         axios.get("/api/users").then(res => {
             this.setState({
                 userData: res.data
             });
-        });
+        }, cb);
     };
 
     handleLeaderboard = () => {
-        this.getUserData();
-        return (
-            <div>
-                <div className="alert alert-secondary rounded-top mt-5">
-                    LEADERBOARD
+        axios.get("/api/users").then(res => {
+            this.setState({
+                userData: res.data
+            });
+            return (
+                <div>
+                    <div className="alert alert-secondary rounded-top mt-5">
+                        LEADERBOARD
+                    </div>
+                    <hr className="my-3" />
+                    <ul className="list-group list-group-flush mt-2">
+                        {this.state.userData.map(p => {
+                            return (
+                                <LeaderBoard 
+                                key={p.id}
+                                username={p.username}
+                                time={p.time}
+                                topScore={this.state.topScore}
+                                />
+                            );
+                        })}
+                    </ul>
                 </div>
-                <hr className="my-3" />
-                <ul className="list-group list-group-flush mt-2">
-                    {this.state.userData.map(p => {
-                        return (
-                            <LeaderBoard 
-                            key={p.id}
-                            username={p.username}
-                            time={p.time}
-                            topScore={this.state.topScore}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
-        );
+            );
+        });
+        
     };
 
     handleCountDown = () => {
@@ -87,14 +92,14 @@ class Play extends Component {
         }, 1000); 
     };
 
-    handleTopPlayer = () => {
+    handleTopPlayer = (cb) => {
         axios.get("/api/users").then(res => {
             this.setState({
                 topScore: {
                     player: res.data[0].username,
                     time: res.data[0].time
                 }
-            });
+            }, cb);
         });
         return(
             <div>
@@ -180,6 +185,12 @@ class Play extends Component {
             this.resetGame();
 
     }
+    
+    handleScore = () => {
+        axios.get("/api/profile").then(res => {
+            console.log(res.data);
+        });
+    }
 
     render() {
         let showEditor = this.state.hasBeenClicked ? <AceEditor
@@ -249,7 +260,7 @@ class Play extends Component {
                     <div className="col-md-3">
                         <div className="alert alert-secondary" id="language">
                             LANGUAGE: JAVASCRIPT
-                    </div>
+                        </div>
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />

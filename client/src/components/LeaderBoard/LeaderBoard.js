@@ -1,6 +1,5 @@
 import React from "react";
 import "./LeaderBoard.css"
-import timeFormat from "../utils/timeFormat.js";
 
 function LeaderBoard(props) {
     return (
