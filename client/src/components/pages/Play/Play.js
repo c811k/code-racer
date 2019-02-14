@@ -80,13 +80,10 @@ class Play extends Component {
     }, 1000);
     }
 
-    getScores = (cb) => {
-        var scores = [];
-        axios.get("/api/users").then((response) => {
-            for (var i = 0; i < response.data.length; i++) {
-                scores.push(response.data[i].time);
-            }
-            cb(scores.sort(function (a, b) { return a - b }))
+    getScores = () => {
+        axios.get("/api/users").then(res => {
+            console.log(res.data);
+            
         });
     }
 
