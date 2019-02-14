@@ -6,11 +6,11 @@ import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
 import timeFormat from "../../utils/timeFormat";
-import Modal from "../Modal/Modal";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
 import "./play.css";
+
 
 class Play extends Component {
 
