@@ -25,7 +25,8 @@ class Play extends Component {
         },
         allScores: [],
         Users: [],
-        count: 3
+        count: 3,
+        id: ""
     }
 
     componentDidMount = () => {
@@ -157,7 +158,6 @@ class Play extends Component {
                 });
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
-                    console.log(this.state.time);
                     this.handlePost();
                 }
             }, 1);
@@ -173,15 +173,27 @@ class Play extends Component {
 
     handlePost = () => {
 
+        axios.get("/api/profile").then((response) => {
+            console.log(response.data);
+            this.setState({
+                id: response.data.id
+            });
+        });
+
+        axios.get("/api/user/" + (this.state.id)).then((response) => {
+            if (this.state.time < response.data.time) {
+                
             axios.post("/api/user", {
                 time: this.state.time*425,
-                username: this.state.username,
+                username: this.state.username
             }).then((response) => {
                 console.log(response);
             }).catch((error) => {
                 console.log(error);
             });
             this.resetGame();
+        }
+    });
 
     }
 
