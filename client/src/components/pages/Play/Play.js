@@ -68,18 +68,20 @@ class Play extends Component {
     }
 
     handleCountDown = () => {
+       this.resetGame(()=>{
         var countdown = setInterval(() => {
             this.setState({
                 count: this.state.count - 1
             }, ()=>{
-                // console.log(this.state.count);
+                if (this.state.count === 0 && !this.state.hasBeenClicked) {
+                    clearInterval(countdown);
+                    this.handleTimer();
+                }
             });
-        if (this.state.count === 0 && this.state.hasBeenClicked === false) {
-            console.log("passed");
-            clearInterval(countdown);
-            this.handleTimer();
-        }
+
     }, 1000);
+       })
+       
     }
 
     getScores = (cb) => {
@@ -167,7 +169,7 @@ class Play extends Component {
                 });
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
-                    console.log(this.state.time);
+                    //console.log(this.state.time);
 
                     this.handlePost();
                 }
@@ -175,18 +177,7 @@ class Play extends Component {
         }
     };
 
-    resetGame = () =>{
-
-        this.setState({
-            stopwatch: 0,
-            value: "",
-            percentage: 0,
-            time: 0,
-            hasBeenClicked: false,
-            finished: false
-        });
-
-    }
+    
 
     handlePost = () => {
 
@@ -195,31 +186,41 @@ class Play extends Component {
                 username: this.state.username,
             }).then((response) => {
                 console.log(response);
+                this.resetGame();
             }).catch((error) => {
                 console.log(error);
             });
-            this.resetGame();
+
+    }
+
+    resetGame = (cb) =>{
+
+        this.setState({
+            stopwatch: 0,
+            value: "",
+            percentage: 0,
+            time: 0,
+            count: 3,
+            hasBeenClicked: false,
+            finished: false
+        }, cb);
 
     }
 
     render() {
-        console.log("Hit render");
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
+
+                    {/* Modal */}
                     <Example finished={this.state.finished} userTime={this.state.time}/>
 
-                        {this.state.count > 0 ? (
-                            <h1 id="countdown">{this.state.count}</h1>
-                        ) : (
-                        <Timer
-                            time={this.state.time}
-                            handleTimer={this.handleTimer}
-                        />
-                        )}
+                    {/* Conditionally renders timer or stopwatch */}
+                    {this.state.count > 0 ? <h1 id="countdown">{this.state.count}</h1> : <Timer time={this.state.time} handleTimer={this.handleTimer}/>}
 
-                        <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+        
+                    <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
                         <AceEditor
                             mode="javascript"
@@ -280,10 +281,6 @@ class Play extends Component {
                             allScores={this.state.allScores}
                         />
 
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
                     </div>
                 </div>
             </div>
