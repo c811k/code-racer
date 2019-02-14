@@ -29,6 +29,14 @@ router.post("/api/user", (req, res) => {
     });
 });
 
+router.put("/api/user/:username/:time", (req, res) => {
+    console.log(req.params.username);
+    console.log(req.params.time);
+    User.updateOne({username: req.params.username}, { $set: { time: req.params.time } }).then(function () {
+        res.end();
+    });
+});
+
 router.get("/api/prompt/:promptName", (req, res) => {
     if (req.params.promptName) {
         var promptName = req.params.promptName;
