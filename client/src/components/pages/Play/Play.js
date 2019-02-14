@@ -5,6 +5,7 @@ import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
+import timeFormat from "../../utils/timeFormat";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
@@ -113,6 +114,12 @@ class Play extends Component {
                 } 
             }
             this.setState({percentage: 100/(strToMatch.length) * currentIndex});
+            
+            if(this.state.percentage === 100) {
+                alert(`Wooohooo! Your time was ${timeFormat(this.state.time * 425)}`);
+            }
+
+    
         });
     };
 
@@ -137,6 +144,7 @@ class Play extends Component {
             }, 1);
         }
     };
+    
 
     render() {
         return (
