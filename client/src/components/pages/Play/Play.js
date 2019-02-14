@@ -13,6 +13,7 @@ import "./play.css";
 class Play extends Component {
 
     state = {
+        playOn: false,
         percentage: 0,
         value: "",
         topEditor: "",
@@ -62,7 +63,9 @@ class Play extends Component {
     };      
 
     checkProgress = value => {
-
+        // if(this.state.playOn === false){
+        //     return
+        // }
         this.setState({value}, () => {
 
             // Value of the keypress, with RegEx that removes whitespaces globally.
@@ -108,42 +111,8 @@ class Play extends Component {
     };
 
     render() {
-        return (
-            <div className="play">
-                <div className="row text-center">
-                    <div className="col-md-9">
-                        <Timer
-                            time={this.state.time}
-                            handleTimer={this.handleTimer}
-                        />
-                        <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
-
-                        <AceEditor
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            value={this.state.topEditor}
-                            name="UNIQUE_ID_OF_DIV"
-                            style={{ width: "100%" }}
-                            editorProps={{
-                                $blockScrolling: true
-
-                            }}
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                readOnly: true,
-                                tabSize: 2
-                            }}
-                        />
-
-                        <hr className="my-3" />
-                        <ProgressBar
-                            percentage={this.state.percentage}
-                        />
-                        <hr className="my-3" />
-
-                        <AceEditor
+        let showEditor = this.state.hasBeenClicked ? <AceEditor
+                            handleInput
                             mode="javascript"
                             theme="tomorrow_night"
                             onChange={this.checkProgress}
@@ -160,7 +129,45 @@ class Play extends Component {
                                 tabSize: 2,
                                 behavioursEnabled: false
                             }}
+                        /> : null;
+        return (
+            <div className="play">
+                <div className="row text-center">
+                    <div className="col-md-9">
+                        <Timer
+                            time={this.state.time}
+                            handleTimer={this.handleTimer}
                         />
+                        <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                        
+                        <AceEditor
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            value={this.state.topEditor}
+                            name="UNIQUE_ID_OF_DIV"
+                            style={{ width: "100%" }}
+                            editorProps={{
+                                $blockScrolling: true
+
+                            }}
+                            readOnly={true}
+                            
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                tabSize: 2
+                            }}
+                        />
+
+                        <hr className="my-3" />
+                        <ProgressBar
+                            percentage={this.state.percentage}
+                        />
+                        <hr className="my-3" />
+                        
+                        {showEditor}
+                        
                     </div>
 
                     <div className="col-md-3">

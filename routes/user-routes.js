@@ -12,7 +12,7 @@ router.post("/users/login", function (req, res) {
 
   let { username, password } = req.body,
     payload = { username, password };
-    console.log(payload)
+    //console.log(payload)
   // look for user that matches the posted email and password
   var token = "t" + Math.random();
   console.log(token);
@@ -22,7 +22,8 @@ router.post("/users/login", function (req, res) {
       throw err
     } else if(user === null || user === undefined) {
       console.log("user does not exist");
-      
+      console.log(res);
+      res.send("error");
     } else {
       res.cookie("token", token, { expires: new Date(Date.now() + 999999999) });
       // console.log(req.session);
