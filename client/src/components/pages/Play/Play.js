@@ -3,6 +3,7 @@ import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar";
 import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
+import TopPlayer from "../../LeaderBoard/TopPlayer";
 import Timer from "../../Timer/Timer";
 import axios from "axios";
 import timeFormat from "../../utils/timeFormat";
@@ -19,7 +20,6 @@ class Play extends Component {
         value: "",
         topEditor: "",
         time: 0,
-        username: "",
         hasBeenClicked: false,
         topScore: {
             player: "",
@@ -30,8 +30,6 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        this.handleTopPlayer();
-        this.handleLeaderboard();
         axios.get(`/api/prompt/forLoop`)
         .then((res) => {
             var data = res.data;
@@ -41,47 +39,37 @@ class Play extends Component {
             });
         });
     };
+
     getUserData = () => {
         axios.get("/api/users").then(res => {
             this.setState({
                 userData: res.data
             });
         });
-    }
+    };
+
     handleLeaderboard = () => {
         this.getUserData();
         return (
             <div>
-                {this.state.userData.map(p => {
-                    return (
-                        <LeaderBoard 
-                        key={p.id}
-                        username={p.username}
-                        time={p.time}
-                        topScore={this.state.topScore}
-                        />
-                    );
-                })}
+                <div className="alert alert-secondary rounded-top mt-4">
+                    LEADERBOARD
+                </div>
+                <hr className="my-3" />
+                <ul className="list-group list-group-flush mt-2">
+                    {this.state.userData.map(p => {
+                        return (
+                            <LeaderBoard 
+                            key={p.id}
+                            username={p.username}
+                            time={timeFormat(p.time)}
+                            topScore={this.state.topScore}
+                            />
+                        );
+                    })}
+                </ul>
             </div>
-            
         );
-        
-        
-        // this.getScores(scores => {
-        //     var orderedScores = [];
-        //     for (let i = 0; i < scores.length; i++) {
-        //         axios.get("/api/users/" + scores[i]).then((response) => {
-        //             orderedScores.push({
-        //                 player: response.data[0].username,
-        //                 time: scores[i]
-        //             });
-        //         });
-        //     }
-        //     this.setState({
-        //         allScores: orderedScores
-        //     }, cb);
-        // });
-
     };
 
     handleCountDown = () => {
@@ -90,20 +78,13 @@ class Play extends Component {
                 count: this.state.count - 1
             });
             console.log(this.state.count);
-        if (this.state.count === 0 && this.state.hasBeenClicked === false) {
-            console.log("passed");
-            clearInterval(countdown);
-            this.handleTimer();
-        }
-    }, 1000);
-    }
-
-    // getScores = () => {
-    //     axios.get("/api/users").then(res => {
-    //         console.log(res.data);
-            
-    //     });
-    // }
+            if (this.state.count === 0 && this.state.hasBeenClicked === false) {
+                console.log("passed");
+                clearInterval(countdown);
+                this.handleTimer();
+            }
+        }, 1000); 
+    };
 
     handleTopPlayer = () => {
         axios.get("/api/users").then(res => {
@@ -114,28 +95,25 @@ class Play extends Component {
                 }
             });
         });
-        // this.getScores(scores => {
-        //     axios.get("/api/users/" + scores[0]).then((response) => {
-        //         this.setState({
-        //             topScore: {
-        //                 player: response.data[0].username,
-        //                 time: scores[0]
-        //             }
-        //         }, cb);
-        //     });
-        // });
-    } 
+        return(
+            <div>
+                <TopPlayer 
+                username={this.state.topScore.player}
+                time={this.state.topScore.time}
+                />
+            </div>
+        );
+    }; 
 
     handlePrompt = event => {
         event.preventDefault();
-        axios.get(`/api/prompt/${event.target.value}`)
-            .then((res) => {
-                var data = res.data;
+        axios.get(`/api/prompt/${event.target.value}`).then((res) => {
+            var data = res.data;
 
-                this.setState({
-                    topEditor: data
-                });
+            this.setState({
+                topEditor: data
             });
+        });
     };
 
     checkProgress = value => {
@@ -159,14 +137,6 @@ class Play extends Component {
                 }
             }
             this.setState({ percentage: 100 / (strToMatch.length) * currentIndex });
-        });
-    };
-
-    handleUsername = () => {
-        axios.get("/api/user").then((response) => {
-            this.setState({
-                username: response.username
-            });
         });
     };
 
@@ -194,7 +164,7 @@ class Play extends Component {
         this.setState({stopwatch: 0});
         this.setState({value: ""});
         this.setState({percentage: 0});
-    }
+    };
 
     handlePost = () => {
 
@@ -278,18 +248,8 @@ class Play extends Component {
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
+                        {this.handleTopPlayer()}
                         {this.handleLeaderboard()}
-                        {/* <LeaderBoard
-                            key={this.state.Users.username}
-                            users={this.state.Users}
-                            topScore={this.state.topScore}
-                            allScores={this.state.allScores}
-                        /> */}
-
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
                     </div>
                 </div>
             </div>
