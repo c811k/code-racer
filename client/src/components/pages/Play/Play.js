@@ -169,8 +169,6 @@ class Play extends Component {
                 });
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
-                    //console.log(this.state.time);
-
                     this.handlePost();
                 }
             }, 1);
