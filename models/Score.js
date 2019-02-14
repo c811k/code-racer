@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const scoreSchema = new Schema({
     _uesrnameId: {
         type: Schema.Types.ObjectId,
-        ref: "Username"
+        ref: "User"
     },
     time: Number
 });

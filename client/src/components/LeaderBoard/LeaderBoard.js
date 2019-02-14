@@ -1,46 +1,36 @@
 import React from "react";
-import "./LeaderBoard.css"
 import TableData from "./TableData.js"
 import timeFormat from "../utils/timeFormat.js";
 
 function LeaderBoard(props) {
     return (
-        <div className="topPlayer" >
-            <h2>Top Player</h2>
-            <table style={{ "width": "75%" }}>
-                <tbody>
-                    <tr>
-                        <th>Username</th>
-                        <th>Fastest Time</th>
-                    </tr>
-                    <tr>
-                        <td>{props.topScore.player}</td>
-                        <td>{timeFormat(props.topScore.time)}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <br></br>
-
-            <h2>Leader Board</h2>
-            <table style={{ "width": "75%" }}>
-                <tbody>
-                    <tr>
-                        <th>Username</th>
-                        <th>Fastest Time</th>
-                    </tr>
-                    {props.allScores.map((p) => {
-                        return (
-                        <TableData 
-                        key={p.player}
-                        username={p.player}
-                        time={p.time}
-                        handleLeaderBoard={props.handleLeaderBoard}
-                        />
-                        );
-                    })}
-                </tbody>
-            </table>
+        <div>
+            <div className="alert alert-secondary rounded-top mt-4">
+                LEADERBOARD
+            </div>
+            <hr className="my-3" />
+            <ul className="list-group list-group-flush mt-2">
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                    <i className="fas fa-trophy"></i>Jonathan
+                    <h5><span className="badge badge-secondary">14.2</span></h5>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                    <i>2.</i>Clark
+                    <h5><span className="badge badge-secondary">15.7</span></h5>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                    <i>3.</i>Patrick
+                    <h5><span className="badge badge-secondary">17.3</span></h5>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                    <i>4.</i>Irwing
+                    <h5><span className="badge badge-secondary">19.8</span></h5>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                    <i>5.</i>Clint
+                    <h5><span className="badge badge-secondary">20.4</span></h5>
+                </li>
+            </ul>
         </div>
     );
 }

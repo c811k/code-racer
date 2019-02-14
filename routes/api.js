@@ -12,7 +12,7 @@ router.get("/api/scores", (req, res) => {
 });
 
 router.get("/api/users", (req, res) => {
-    db.User.find({}).then((data) => {
+    db.User.find({}).populate("times").then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -42,7 +42,7 @@ router.post("/api/user/:id", (req, res) => {
         return db.User.findOneAndUpdate({
             _id: req.params.id
         }, {
-                $push: { scores: dbScore._id }
+                $push: { times: dbScore._id }
             }, {
                 new: true
             });

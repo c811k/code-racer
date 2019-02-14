@@ -31,19 +31,14 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        /* this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => { */
-                axios.get(`/api/prompt/forLoop`)
-                .then((res) => {
-                    var data = res.data;
-    
-                    this.setState({
-                        topEditor: data
-                    });
-                });
-         /*    });
-        }); */
-       
+        axios.get(`/api/prompt/forLoop`)
+        .then((res) => {
+            var data = res.data;
+
+            this.setState({
+                topEditor: data
+            });
+        });
     };
 
 
@@ -139,14 +134,6 @@ class Play extends Component {
         });
     };
 
-    handleUsername = () => {
-        axios.get("/api/user").then((response) => {
-            this.setState({
-                username: response.username
-            });
-        });
-    };
-
     handleTimer = () => {
         var timer = 0;
         if (!this.state.hasBeenClicked) {
@@ -188,14 +175,12 @@ class Play extends Component {
     }
 
     render() {
-
         return (
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
-                        {this.state.count > 0 ? (
-                            <h1 id="countdown">{this.state.count}</h1>
-                        ) : (
+                        {this.state.count > 0 ? 
+                        (<h1 id="countdown">{this.state.count}</h1>) : (
                         <Timer
                             time={this.state.time}
                             handleTimer={this.handleTimer}
