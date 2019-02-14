@@ -25,46 +25,64 @@ class Play extends Component {
             player: "",
             time: 0
         },
-        allScores: [],
-        Users: [],
-        count: 3
+        count: 3,
+        userData: []
     }
 
     componentDidMount = () => {
-        /* this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => { */
-                axios.get(`/api/prompt/forLoop`)
-                .then((res) => {
-                    var data = res.data;
-    
-                    this.setState({
-                        topEditor: data
-                    });
-                });
-         /*    });
-        }); */
-       
-    };
+        this.handleTopPlayer();
+        this.handleLeaderboard();
+        axios.get(`/api/prompt/forLoop`)
+        .then((res) => {
+            var data = res.data;
 
-
-    handleLeaderboard = (cb) => {
-
-            this.getScores(scores => {
-                var orderedScores = [];
-                for (let i = 0; i < scores.length; i++) {
-                    axios.get("/api/users/" + scores[i]).then((response) => {
-                        orderedScores.push({
-                            player: response.data[0].username,
-                            time: scores[i]
-                        });
-                    });
-                }
-                this.setState({
-                    allScores: orderedScores
-                }, cb);
+            this.setState({
+                topEditor: data
             });
-
+        });
+    };
+    getUserData = () => {
+        axios.get("/api/users").then(res => {
+            this.setState({
+                userData: res.data
+            });
+        });
     }
+    handleLeaderboard = () => {
+        this.getUserData();
+        return (
+            <div>
+                {this.state.userData.map(p => {
+                    return (
+                        <LeaderBoard 
+                        key={p.id}
+                        username={p.username}
+                        time={p.time}
+                        topScore={this.state.topScore}
+                        />
+                    );
+                })}
+            </div>
+            
+        );
+        
+        
+        // this.getScores(scores => {
+        //     var orderedScores = [];
+        //     for (let i = 0; i < scores.length; i++) {
+        //         axios.get("/api/users/" + scores[i]).then((response) => {
+        //             orderedScores.push({
+        //                 player: response.data[0].username,
+        //                 time: scores[i]
+        //             });
+        //         });
+        //     }
+        //     this.setState({
+        //         allScores: orderedScores
+        //     }, cb);
+        // });
+
+    };
 
     handleCountDown = () => {
         var countdown = setInterval(() => {
@@ -80,24 +98,32 @@ class Play extends Component {
     }, 1000);
     }
 
-    getScores = () => {
-        axios.get("/api/users").then(res => {
-            console.log(res.data);
+    // getScores = () => {
+    //     axios.get("/api/users").then(res => {
+    //         console.log(res.data);
             
-        });
-    }
+    //     });
+    // }
 
-    handleTopPlayer = (cb) => {
-        this.getScores(scores => {
-            axios.get("/api/users/" + scores[0]).then((response) => {
-                this.setState({
-                    topScore: {
-                        player: response.data[0].username,
-                        time: scores[0]
-                    }
-                }, cb);
+    handleTopPlayer = () => {
+        axios.get("/api/users").then(res => {
+            this.setState({
+                topScore: {
+                    player: res.data[0].username,
+                    time: res.data[0].time
+                }
             });
         });
+        // this.getScores(scores => {
+        //     axios.get("/api/users/" + scores[0]).then((response) => {
+        //         this.setState({
+        //             topScore: {
+        //                 player: response.data[0].username,
+        //                 time: scores[0]
+        //             }
+        //         }, cb);
+        //     });
+        // });
     } 
 
     handlePrompt = event => {
@@ -252,12 +278,13 @@ class Play extends Component {
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
-                        <LeaderBoard
+                        {this.handleLeaderboard()}
+                        {/* <LeaderBoard
                             key={this.state.Users.username}
                             users={this.state.Users}
                             topScore={this.state.topScore}
                             allScores={this.state.allScores}
-                        />
+                        /> */}
 
                     </div>
                 </div>

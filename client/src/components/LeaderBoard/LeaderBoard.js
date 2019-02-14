@@ -15,7 +15,7 @@ function LeaderBoard(props) {
                     </tr>
                     <tr>
                         <td>{props.topScore.player}</td>
-                        <td>{timeFormat(props.topScore.time)}</td>
+                        <td>{props.topScore.time}</td>
                     </tr>
                 </tbody>
             </table>
@@ -29,16 +29,10 @@ function LeaderBoard(props) {
                         <th>Username</th>
                         <th>Fastest Time</th>
                     </tr>
-                    {props.allScores.map((p) => {
-                        return (
-                        <TableData 
-                        key={p.player}
-                        username={p.player}
-                        time={p.time}
-                        handleLeaderBoard={props.handleLeaderBoard}
-                        />
-                        );
-                    })}
+                    <tr>
+                        <td>{props.username}</td>
+                        <td>{props.time}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
