@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import axios from "axios";
 import Signup from "./Signup";
 import Login from "./Login";
+import Register from "../Register/Register"
 // import "./style.css";
 
 class Auth extends Component {
+
     state = {
         isLoginOpen: true,
         isRegisterOpen: false,
         username: "",
         password: ""
     }
-    
+
+
+
 
     showRegisterBox = () => {
         this.setState({
@@ -34,40 +38,43 @@ class Auth extends Component {
     };
 
     handleFormSubmit = () => {
-        var {username, password} = this.state;
+        var { username, password } = this.state;
         let payload = { username, password };
         axios.post("/api/user", payload);
         window.location.reload();
     };
 
     handleLogin = (event) => {
-    
+
         event.preventDefault();
         let { username, password } = this.state;
         let payload = { username, password };
-        
+
         // console.log(this.state);
         // send credentials to back-end to check account
         axios.post("/users/login", payload).then((res) => {
             console.log(res.data);
-            if (res.data) {
+            if (res.data !== "error") {
                 // if successful, set auth value on parent
                 // this.props.setLogin();
-                this.props.history.push("/profile");
+                this.props.getLogin(() => {
+                    this.props.history.push("/profile");
+                });
             }
-            else {
+            else if (res.data) {
                 // show error message
                 this.setState({
                     error: "Failed to log in"
                 })
-                alert("hello");
             }
         });
     };
-    
+
     render() {
+        let register = this.state.error ? <Register /> : null;
         return (
             <div>
+
                 <div className="login-tab btn-group btn-group-toggle">
                     <div className={"login-register text-center btn btn-light " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
                         LOGIN
@@ -92,6 +99,7 @@ class Auth extends Component {
                         handleInputChange={this.handleInputChange}
                         handleFormSubmit={this.handleFormSubmit}
                     />}
+                {register}
             </div>
         );
     }

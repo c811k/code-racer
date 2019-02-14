@@ -15,6 +15,7 @@ import "./play.css";
 class Play extends Component {
 
     state = {
+        playOn: false,
         percentage: 0,
         value: "",
         topEditor: "",
@@ -188,7 +189,25 @@ class Play extends Component {
     }
 
     render() {
-
+        let showEditor = this.state.hasBeenClicked ? <AceEditor
+                            handleInput
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            onChange={this.checkProgress}
+                            name="UNIQUE_ID_OF_DIV2"
+                            style={{ width: "100%" }}
+                            value={this.state.value}
+                            editorProps={{
+                                $blockScrolling: true
+                            }}
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                tabSize: 2,
+                                behavioursEnabled: false
+                            }}
+                        /> : null;
         return (
             <div className="play">
                 <div className="row text-center">
@@ -213,11 +232,12 @@ class Play extends Component {
                                 $blockScrolling: true
 
                             }}
+                            readOnly={true}
+                            
                             setOptions={{
                                 fontSize: '10pt',
                                 minLines: 12,
                                 maxLines: 12,
-                                readOnly: true,
                                 tabSize: 2
                             }}
                         />
@@ -227,25 +247,9 @@ class Play extends Component {
                             percentage={this.state.percentage}
                         />
                         <hr className="my-3" />
-
-                        <AceEditor
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            onChange={this.checkProgress}
-                            name="UNIQUE_ID_OF_DIV2"
-                            style={{ width: "100%" }}
-                            value={this.state.value}
-                            editorProps={{
-                                $blockScrolling: true
-                            }}
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                tabSize: 2,
-                                behavioursEnabled: false
-                            }}
-                        />
+                        
+                        {showEditor}
+                        
                     </div>
 
                     <div className="col-md-3">
