@@ -26,6 +26,12 @@
     padding-top: 15px;
 }
 
+#countdown {
+    position: absolute;
+    left: 48%;
+    top: 5px;
+}
+
 
 .ace_editor {
     border-radius: 6px;

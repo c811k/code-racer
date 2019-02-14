@@ -24,7 +24,8 @@ class Play extends Component {
             time: 0
         },
         allScores: [],
-        Users: []
+        Users: [],
+        count: 3
     }
 
     componentDidMount = () => {
@@ -43,6 +44,7 @@ class Play extends Component {
        
     };
 
+
     handleLeaderboard = (cb) => {
 
             this.getScores(scores => {
@@ -60,6 +62,20 @@ class Play extends Component {
                 }, cb);
             });
 
+    }
+
+    handleCountDown = () => {
+        var countdown = setInterval(() => {
+            this.setState({
+                count: this.state.count - 1
+            });
+            console.log(this.state.count);
+        if (this.state.count === 0 && this.state.hasBeenClicked === false) {
+            console.log("passed");
+            clearInterval(countdown);
+            this.handleTimer();
+        }
+    }, 1000);
     }
 
     getScores = (cb) => {
@@ -133,15 +149,41 @@ class Play extends Component {
         var timer = 0;
         if (!this.state.hasBeenClicked) {
 
-            setInterval(() => {
+            var Timer = setInterval(() => {
                 timer++;
                 this.setState({
                     time: timer,
                     hasBeenClicked: true
                 });
+                if (this.state.percentage === 100) {
+                    clearInterval(Timer);
+                    console.log(this.state.time);
+                    this.handlePost();
+                }
             }, 1);
         }
     };
+
+    resetGame = () =>{
+
+        this.setState({stopwatch: 0});
+        this.setState({value: ""});
+        this.setState({percentage: 0});
+    }
+
+    handlePost = () => {
+
+            axios.post("/api/user", {
+                time: this.state.time*425,
+                username: this.state.username,
+            }).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });
+            this.resetGame();
+
+    }
 
     render() {
 
@@ -149,11 +191,15 @@ class Play extends Component {
             <div className="play">
                 <div className="row text-center">
                     <div className="col-md-9">
+                        {this.state.count > 0 ? (
+                            <h1 id="countdown">{this.state.count}</h1>
+                        ) : (
                         <Timer
                             time={this.state.time}
                             handleTimer={this.handleTimer}
                         />
-                        <button onClick={!this.state.hasBeenClicked && this.handleTimer} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                        )}
+                        <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
                         <AceEditor
                             mode="javascript"
