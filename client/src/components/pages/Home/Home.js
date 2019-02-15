@@ -1,5 +1,5 @@
 import React from "react";
-import demoGif from"./images/demoGif.gif";
+import demoGif from"./images/frontPageGif.gif";
 import slowtyper from"./images/slowtyper.gif";
 import fasttyper from"./images/fasttyper.gif";
 import "./Home.css";
@@ -12,13 +12,11 @@ function Home() {
     <div className="entireHome">
         <div className="container">
             <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-12 topspace">
                 <img className="loadingGif" src={demoGif}></img>
                 </div>
             </div>
         </div>
-    <br></br>
-    <br></br>
     <div className="container">
             <div className="row">
                 <div className="col-md-12">
@@ -26,8 +24,6 @@ function Home() {
                 </div>
             </div>
     </div>
-    <br></br>
-
     <div className="container">
         <div className="row">
             <div className="col-md-5">
