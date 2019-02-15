@@ -3,3 +3,24 @@
     width: 100%;
     display: block
 }
+
+.slowtyper {
+    width: 100%;
+    border-radius: 25px;
+    background: black;
+    padding: 15px; 
+}
+
+
+.fasttyper {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background: black;
+    padding: 15px; 
+}
+
+h1 {
+    text-align: center;
+}
+

@@ -1,5 +1,8 @@
 import React from "react";
-import gif from "./frontPageGif.gif";
+import demoGif from"./images/demoGif.gif";
+import slowtyper from"./images/slowtyper.gif";
+import fasttyper from"./images/fasttyper.gif";
+import rightArrow from"./images/rightArrow.png";
 import "./Home.css";
 
 
@@ -9,30 +12,34 @@ function Home() {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                <img className="loadingGif" src={gif}></img>
+                <img className="loadingGif" src={demoGif}></img>
                 </div>
             </div>
         </div>
     <br></br>
     <br></br>
+    <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <h1>Can you go from</h1>
+                </div>
+            </div>
+        </div>
     <br></br>
 
     <div className="container">
         <div className="row">
-            <div className="col-md-6">
-            <div className="leftside">
-                Sit minim ex laboris ex est aliquip fugiat ad irure adipisicing. Ipsum nostrud irure exercitation anim magna duis. Incididunt fugiat commodo commodo duis.
-                Sit minim ex laboris ex est aliquip fugiat ad irure adipisicing. Ipsum nostrud irure exercitation anim magna duis. Incididunt fugiat commodo commodo duis.
+            <div className="col-md-5">
+                <img className="slowtyper" src={slowtyper}></img>
             </div>
-            </div>
-            <div className="col-md-6">
 
-            <div className="rightSide">
-
-            Sit minim ex laboris ex est aliquip fugiat ad irure adipisicing. Ipsum nostrud irure exercitation anim magna duis. Incididunt fugiat commodo commodo duis.
-            Sit minim ex laboris ex est aliquip fugiat ad irure adipisicing. Ipsum nostrud irure exercitation anim magna duis. Incididunt fugiat commodo commodo duis.
+            <div className="col-md-2">
+                <h1>to</h1> 
             </div>
-        </div>
+
+            <div className="col-md-5">
+            <img className="fasttyper" src={fasttyper}></img>
+            </div>
 
         </div>
         
@@ -41,9 +48,11 @@ function Home() {
     <br></br>
     <br></br>
 
-    <div className="card-columns">
+    
+
+    {/* <div className="card-columns">
   <div className="card">
-    <img className="card-img-top" src="..." alt="Card image cap"/>
+    <img className="card-img-top" src={slowtyper} alt="Card image cap"/>
     <div className="card-body">
       <h5 className="card-title">Card title that wraps to a new line</h5>
       <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -104,7 +113,9 @@ function Home() {
       <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
-</div>
+</div> */}
+
+
     </div>
         
     );
