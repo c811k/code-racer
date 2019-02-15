@@ -80,7 +80,16 @@ class Play extends Component {
                     this.handleTimer();
                 }
             });
+<<<<<<< HEAD
 
+=======
+            
+        if (this.state.count === 0 && this.state.hasBeenClicked === false) {
+            
+            clearInterval(countdown);
+            this.handleTimer();
+        }
+>>>>>>> indexbranch4
     }, 1000);
        })
        
