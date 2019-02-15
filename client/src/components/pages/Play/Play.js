@@ -16,7 +16,6 @@ import "./play.css";
 class Play extends Component {
 
     state = {
-        playOn: false,
         percentage: 0,
         value: "",
         topEditor: "",
@@ -35,40 +34,53 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-         this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => { 
-                axios.get(`/api/prompt/forLoop`)
-                .then((res) => {
-                    var data = res.data;
-    
-                    this.setState({
-                        topEditor: data
-                    });
-                });
-             }); 
-        }); 
-       
+        this.getUserData(()=> {
+            this.handleLeaderboard();
+            this.handleTopPlayer();
+        });
+        axios.get(`/api/prompt/forLoop`).then((res) => {
+            var data = res.data;
+
+            this.setState({
+                topEditor: data
+            });
+        });
     };
 
-
-    handleLeaderboard = (cb) => {
-
-            this.getScores(scores => {
-                var orderedScores = [];
-                for (let i = 0; i < scores.length; i++) {
-                    axios.get("/api/users/" + scores[i]).then((response) => {
-                        orderedScores.push({
-                            player: response.data[0].username,
-                            time: scores[i]
-                        });
-                    });
+    getUserData = (cb) => {
+        axios.get("/api/users").then(res => {
+            this.setState({
+                userData: res.data,
+                topScore: {
+                    player: res.data[0].username,
+                    time: res.data[0].time
                 }
-                this.setState({
-                    allScores: orderedScores
-                }, cb);
             });
+        }, cb);
+    };
 
-    }
+    displayLeaderboard = () => {
+        return (
+            <div>
+                <div className="alert alert-secondary rounded-top mt-5">
+                    LEADERBOARD
+                </div>
+                <hr className="my-3" />
+                <ul className="list-group list-group-flush mt-2">
+                    {this.state.userData.map(p => {
+                            return (
+                                <LeaderBoard 
+                                key={p._id}
+                                username={p.username}
+                                time={timeFormat(p.time)}
+                                topScore={this.state.topScore}
+                                />
+                            );
+                    })}
+                </ul>
+            </div>
+        );
+    };
 
     handleCountDown = () => {
         this.setState({time: 0});
@@ -83,32 +95,19 @@ class Play extends Component {
                 }
             });
     }, 1000);
-       })
-       
+       })  
     }
 
-    getScores = (cb) => {
-        var scores = [];
-        axios.get("/api/users").then((response) => {
-            for (var i = 0; i < response.data.length; i++) {
-                scores.push(response.data[i].time);
-            }
-            cb(scores.sort(function (a, b) { return a - b }))
-        });
-    }
-
-    handleTopPlayer = (cb) => {
-        this.getScores(scores => {
-            axios.get("/api/users/" + scores[0]).then((response) => {
-                this.setState({
-                    topScore: {
-                        player: response.data[0].username,
-                        time: scores[0]
-                    }
-                }, cb);
-            });
-        });
-    } 
+    displayTopPlayer = () => {
+        return(
+            <div>
+                <TopPlayer 
+                username={this.state.topScore.player}
+                time={this.state.topScore.time}
+                />
+            </div>
+        );
+    }; 
 
     handlePrompt = event => {
         event.preventDefault();
@@ -249,29 +248,36 @@ class Play extends Component {
         
                     <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
 
+                        <Timer
+                            time={this.state.time}
+                            handleCountDown={this.handleCountDown}
+                            count={this.state.count}
+                            hasBeenClicked={this.state.hasBeenClicked}
+                        />
+                        
                         <AceEditor
                             mode="javascript"
                             theme="tomorrow_night"
                             value={this.state.topEditor}
                             name="UNIQUE_ID_OF_DIV"
                             style={{ width: "100%" }}
+                            readOnly={true}
+                            highlightActiveLine={false}
                             editorProps={{
                                 $blockScrolling: true
-
                             }}
-                            readOnly={true}
-                            
                             setOptions={{
                                 fontSize: '10pt',
                                 minLines: 12,
                                 maxLines: 12,
-                                tabSize: 2
+                                tabSize: 2,
                             }}
                         />
 
                         <hr className="my-3" />
                         <ProgressBar
                             percentage={this.state.percentage}
+                            username={this.state.username}
                         />
                         <hr className="my-3" />
                         
@@ -283,6 +289,7 @@ class Play extends Component {
                             name="UNIQUE_ID_OF_DIV2"
                             style={{ width: "100%" }}
                             value={this.state.value}
+                            readOnly={this.state.hasBeenClicked === false ? true : false}
                             editorProps={{
                                 $blockScrolling: true
                             }}
@@ -298,19 +305,14 @@ class Play extends Component {
                     </div>
 
                     <div className="col-md-3">
-                        <div className="alert alert-light">
+                        <div className="alert alert-secondary" id="language">
                             LANGUAGE: JAVASCRIPT
                     </div>
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
-                        <LeaderBoard
-                            key={this.state.Users.username}
-                            users={this.state.Users}
-                            topScore={this.state.topScore}
-                            allScores={this.state.allScores}
-                        />
-
+                        {this.displayTopPlayer()}
+                        {this.displayLeaderboard()}
                     </div>
                 </div>
             </div>

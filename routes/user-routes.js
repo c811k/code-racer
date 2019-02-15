@@ -38,7 +38,7 @@ router.post("/users/login", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-  console.log('get login route  ', req.session.user);
+  console.log('get login route ', req.session.user);
   // check session first
   if (req.session.user) {
     console.log("session is true");
@@ -57,7 +57,6 @@ router.get("/login", function (req, res) {
     }).catch(err => {
       if(err) throw err;
     });
-    console.log("hit hit hit")
     // no match, so clear cookie
     res.clearCookie("token");
     return res.end();
@@ -77,14 +76,12 @@ router.get("/api/profile", function (req, res) {
         res.json(payload);
   }
   else {
-    console.log("hello hello")
     res.end();
   }
 });
 
 router.get("/logout", function (req, res) {
   // clear cookie and session
-  console.log("hit log out");
   res.clearCookie("token");
   req.session.destroy();
 

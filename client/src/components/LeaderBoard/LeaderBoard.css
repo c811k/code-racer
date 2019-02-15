@@ -1,3 +1,14 @@
 .topPlayer {
     padding-top: 10px;
 }
+
+#title {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#topPlayer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

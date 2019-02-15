@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/pages/Home/Home";
 import Play from "./components/pages/Play/Play";
@@ -8,7 +8,6 @@ import Auth from "./components/pages/Login";
 import Profile from "./components/pages/Profile/Profile";
 import "./app.css";
 import axios from "axios";
-
 
 class App extends Component {
 
@@ -25,6 +24,7 @@ class App extends Component {
         authenticated: res.data
       });
     });
+    this.getLogin();
   }
 
   setLogin = () => {
@@ -33,11 +33,6 @@ class App extends Component {
       authenticated: true
     });
   };
-
-  componentDidMount() {
-    // check if user has already logged in successfully
-    this.getLogin();
-  }
 
   getLogin = (cb) => {
     axios.get("/api/profile").then((res) => {
@@ -49,28 +44,23 @@ class App extends Component {
   }
 
   render() {
-
     return (
-      <div style={this.divStyle}>
-        <div className="container">
-          <Router>
-            <div>
-              <Navbar  username={this.state.username}/>
-
-              <Switch>
-                <Route exact path="/login" render={(props) => <Auth getLogin={this.getLogin} {...props} />} />
-                {/* {!this.state.authenticated ? <Redirect to="/login" /> : null} */}
-                <Route exact path="/" component={Home} />
-                <Route exact path="/play" component={Play} />
-                <Route exact path="/about" component={About} />
-                {/* <Route exact path="/login" component={Login} /> */}
-                <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} topscore={this.state.topscore} username={this.state.username} {...props} />} />
-              </Switch>
-            </div>
-          </Router>
-        </div>
+      <div>
+        <Router>
+          <div>
+            <Navbar  username={this.state.username}/>
+            <Switch>
+              <Route exact path="/login" render={(props) => <Auth getLogin={this.getLogin} {...props} />} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/play" component={Play} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} topscore={this.state.topscore} username={this.state.username} {...props} />} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }
 }
+
 export default App;

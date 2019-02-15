@@ -1,24 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 class Profile extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loaded: false,
-            username: "",
-            topscore: ""
-        };
-    }
+    state = {
+        loaded: false,
+        username: "",
+        topscore: ""
+    };
 
     componentWillMount() {
         const {username, topscore} = this.props;
         this.setState({username, topscore})
     }
-
-
 
     handleLogout = () => {
         axios.get("/logout").then(() => {

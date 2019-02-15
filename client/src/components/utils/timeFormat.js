@@ -10,8 +10,6 @@ export default function timeFormat(miliseconds) {
 
   let remaining = miliseconds / 1000;
 
-  const hh = parseInt( remaining / 3600, 10 );
-
   remaining %= 100000;
 
   const mm = parseInt( remaining / 100, 10 );
