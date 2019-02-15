@@ -22,7 +22,7 @@ function Navbar(props) {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
-            <a className="navbar-brand" href="/"><img className="mr-3" src="http://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" />CODE RACER</a>
+            <a className="navbar-brand" href="/"><img className="mr-3" src="https://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" />CODE RACER</a>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item ml-2">
