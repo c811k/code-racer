@@ -35,7 +35,7 @@ class Play extends Component {
 
     componentDidMount = () => {
         /* this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => { */
+            this.handleLeaderboard(() => {  */
                 axios.get(`/api/prompt/forLoop`)
                 .then((res) => {
                     var data = res.data;
@@ -43,9 +43,9 @@ class Play extends Component {
                     this.setState({
                         topEditor: data
                     });
-                });
-         /*    });
-        }); */
+             /*    });
+             }); */
+        }); 
        
     };
 
