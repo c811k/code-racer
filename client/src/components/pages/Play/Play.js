@@ -4,6 +4,7 @@ import ProgressBar from "../../ProgressBar";
 import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import Timer from "../../Timer/Timer";
+import timeFormat from "../../utils/timeFormat.js";
 import axios from "axios";
 import Example from "../Modal/Modal";
 import "brace/mode/javascript";
@@ -34,8 +35,8 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        /* this.handleTopPlayer(() => {
-            this.handleLeaderboard(() => {  */
+         this.handleTopPlayer(() => {
+            this.handleLeaderboard(() => { 
                 axios.get(`/api/prompt/forLoop`)
                 .then((res) => {
                     var data = res.data;
@@ -43,8 +44,8 @@ class Play extends Component {
                     this.setState({
                         topEditor: data
                     });
-             /*    });
-             }); */
+                });
+             }); 
         }); 
        
     };
@@ -187,9 +188,15 @@ class Play extends Component {
             this.setState({
                 username: response.data.username
             });
-            if (this.state.time < response.data.time) {
+            if (this.state.time*425 < response.data.time) {
                 console.log(response.data.time);
-                console.log(this.state.username);
+                console.log(this.state.time);
+                console.log(response.data.time);
+                console.log(this.state.time*425);
+                console.log(timeFormat(response.data.time));
+                console.log(timeFormat(this.state.time*425));
+
+
 
                 axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
                     time: this.state.time*425,
@@ -200,9 +207,8 @@ class Play extends Component {
                     console.log(error);
                 });
                 //this.resetGame();
-            } else {
+            } else if (response.data.time > this.state.time*425) {
                 axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
-                    time: this.state.time*425,
                     username: this.state.username
                 }).then((response) => {
                     console.log(response);
