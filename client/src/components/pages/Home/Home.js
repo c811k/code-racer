@@ -50,11 +50,11 @@ function Home() {
 
             <div className="row mt-5">
                 <div className="col-md-6">
-                    <Link to="/play" className="btn btn-danger btn-lg col-md-12">PLAY NOW!
+                    <Link to="/play" className="btn btn-danger btn-lg rounded-0 shadow col-md-12">PLAY NOW!
                     </Link>
                 </div>
                 <div className="col-md-6">
-                    <Link to="/login" className="btn btn-danger btn-lg col-md-12">
+                    <Link to="/login" className="btn btn-danger btn-lg rounded-0 shadow col-md-12">
                         LOGIN
                     </Link>
                 </div>

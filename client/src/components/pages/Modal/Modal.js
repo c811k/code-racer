@@ -32,7 +32,7 @@ class Example extends React.Component {
     }
   
     render() {
-      const prompts= ["Sweet!", "Awesome! ", "Good Job! ", "Wow, that was fast! "];
+      const prompts= ["SWEET! ", "AWESOME! ", "GOOD JOB! ", "WOW, THAT WAS FAST! "];
 
       return (
         <Modal show={this.state.show} onHide={this.handleClose} {...this.props}
@@ -40,9 +40,9 @@ class Example extends React.Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered>
           <Modal.Body>
-            <h5>
+            <h5 className="text-center">
             {`${prompts[Math.floor(Math.random() * (4))]}
-            Your time was : ${timeFormat(this.state.userTime *425)} seconds`}
+            YOUR TIME WAS : ${timeFormat(this.state.userTime *425)} SECONDS`}
             </h5>
           </Modal.Body>
           <Modal.Footer>

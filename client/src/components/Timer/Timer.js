@@ -8,7 +8,7 @@ function Timer(props) {
             
             
             {props.hasBeenClicked === false ? <div><h5>CLICK START TO BEGIN</h5>
-            <button onClick={props.handleCountDown} className="alert-ligth btn btn-light">START <i className="far fa-play-circle"></i></button><h6>Game starts in... {props.count}</h6></div> : <div>
+            <button onClick={props.handleCountDown} className="btn btn-danger alert-danger rounded-0 mb-1">START <i className="far fa-play-circle"></i></button><h6>Game starts in... {props.count}</h6></div> : <div>
             <h1 class="mt-4 mb-4">{timeFormat(props.time * 425)} seconds</h1></div>}
             
                  

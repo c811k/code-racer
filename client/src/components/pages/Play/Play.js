@@ -5,6 +5,7 @@ import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
 import TopPlayer from "../../LeaderBoard/TopPlayer";
 import Timer from "../../Timer/Timer";
+import Footer from "../../Footer/Footer";
 import timeFormat from "../../utils/timeFormat.js";
 import axios from "axios";
 import Example from "../Modal/Modal";
@@ -216,82 +217,85 @@ class Play extends Component {
 
     render() {
         return (
-            <div className="play">
-                <div className="row text-center">
-                    <div className="col-md-9">
+            <div>
+                <div className="play">
+                    <div className="row text-center">
+                        <div className="col-md-9">
 
-                        {/* Modal */}
-                        <Example 
-                            finished={this.state.finished} userTime={this.state.time}
-                        />
+                            {/* Modal */}
+                            <Example 
+                                finished={this.state.finished} userTime={this.state.time}
+                            />
 
-                        <Timer
-                            time={this.state.time}
-                            handleCountDown={this.handleCountDown}
-                            count={this.state.count}
-                            hasBeenClicked={this.state.hasBeenClicked}
-                        />
-                        
-                        <AceEditor
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            value={this.state.topEditor}
-                            name="UNIQUE_ID_OF_DIV"
-                            style={{ width: "100%" }}
-                            readOnly={true}
-                            highlightActiveLine={false}
-                            editorProps={{
-                                $blockScrolling: true
-                            }}
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                tabSize: 2,
-                            }}
-                        />
+                            <Timer
+                                time={this.state.time}
+                                handleCountDown={this.handleCountDown}
+                                count={this.state.count}
+                                hasBeenClicked={this.state.hasBeenClicked}
+                            />
+                            
+                            <AceEditor
+                                mode="javascript"
+                                theme="tomorrow_night"
+                                value={this.state.topEditor}
+                                name="UNIQUE_ID_OF_DIV"
+                                style={{ width: "100%" }}
+                                readOnly={true}
+                                highlightActiveLine={false}
+                                editorProps={{
+                                    $blockScrolling: true
+                                }}
+                                setOptions={{
+                                    fontSize: '10pt',
+                                    minLines: 12,
+                                    maxLines: 12,
+                                    tabSize: 2,
+                                }}
+                            />
 
-                        <hr className="my-3" />
-                        <ProgressBar
-                            percentage={this.state.percentage}
-                            username={this.state.username}
-                        />
-                        <hr className="my-3" />
-                        
-                        <AceEditor
-                            handleInput
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            onChange={this.checkProgress}
-                            name="UNIQUE_ID_OF_DIV2"
-                            style={{ width: "100%" }}
-                            value={this.state.value}
-                            readOnly={this.state.hasBeenClicked === false ? true : false}
-                            editorProps={{
-                                $blockScrolling: true
-                            }}
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                tabSize: 2,
-                                behavioursEnabled: false
-                            }}
-                        />
-                        
-                    </div>
-
-                    <div className="col-md-3">
-                        <div className="alert alert-secondary" id="language">
-                            LANGUAGE: JAVASCRIPT
+                            <hr className="my-3" />
+                            <ProgressBar
+                                percentage={this.state.percentage}
+                                username={this.state.username}
+                            />
+                            <hr className="my-3" />
+                            
+                            <AceEditor
+                                handleInput
+                                mode="javascript"
+                                theme="tomorrow_night"
+                                onChange={this.checkProgress}
+                                name="UNIQUE_ID_OF_DIV2"
+                                style={{ width: "100%" }}
+                                value={this.state.value}
+                                readOnly={this.state.hasBeenClicked === false ? true : false}
+                                editorProps={{
+                                    $blockScrolling: true
+                                }}
+                                setOptions={{
+                                    fontSize: '10pt',
+                                    minLines: 12,
+                                    maxLines: 12,
+                                    tabSize: 2,
+                                    behavioursEnabled: false
+                                }}
+                            />
+                            
                         </div>
-                        <PromptMenu
-                            handlePrompt={this.handlePrompt}
-                        />
-                        {this.displayTopPlayer()}
-                        {this.displayLeaderboard()}
+
+                        <div className="col-md-3" id="scoreboard">
+                            <div className="alert alert-secondary" id="language">
+                                LANGUAGE: JAVASCRIPT
+                            </div>
+                            <PromptMenu
+                                handlePrompt={this.handlePrompt}
+                            />
+                            {this.displayTopPlayer()}
+                            {this.displayLeaderboard()}
+                        </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

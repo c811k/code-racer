@@ -79,7 +79,7 @@ class Auth extends Component {
                         REGISTER
                     </div>
                 </div>
-
+                <div className="mt-2">{register}</div>
                 {this.state.isLoginOpen &&
                     <Login
                         username={this.state.username}
@@ -95,7 +95,6 @@ class Auth extends Component {
                         handleInputChange={this.handleInputChange}
                         handleFormSubmit={this.handleFormSubmit}
                     />}
-                {register}
             </div>
         );
     }

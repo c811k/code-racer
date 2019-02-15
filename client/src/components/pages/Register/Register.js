@@ -3,8 +3,8 @@ import React from "react";
 
 function Register () {
     return (
-        <div>
-            <p>USER NOT FOUND. PLEASE REGISTER TO LOGIN</p>
+        <div className="text-center">
+            <div className="alert alert-danger">USER NOT FOUND. PLEASE REGISTER TO LOGIN</div>
         </div>
     )
 }

@@ -22,7 +22,7 @@
     height: 645px;
 } */
 
-.col-md-3 {
+#scoreboard {
     background: rgba(255, 255, 255, .40);
     padding-top: 15px;
     padding-bottom: 15px;
