@@ -50,13 +50,13 @@ class Auth extends Component {
         let { username, password } = this.state;
         let payload = { username, password };
 
-        // console.log(this.state);
+        
         // send credentials to back-end to check account
         axios.post("/users/login", payload).then((res) => {
             console.log(res.data);
             if (res.data !== "error") {
                 // if successful, set auth value on parent
-                // this.props.setLogin();
+                
                 this.props.getLogin(() => {
                     this.props.history.push("/profile");
                 });

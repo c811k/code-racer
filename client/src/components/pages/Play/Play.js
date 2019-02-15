@@ -72,9 +72,9 @@ class Play extends Component {
             this.setState({
                 count: this.state.count - 1
             });
-            console.log(this.state.count);
+            
         if (this.state.count === 0 && this.state.hasBeenClicked === false) {
-            console.log("passed");
+            
             clearInterval(countdown);
             this.handleTimer();
         }
@@ -160,7 +160,7 @@ class Play extends Component {
                 });
                 if (this.state.percentage === 100) {
                     clearInterval(Timer);
-                    console.log(this.state.time);
+                    
                     this.handlePost();
                 }
             }, 1);
@@ -180,9 +180,9 @@ class Play extends Component {
                 time: this.state.time*425,
                 username: this.state.username,
             }).then((response) => {
-                console.log(response);
+                
             }).catch((error) => {
-                console.log(error);
+                
             });
             this.resetGame();
 
