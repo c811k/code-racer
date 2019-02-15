@@ -3,6 +3,7 @@ import AceEditor from "react-ace";
 import ProgressBar from "../../ProgressBar";
 import PromptMenu from "../../promptMenu/PromptMenu";
 import LeaderBoard from "../../LeaderBoard/LeaderBoard";
+import TopPlayer from "../../LeaderBoard/TopPlayer";
 import Timer from "../../Timer/Timer";
 import timeFormat from "../../utils/timeFormat.js";
 import axios from "axios";
@@ -26,8 +27,7 @@ class Play extends Component {
             player: "",
             time: 0
         },
-        allScores: [],
-        Users: [],
+        userData: [],
         count: 3,
         id: "",
         finished: false
@@ -242,11 +242,11 @@ class Play extends Component {
                     {/* Modal */}
                     <Example finished={this.state.finished} userTime={this.state.time}/>
 
-                    {/* Conditionally renders timer or stopwatch */}
+                    {/* Conditionally renders timer or stopwatch
                     {this.state.count > 0 ? <h1 id="countdown">{this.state.count}</h1> : <Timer time={this.state.time} handleTimer={this.handleTimer}/>}
 
         
-                    <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button>
+                    <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button> */}
 
                         <Timer
                             time={this.state.time}
