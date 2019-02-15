@@ -3,13 +3,16 @@
 
 <img src="./client/src/components/pages/Home/images/frontPageGif.gif">
 
+
 ## Compete To Get The Best Time!
 
 Registering and Logging In is recommended to keep track of your times in the Leaderboard, but not necessary! 
 
 Click play now and when the countdown is done, begin typing to move the progress bar towards completion!
 
+## Deployed Website
 
+https://coderacer-app.herokuapp.com/
 
 ## Built With
 
