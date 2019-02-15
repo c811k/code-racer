@@ -80,14 +80,14 @@ class Play extends Component {
                 <hr className="my-3" />
                 <ul className="list-group list-group-flush mt-2">
                     {this.state.userData.map(p => {
-                            return (
-                                <LeaderBoard 
-                                key={p._id}
-                                username={p.username}
-                                time={p.time}
-                                topScore={this.state.topScore}
-                                />
-                            );
+                        return (
+                            <LeaderBoard 
+                            key={p._id}
+                            username={p.username}
+                            time={p.time}
+                            topScore={this.state.topScore}
+                            />
+                        );
                     })}
                 </ul>
             </div>
