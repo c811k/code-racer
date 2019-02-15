@@ -28,7 +28,7 @@ function About() {
                 <div className="row text-center">
                 <div className="col-md-12">
                     <h2 className="alert alert-secondary mb-5">
-                        <div className="mb-2"><img className="mr-3" src="http://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" /></div>
+                        <div className="mb-2"><img className="mr-3" src="https://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" /></div>
                         MEET OUR TEAM
                     </h2>
                 </div>
