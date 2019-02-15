@@ -5,10 +5,13 @@ import "./style.css";
 function Timer(props) {
     return (
         <div className="text-center alert alert-light rounded-0 bg-light">
-            <h6>CLICK START TO BEGIN</h6>
-            <button onClick={props.handleTimer} className="btn btn-light btn-sm mb-3"><i className="far fa-play-circle"></i>Start </button>            
-            <h5 className="mb-2">{timeFormat(props.time * 425)}
-            </h5>
+            
+            
+            {props.hasBeenClicked === false ? <div><h5>CLICK START TO BEGIN</h5>
+            <button onClick={props.handleCountDown} className="alert-ligth btn btn-light">START <i className="far fa-play-circle"></i></button><h6>Game starts in... {props.count}</h6></div> : <div>
+            <h1 class="mt-4 mb-4">{timeFormat(props.time * 425)} seconds</h1></div>}
+            
+                 
         </div>
 
         // <div>

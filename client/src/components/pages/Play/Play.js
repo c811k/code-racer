@@ -16,7 +16,6 @@ import "./play.css";
 class Play extends Component {
 
     state = {
-        playOn: false,
         percentage: 0,
         value: "",
         topEditor: "",
@@ -31,8 +30,11 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`/api/prompt/forLoop`)
-        .then((res) => {
+        this.getUserData(()=> {
+            this.handleLeaderboard();
+            this.handleTopPlayer();
+        });
+        axios.get(`/api/prompt/forLoop`).then((res) => {
             var data = res.data;
 
             this.setState({
@@ -44,38 +46,36 @@ class Play extends Component {
     getUserData = (cb) => {
         axios.get("/api/users").then(res => {
             this.setState({
-                userData: res.data
+                userData: res.data,
+                topScore: {
+                    player: res.data[0].username,
+                    time: res.data[0].time
+                }
             });
         }, cb);
     };
 
-    handleLeaderboard = () => {
-        axios.get("/api/users").then(res => {
-            this.setState({
-                userData: res.data
-            });
-            return (
-                <div>
-                    <div className="alert alert-secondary rounded-top mt-5">
-                        LEADERBOARD
-                    </div>
-                    <hr className="my-3" />
-                    <ul className="list-group list-group-flush mt-2">
-                        {this.state.userData.map(p => {
+    displayLeaderboard = () => {
+        return (
+            <div>
+                <div className="alert alert-secondary rounded-top mt-5">
+                    LEADERBOARD
+                </div>
+                <hr className="my-3" />
+                <ul className="list-group list-group-flush mt-2">
+                    {this.state.userData.map(p => {
                             return (
                                 <LeaderBoard 
-                                key={p.id}
+                                key={p._id}
                                 username={p.username}
-                                time={p.time}
+                                time={timeFormat(p.time)}
                                 topScore={this.state.topScore}
                                 />
                             );
-                        })}
-                    </ul>
-                </div>
-            );
-        });
-        
+                    })}
+                </ul>
+            </div>
+        );
     };
 
     handleCountDown = () => {
@@ -85,22 +85,13 @@ class Play extends Component {
             });
             console.log(this.state.count);
             if (this.state.count === 0 && this.state.hasBeenClicked === false) {
-                console.log("passed");
                 clearInterval(countdown);
                 this.handleTimer();
             }
         }, 1000); 
     };
 
-    handleTopPlayer = (cb) => {
-        axios.get("/api/users").then(res => {
-            this.setState({
-                topScore: {
-                    player: res.data[0].username,
-                    time: res.data[0].time
-                }
-            }, cb);
-        });
+    displayTopPlayer = () => {
         return(
             <div>
                 <TopPlayer 
@@ -185,15 +176,47 @@ class Play extends Component {
             this.resetGame();
 
     }
-    
-    handleScore = () => {
-        axios.get("/api/profile").then(res => {
-            console.log(res.data);
-        });
-    }
 
     render() {
-        let showEditor = this.state.hasBeenClicked ? <AceEditor
+        return (
+            <div className="play">
+                <div className="row text-center">
+                    <div className="col-md-9">
+
+                        <Timer
+                            time={this.state.time}
+                            handleCountDown={this.handleCountDown}
+                            count={this.state.count}
+                            hasBeenClicked={this.state.hasBeenClicked}
+                        />
+                        
+                        <AceEditor
+                            mode="javascript"
+                            theme="tomorrow_night"
+                            value={this.state.topEditor}
+                            name="UNIQUE_ID_OF_DIV"
+                            style={{ width: "100%" }}
+                            readOnly={true}
+                            highlightActiveLine={false}
+                            editorProps={{
+                                $blockScrolling: true
+                            }}
+                            setOptions={{
+                                fontSize: '10pt',
+                                minLines: 12,
+                                maxLines: 12,
+                                tabSize: 2,
+                            }}
+                        />
+
+                        <hr className="my-3" />
+                        <ProgressBar
+                            percentage={this.state.percentage}
+                            username={this.state.username}
+                        />
+                        <hr className="my-3" />
+                        
+                        <AceEditor
                             handleInput
                             mode="javascript"
                             theme="tomorrow_night"
@@ -201,6 +224,7 @@ class Play extends Component {
                             name="UNIQUE_ID_OF_DIV2"
                             style={{ width: "100%" }}
                             value={this.state.value}
+                            readOnly={this.state.hasBeenClicked === false ? true : false}
                             editorProps={{
                                 $blockScrolling: true
                             }}
@@ -211,61 +235,19 @@ class Play extends Component {
                                 tabSize: 2,
                                 behavioursEnabled: false
                             }}
-                        /> : null;
-        return (
-            <div className="play">
-                <div className="row text-center">
-                    <div className="col-md-9">
-                        {/* {this.state.count > 0 ? (
-                            <h1 id="countdown">{this.state.count}</h1>
-                        ) : ( */}
-                        <Timer
-                            time={this.state.time}
-                            handleTimer={this.handleCountDown}
-
                         />
-                        {/* )} */}
-                        {/* <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button> */}
-
-                        <AceEditor
-                            mode="javascript"
-                            theme="tomorrow_night"
-                            value={this.state.topEditor}
-                            name="UNIQUE_ID_OF_DIV"
-                            style={{ width: "100%" }}
-                            editorProps={{
-                                $blockScrolling: true
-
-                            }}
-                            readOnly={true}
-                            
-                            setOptions={{
-                                fontSize: '10pt',
-                                minLines: 12,
-                                maxLines: 12,
-                                tabSize: 2
-                            }}
-                        />
-
-                        <hr className="my-3" />
-                        <ProgressBar
-                            percentage={this.state.percentage}
-                        />
-                        <hr className="my-3" />
-                        
-                        {showEditor}
                         
                     </div>
 
                     <div className="col-md-3">
                         <div className="alert alert-secondary" id="language">
                             LANGUAGE: JAVASCRIPT
-                        </div>
+                    </div>
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
-                        {this.handleTopPlayer()}
-                        {this.handleLeaderboard()}
+                        {this.displayTopPlayer()}
+                        {this.displayLeaderboard()}
                     </div>
                 </div>
             </div>
