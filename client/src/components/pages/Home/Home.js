@@ -17,7 +17,7 @@ function Home() {
                 </div>
             </div>
         </div>
-    <div className="container">
+    <div className="container topcontainer">
             <div className="row">
                 <div className="col-md-12">
                     <h1>Can you go from</h1>
@@ -25,7 +25,7 @@ function Home() {
             </div>
     </div>
     <div className="container">
-        <div className="row">
+        <div className="row midcontainer">
             <div className="col-md-5">
                 <img className="slowtyper" src={slowtyper}></img>
             </div>

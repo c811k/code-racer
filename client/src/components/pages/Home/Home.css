@@ -6,7 +6,7 @@
 
 .slowtyper {
     width: 100%;
-    height: 70%;
+    height: 60%;
     border-radius: 25px;
     background: black;
     padding: 15px; 
@@ -15,7 +15,7 @@
 
 .fasttyper {
     width: 100%;
-    height: 70%;
+    height: 60%;
     border-radius: 25px;
     background: black;
     padding: 15px; 
@@ -26,6 +26,14 @@ h1 {
 }
 
 .topspace {
+    margin-bottom: -100px;
+}
+
+.midcontainer {
     margin-bottom: -80px;
+}
+
+.topcontainer {
+    margin-bottom: 40px;
 }
 
