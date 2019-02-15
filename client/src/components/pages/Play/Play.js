@@ -10,6 +10,7 @@ import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
 import "./play.css";
+import timeFormat from "../../utils/timeFormat";
 
 
 class Play extends Component {
@@ -71,6 +72,7 @@ class Play extends Component {
 
     handleCountDown = () => {
        this.resetGame(()=>{
+           this.setState({time:0});
         var countdown = setInterval(() => {
             this.setState({
                 count: this.state.count - 1
@@ -184,14 +186,15 @@ class Play extends Component {
 
         axios.get("/api/profile").then((response) => {
             console.log(response.data);
+            this.setState({
+                username: response.data.username
+            });
             if (this.state.time < response.data.time) {
                 console.log(response.data.time);
-                this.setState({
-                    username: response.data.username
-                });
+            
                 console.log(this.state.username);
 
-                axios.put("/api/user/" + this.state.username + "/" + this.state.time, {
+                axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
                     time: this.state.time*425,
                     username: this.state.username
                 }).then((response) => {
@@ -199,7 +202,15 @@ class Play extends Component {
                 }).catch((error) => {
                     console.log(error);
                 });
-                //this.resetGame();
+                // this.resetGame();
+            } else {
+                axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
+                    time: this.state.time*425
+                }).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                });
             }
 
         });
@@ -212,7 +223,6 @@ class Play extends Component {
             stopwatch: 0,
             value: "",
             percentage: 0,
-             time: 0,
             count: 3,
             hasBeenClicked: false,
             finished: false
