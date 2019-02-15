@@ -3,22 +3,3 @@
     width: 100%;
     display: block
 }
-
-h1 {
-    text-align: center
-}
-
-.leftside {
-    text-align: center;
-    margin: 10px;
-    width: 45%;
-    float: left
-
-}
-
-.rightside {
-    text-align: center;
-    margin: 10px;
-    width: 45%;
-    display: inline-block
-}
