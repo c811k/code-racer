@@ -2,7 +2,6 @@ import React from "react";
 import demoGif from"./images/demoGif.gif";
 import slowtyper from"./images/slowtyper.gif";
 import fasttyper from"./images/fasttyper.gif";
-import rightArrow from"./images/rightArrow.png";
 import "./Home.css";
 
 
@@ -24,7 +23,7 @@ function Home() {
                     <h1>Can you go from</h1>
                 </div>
             </div>
-        </div>
+    </div>
     <br></br>
 
     <div className="container">
@@ -40,13 +39,33 @@ function Home() {
             <div className="col-md-5">
             <img className="fasttyper" src={fasttyper}></img>
             </div>
-
         </div>
         
     </div>
     <br></br>
     <br></br>
     <br></br>
+
+    <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <h1>Well, prove it!!</h1>
+                </div>
+            </div>
+    </div>
+    <br></br>
+    <br></br>
+    <br></br>
+
+    <div className="container">
+    <div className="row">
+
+    <button type="button" className="btn btn-danger btn-lg col-md-12">Play Now!</button>
+    <button type="button" className="btn btn-primary btn-lg col-md-12">Log In</button>
+    <button type="button" className="btn btn-success btn-lg col-md-12">Register</button>
+    </div>
+    </div>
+
 
     
 
