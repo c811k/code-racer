@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 class Profile extends Component {
-    state = {
-        loaded: false,
-        username: "",
-        topscore: ""
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loaded: false,
+            username: "",
+            time: ""
+        };
+    }
 
     componentWillMount() {
-        const {username, topscore} = this.props;
-        this.setState({username, topscore})
+        const {username, time} = this.props;
+        this.setState({username, time})
     }
 
     handleLogout = () => {
@@ -24,7 +28,7 @@ class Profile extends Component {
             <div>
                 <h1>Welcome {this.state.username}</h1>
 
-                <h3>Your top score is {this.state.username}</h3>
+                <h3>Your top score is {this.state.time}</h3>
                 <button onClick={this.handleLogout}>log out</button>
                 
                 {/* <button className="btn btn-lg btn-light btn-block shadow-lg" type="submit" onClick={props.handleLogin}>LOGIN</button> */}

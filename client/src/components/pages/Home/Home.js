@@ -2,6 +2,7 @@ import React from "react";
 import demoGif from"./images/frontPageGif.gif";
 import slowtyper from"./images/slowtyper.gif";
 import fasttyper from"./images/fasttyper.gif";
+import Footer from "../../Footer/Footer";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
@@ -9,65 +10,58 @@ import { Link } from "react-router-dom";
 
 function Home() {
     return(
-    <div className="entireHome">
-        <div className="container">
+        <div>
+        <div className="container" id="home">
             <div className="row">
                 <div className="col-md-12 topspace">
-                <img className="loadingGif" src={demoGif}></img>
+                <img className="loadingGif" src={demoGif} alt="demoGif" />
                 </div>
             </div>
-        </div>
-    <div className="container topcontainer">
-            <div className="row">
-                <div className="col-md-12">
-                    <h1>Can you go from</h1>
-                </div>
-            </div>
-    </div>
-    <div className="container">
-        <div className="row midcontainer">
-            <div className="col-md-5">
-                <img className="slowtyper" src={slowtyper}></img>
-            </div>
-
-            <div className="col-md-2">
-                <h1>to</h1> 
-            </div>
-
-            <div className="col-md-5">
-            <img className="fasttyper" src={fasttyper}></img>
-            </div>
-        </div>
         
-    </div>
-
-    <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <h1>Well, prove it!!</h1>
+            <div className="container topcontainer">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h1 className="alert alert-secondary">CAN YOU GO FROM</h1>
+                    </div>
                 </div>
             </div>
-    </div>
-    <br></br>
-    
+        
+            <div className="row midcontainer">
+                <div className="col-md-5">
+                    <img className="slowtyper" src={slowtyper} alt="slowtyper" />
+                </div>
 
-    <div className="container">
-        <div className="row">
-            <div className="col-md-6">
-            <Link to="/play" className={window.location.pathname === "/play"}>
-                <button type="button" className="btn btn-danger btn-lg col-md-12">Play Now!</button>
+                <div className="col-md-2">
+                    <h1 className="alert alert-secondary">TO</h1> 
+                </div>
 
-            </Link>
+                <div className="col-md-5">
+                    <img className="fasttyper" src={fasttyper} alt="fasttyper" />
+                </div>
             </div>
-            <div className="col-md-6">
-            <Link to="/login" className={window.location.pathname === "/login"}>
-                <button type="button" className="btn btn-danger btn-lg col-md-12">Log In</button>
-            </Link>
+        
+            <div className="row bottomcontainer">
+                <div className="col-md-12">
+                    <h1 className="alert alert-secondary">WELL PROVE IT!</h1>
+                </div>
+            </div>
+        
+            <br></br>
+
+            <div className="row mt-5">
+                <div className="col-md-6">
+                    <Link to="/play" className="btn btn-danger btn-lg col-md-12">PLAY NOW!
+                    </Link>
+                </div>
+                <div className="col-md-6">
+                    <Link to="/login" className="btn btn-danger btn-lg col-md-12">
+                        LOGIN
+                    </Link>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
-        
+        <Footer />
+        </div>
     );
 }
 

@@ -1,5 +1,9 @@
+#home {
+    margin-top: 40px;
+}
+
 .loadingGif {
-    height: 80%;
+    height: 60%;
     width: 100%;
     display: block
 }
@@ -26,14 +30,19 @@ h1 {
 }
 
 .topspace {
-    margin-bottom: -100px;
+    margin-bottom: -200px;
 }
 
 .midcontainer {
-    margin-bottom: -80px;
+    margin-bottom: -120px;
+}
+
+.bottomcontainer {
+    opacity: 0.8;
 }
 
 .topcontainer {
     margin-bottom: 40px;
+    opacity: 0.8;
 }
 

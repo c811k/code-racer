@@ -4,21 +4,21 @@ import "./navbar.css"
 
 
 function Navbar(props) {
-        let link;
-        const {username} = props;
-        if(username) {
-            link = <li className="nav-item ml-2">
-            <Link to="/profile" className={window.location.pathname === "/about" ? "nav-link active" : "nav-link"}>
-            {username} <i class="fas fa-user-circle" id="profile"></i>
-            </Link>
+    let link;
+    const {username} = props;
+    if(username) {
+        link = <li className="nav-item ml-2">
+        <Link to="/profile" className={window.location.pathname === "/profile" ? "nav-link active" : "nav-link"}>
+        <i class="fas fa-user-circle" id="profile"></i>         {username} 
+        </Link>
         </li>
-        } else {
-            link = <li className="nav-item ml-2">
-            <Link to="/login" className={window.location.pathname === "/login" ? "nav-link active" : "nav-link"}>
+    } else {
+        link = <li className="nav-item ml-2">
+        <Link to="/login" className={window.location.pathname === "/login" ? "nav-link active" : "nav-link"}>
             LOGIN
-            </Link>
+        </Link>
         </li>
-        }
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent">

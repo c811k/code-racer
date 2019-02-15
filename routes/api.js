@@ -11,6 +11,16 @@ router.get("/api/users", (req, res) => {
     });
 });
 
+router.get("/api/users/:name", (req, res) => {
+    User.find({
+        username: req.params.name
+    }).then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
 router.get("/api/users/:time", (req, res) => {
     User.find({
         time: req.params.time
@@ -30,10 +40,16 @@ router.post("/api/user", (req, res) => {
 });
 
 router.put("/api/user/:username/:time", (req, res) => {
-    console.log(req.params.username);
-    console.log(req.params.time);
-    User.updateOne({username: req.params.username}, { $set: { time: req.params.time } }).then(function () {
-        res.end();
+    User.findOneAndUpdate({
+        username: req.params.username
+    }, { 
+        $set: {time: req.params.time}
+    }, {
+        new: true
+    }).then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
     });
 });
 

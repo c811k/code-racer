@@ -35,7 +35,7 @@ function About() {
                         <br/>
                         <ul style={list} className="social">
                             <li ><a href="https://github.com/c811k"><i className="fab fa-github"></i></a></li>
-                            <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
                             <li>bhk811@gmail.com</li>
                             
                         </ul>

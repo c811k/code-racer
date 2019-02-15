@@ -11,7 +11,6 @@ class Example extends React.Component {
       this.state = {
         show: false,
         userTime: ""
-        
       };
     }
   
@@ -19,7 +18,7 @@ class Example extends React.Component {
        this.setState({ show: false });
     }
   
-    handleShow() {
+    handleShow = () => {
       this.setState({ show: true });
     }
 
@@ -33,20 +32,25 @@ class Example extends React.Component {
     }
   
     render() {
-
-    const prompts= ["Sweet!", "Awesome!", "Good Job!", "Wow, that was fast!"];
+      const prompts= ["Sweet!", "Awesome! ", "Good Job! ", "Wow, that was fast! "];
 
       return (
-
-          <Modal show={this.state.show} onHide={this.handleClose} {...this.props}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered>
-            <Modal.Body>{`${prompts[Math.floor(Math.random() * (4))]} Your time was : ${timeFormat(this.state.userTime *425)} seconds`}</Modal.Body>
-              <Button variant="secondary" onClick={this.handleClose}>
-                Close
-              </Button>
-          </Modal>
+        <Modal show={this.state.show} onHide={this.handleClose} {...this.props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered>
+          <Modal.Body>
+            <h5>
+            {`${prompts[Math.floor(Math.random() * (4))]}
+            Your time was : ${timeFormat(this.state.userTime *425)} seconds`}
+            </h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="outline-secondary border-0" onClick={this.handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       );
     }
   }

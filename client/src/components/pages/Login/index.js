@@ -14,9 +14,6 @@ class Auth extends Component {
         password: ""
     }
 
-
-
-
     showRegisterBox = () => {
         this.setState({
             isRegisterOpen: true,
@@ -53,7 +50,6 @@ class Auth extends Component {
         
         // send credentials to back-end to check account
         axios.post("/users/login", payload).then((res) => {
-            console.log(res.data);
             if (res.data !== "error") {
                 // if successful, set auth value on parent
                 
@@ -65,7 +61,7 @@ class Auth extends Component {
                 // show error message
                 this.setState({
                     error: "Failed to log in"
-                })
+                });
             }
         });
     };
@@ -78,10 +74,10 @@ class Auth extends Component {
                 <div className="login-tab btn-group btn-group-toggle">
                     <div className={"login-register text-center btn btn-light " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
                         LOGIN
-                        </div>
+                    </div>
                     <div className={"login-register text-center btn btn-light " + (this.state.isRegisterOpen ? "active" : null)} onClick={this.showRegisterBox}>
                         REGISTER
-                        </div>
+                    </div>
                 </div>
 
                 {this.state.isLoginOpen &&
@@ -106,4 +102,3 @@ class Auth extends Component {
 }
 
 export default Auth;
-//setLogin={this.setLogin}

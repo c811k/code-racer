@@ -34,9 +34,10 @@ class Play extends Component {
     }
 
     componentDidMount = () => {
+        this.handleCurrentUser();
         this.getUserData(()=> {
-            this.handleLeaderboard();
-            this.handleTopPlayer();
+            this.displayLeaderboard();
+            this.displayTopPlayer();
         });
         axios.get(`/api/prompt/forLoop`).then((res) => {
             var data = res.data;
@@ -49,14 +50,24 @@ class Play extends Component {
 
     getUserData = (cb) => {
         axios.get("/api/users").then(res => {
-            this.setState({
-                userData: res.data,
-                topScore: {
-                    player: res.data[0].username,
-                    time: res.data[0].time
-                }
-            });
+            if(res.data.length > 0) {
+                this.setState({
+                    userData: res.data,
+                    topScore: {
+                        player: res.data[0].username,
+                        time: res.data[0].time
+                    }
+                });
+            }
         }, cb);
+    };
+
+    handleCurrentUser = () => {
+        axios.get("/api/profile").then(res => {
+            this.setState({
+                username: res.data.username,
+            });
+        });
     };
 
     displayLeaderboard = () => {
@@ -72,7 +83,7 @@ class Play extends Component {
                                 <LeaderBoard 
                                 key={p._id}
                                 username={p.username}
-                                time={timeFormat(p.time)}
+                                time={p.time}
                                 topScore={this.state.topScore}
                                 />
                             );
@@ -84,19 +95,19 @@ class Play extends Component {
 
     handleCountDown = () => {
         this.setState({time: 0});
-       this.resetGame(()=>{
-        var countdown = setInterval(() => {
-            this.setState({
-                count: this.state.count - 1
-            }, ()=>{
-                if (this.state.count === 0 && !this.state.hasBeenClicked) {
-                    clearInterval(countdown);
-                    this.handleTimer();
-                }
-            });
-    }, 1000);
-       })  
-    }
+        this.resetGame(() => {
+            var countdown = setInterval(() => {
+                this.setState({
+                    count: this.state.count - 1
+                }, () => {
+                    if (this.state.count === 0 && !this.state.hasBeenClicked) {
+                        clearInterval(countdown);
+                        this.handleTimer();
+                    }
+                });
+        }, 1000);
+       });  
+    };
 
     displayTopPlayer = () => {
         return(
@@ -111,14 +122,13 @@ class Play extends Component {
 
     handlePrompt = event => {
         event.preventDefault();
-        axios.get(`/api/prompt/${event.target.value}`)
-            .then((res) => {
-                var data = res.data;
+        axios.get(`/api/prompt/${event.target.value}`).then(res => {
+            var data = res.data;
 
-                this.setState({
-                    topEditor: data
-                });
+            this.setState({
+                topEditor: data
             });
+        });
     };
 
     checkProgress = value => {
@@ -141,20 +151,15 @@ class Play extends Component {
                     return this.state.currentIndex;
                 }
             }
-            this.setState({ percentage: 100 / (strToMatch.length) * currentIndex }, ()=>{
+            this.setState({ 
+                percentage: 100 / (strToMatch.length) * currentIndex }, () => {
                 if (this.state.percentage === 100) {
-                    this.setState({finished: true}, ()=>{
-                        this.setState({finished: false})
-                    })
+                    this.setState({finished: true}, () => {
+                        this.setState({
+                            finished: false
+                        });
+                    });
                 }
-            });
-        });
-    };
-
-    handleUsername = () => {
-        axios.get("/api/user").then((response) => {
-            this.setState({
-                username: response.username
             });
         });
     };
@@ -173,55 +178,32 @@ class Play extends Component {
                     clearInterval(Timer);
                     this.resetGame();
                     this.handlePost();
+                    
                 }
             }, 1);
         }
     };
 
-    
-
     handlePost = () => {
-
-        axios.get("/api/profile").then((response) => {
-            console.log(response.data);
-            this.setState({
-                username: response.data.username
+        if(this.state.username !=="coderider") {
+            axios.get("/api/users/" + this.state.username).then(res => {
+                console.log(res.data);
+                if(!(res.data[0].time)) {
+                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425));
+                } else if(timeFormat(this.state.time * 425) < res.data[0].time) {
+                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425));
+                } else {
+                    console.log("Keep Practicing!");
+                }
+                this.getUserData(()=> {
+                    this.displayLeaderboard();
+                    this.displayTopPlayer();
+                });
             });
-            if (this.state.time*425 < response.data.time) {
-                console.log(response.data.time);
-                console.log(this.state.time);
-                console.log(response.data.time);
-                console.log(this.state.time*425);
-                console.log(timeFormat(response.data.time));
-                console.log(timeFormat(this.state.time*425));
-
-
-
-                axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
-                    time: this.state.time*425,
-                    username: this.state.username
-                }).then((response) => {
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-                //this.resetGame();
-            } else if (response.data.time > this.state.time*425) {
-                axios.put("/api/user/" + this.state.username + "/" + this.state.time*425, {
-                    username: this.state.username
-                }).then((response) => {
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            }
-
-        });
-                
         }
+    };
 
     resetGame = (cb) =>{
-
         this.setState({
             stopwatch: 0,
             value: "",
@@ -230,7 +212,6 @@ class Play extends Component {
             hasBeenClicked: false,
             finished: false
         }, cb);
-
     }
 
     render() {
@@ -239,14 +220,10 @@ class Play extends Component {
                 <div className="row text-center">
                     <div className="col-md-9">
 
-                    {/* Modal */}
-                    <Example finished={this.state.finished} userTime={this.state.time}/>
-
-                    {/* Conditionally renders timer or stopwatch
-                    {this.state.count > 0 ? <h1 id="countdown">{this.state.count}</h1> : <Timer time={this.state.time} handleTimer={this.handleTimer}/>}
-
-        
-                    <button onClick={this.handleCountDown} className="btn btn-light btn-sm mb-3">Start <i className="far fa-play-circle"></i></button> */}
+                        {/* Modal */}
+                        <Example 
+                            finished={this.state.finished} userTime={this.state.time}
+                        />
 
                         <Timer
                             time={this.state.time}
@@ -307,7 +284,7 @@ class Play extends Component {
                     <div className="col-md-3">
                         <div className="alert alert-secondary" id="language">
                             LANGUAGE: JAVASCRIPT
-                    </div>
+                        </div>
                         <PromptMenu
                             handlePrompt={this.handlePrompt}
                         />
@@ -319,7 +296,5 @@ class Play extends Component {
         );
     }
 }
-
-
 
 export default Play;
