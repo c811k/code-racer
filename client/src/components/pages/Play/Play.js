@@ -74,7 +74,7 @@ class Play extends Component {
     displayLeaderboard = () => {
         return (
             <div>
-                <div className="alert alert-secondary rounded-top mt-5">
+                <div className="alert alert-secondary rounded-top mt-5 shadow">
                     LEADERBOARD
                 </div>
                 <hr className="my-3" />
@@ -188,7 +188,6 @@ class Play extends Component {
     handlePost = () => {
         if(this.state.username !=="coderider") {
             axios.get("/api/users/" + this.state.username).then(res => {
-                console.log(res.data);
                 if(!(res.data[0].time)) {
                     axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425));
                 } else if(timeFormat(this.state.time * 425) < res.data[0].time) {
@@ -284,7 +283,7 @@ class Play extends Component {
                         </div>
 
                         <div className="col-md-3" id="scoreboard">
-                            <div className="alert alert-secondary" id="language">
+                            <div className="alert alert-secondary shadow" id="language">
                                 LANGUAGE: JAVASCRIPT
                             </div>
                             <PromptMenu

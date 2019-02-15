@@ -1,6 +1,6 @@
 var Tree = function (value) {
-    this.value = value;
-    this.children = [];
+  this.value = value;
+  this.children = [];
 };
 
 var myTree = new Tree(1);

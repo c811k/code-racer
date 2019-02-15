@@ -1,5 +1,5 @@
 var Person = function (firstName) {
-    this.firstName = firstName;
+  this.firstName = firstName;
 };
 
 var person1 = new Person('Alice');

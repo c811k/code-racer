@@ -1,9 +1,9 @@
 function reverseArray(array) {
-    var reversedArray = [];
+  var reversedArray = [];
 
-    array.forEach(function(value, index, arr) {
-        reversedArray.unshift(value);
-    });
+  array.forEach(function(value, index, arr) {
+    reversedArray.unshift(value);
+   });
 
-    return reversedArray;
+  return reversedArray;
 }

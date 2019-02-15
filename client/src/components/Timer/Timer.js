@@ -4,7 +4,7 @@ import "./style.css";
 
 function Timer(props) {
     return (
-        <div className="text-center alert alert-light rounded-0 bg-light">
+        <div className="text-center alert alert-light rounded-0 bg-light shadow">
             
             
             {props.hasBeenClicked === false ? <div><h5>CLICK START TO BEGIN</h5>
