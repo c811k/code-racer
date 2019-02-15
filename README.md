@@ -1,29 +1,56 @@
-# Create React Express App
+# Code Racer
 
-## About This Boilerplate
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+<img src="./client/src/components/pages/Home/images/frontPageGif.gif">
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+## Compete To Get The Best Time!
 
-## Starting the app locally
+Registering and Logging In is recommended to keep track of your times in the Leaderboard, but not necessary! 
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+Click play now and when the countdown is done, begin typing to move the progress bar towards completion!
 
-```
-yarn install
-```
 
-This should install node modules within the server and the client folder.
 
-After both installations complete, run the following command in your terminal:
+## Built With
 
-```
-yarn start
-```
+* Node.js
+* MongoDB
+* React
+* Ace Code Editor
+* Express
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
 
-## Deployment (Heroku)
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest. Note: you need to check in your `yarn.lock` file so Heroku knows to run yarn.
+# Primary Contributors
+
+### Jonathan Talavera
+<img src="./client/src/components/pages/About/images/jonathanCR.jpeg">
+
+linkedin.com/in/jonathantalavera
+
+github.com/jtala
+
+
+### Caleb Kang
+
+<img src="./client/src/components/pages/About/images/calebCR.jpg">
+
+github.com/c811k
+
+bhk811@gmail.com
+
+### Irwing Gameros
+
+<img src="./client/src/components/pages/About/images/irwingCR.jpg">
+
+github.com/digibite
+
+iguknow@gmail.com
+
+### Clint Forster
+
+<img src="./client/src/components/pages/About/images/clintCR.jpg">
+
+github.com/clintForster
+
+clinte.forster@gmail.com
