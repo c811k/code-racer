@@ -38,7 +38,8 @@ class App extends Component {
     axios.get("/api/profile").then((res) => {
       this.setState({
         loaded: true,
-        username: res.data.username
+        username: res.data.username,
+        time: res.data.time
       }, cb);
     });
   }
@@ -54,7 +55,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/play" component={Play} />
               <Route exact path="/about" component={About} />
-              <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} topscore={this.state.topscore} username={this.state.username} {...props} />} />
+              <Route exact path="/profile" render={(props) => <Profile getLogin={this.getLogin} time={this.state.time} username={this.state.username} {...props} />} />
             </Switch>
           </div>
         </Router>

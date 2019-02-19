@@ -71,8 +71,8 @@ router.get("/api/profile", function (req, res) {
   // only users with set session can see this route
   if (req.session.user) {
     console.log("log working ", req.session.user);
-    let {_id, username, token, time} = req.session.user,
-        payload = {_id, username, token, time}
+    let {_id, username, time, token} = req.session.user,
+        payload = {_id, username, time, token}
         res.json(payload);
   }
   else {
