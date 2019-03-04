@@ -25,6 +25,10 @@
     padding: 15px; 
 }
 
+#welcome {
+    text-align: left;
+}
+
 h1 {
     text-align: center;
 }
@@ -43,6 +47,6 @@ h1 {
 
 .topcontainer {
     margin-bottom: 40px;
-    opacity: 0.8;
+    opacity: 0.8
 }
 
