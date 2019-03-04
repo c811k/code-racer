@@ -20,8 +20,17 @@ function Home() {
         
             <div className="container topcontainer">
                 <div className="row">
-                    <div className="col-md-12">
-                        <h1 className="alert welcome alert-secondary" id="welcome">Welcome to Code Racer!</h1>
+                    <div className="col-md-6">
+                        <div className="alert welcome alert-secondary" id="welcome">
+                        <h1>Motivation</h1>
+                        Lorem Lorem Lorem Lorem Lorem
+                        </div>
+                    </div>
+                    <div className="col-md-3">
+                        <img className="slowtyper" src={slowtyper} alt="slowtyper" />
+                    </div>
+                    <div className="col-md-3">
+                        <img className="fasttyper" src={fasttyper} alt="fasttyper" />
                     </div>
                 </div>
             </div>
@@ -40,11 +49,11 @@ function Home() {
                 </div>
             </div> */}
         
-            <div className="row bottomcontainer">
+            {/* <div className="row bottomcontainer">
                 <div className="col-md-12">
                     <h1 className="alert alert-secondary">WELL PROVE IT!</h1>
                 </div>
-            </div>
+            </div> */}
         
             <br></br>
 

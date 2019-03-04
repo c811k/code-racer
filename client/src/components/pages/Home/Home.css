@@ -27,14 +27,12 @@
 
 #welcome {
     text-align: left;
+    padding: 30px
 }
 
-h1 {
-    text-align: center;
-}
 
 .topspace {
-    margin-bottom: -200px;
+    margin-bottom: -300px;
 }
 
 .midcontainer {
