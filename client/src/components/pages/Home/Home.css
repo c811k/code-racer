@@ -3,7 +3,7 @@
 }
 
 .loadingGif {
-    height: 60%;
+    height: 65%;
     width: 100%;
     display: block
 }
@@ -45,6 +45,10 @@
 
 .topcontainer {
     margin-bottom: 40px;
-    opacity: 0.8
+    background-color:white;
 }
 
+.alert-secondary {
+   background-color: white;
+   border: 0px;
+}

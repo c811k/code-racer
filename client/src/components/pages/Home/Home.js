@@ -11,19 +11,21 @@ import { Link } from "react-router-dom";
 function Home() {
     return(
         <div>
-        <div className="container" id="home">
+
+        <div className="container" id="title">
+            
             <div className="row">
                 <div className="col-md-12 topspace">
                 <img className="loadingGif" src={demoGif} alt="demoGif" />
                 </div>
             </div>
         
-            <div className="container topcontainer">
+           {/*  <div className="container topcontainer">
                 <div className="row">
-                    <div className="col-md-6">
+                   <div className="col-md-6">
                         <div className="alert welcome alert-secondary" id="welcome">
                         <h1>Motivation</h1>
-                        Lorem Lorem Lorem Lorem Lorem
+                        To get you from
                         </div>
                     </div>
                     <div className="col-md-3">
@@ -33,7 +35,7 @@ function Home() {
                         <img className="fasttyper" src={fasttyper} alt="fasttyper" />
                     </div>
                 </div>
-            </div>
+            </div> */}
         
            {/*  <div className="row midcontainer">
                 <div className="col-md-5">
