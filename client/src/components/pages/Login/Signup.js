@@ -25,7 +25,7 @@ function Signup(props) {
                     id="newPassword" className="form-control" placeholder="Password" required 
                 />
             
-                <button className="btn btn-lg btn-light btn-block shadow-lg" type="submit" onClick={props.handleFormSubmit}>SIGN UP</button>
+                <button className="btn btn-lg btn-block" type="submit" onClick={props.handleFormSubmit}>SIGN UP</button>
                 <p className="mt-5 pt-5">Code Racer &copy; 2019</p>
             </div>
         </div>       

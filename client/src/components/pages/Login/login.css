@@ -1,6 +1,6 @@
 html,
 body {
-  height: 100%;
+  height: 100vh;
 }
 
 .login {
@@ -44,16 +44,21 @@ body {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  opacity: 0.4;
 }
+
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  opacity: 0.4;
-
 }
 
-.form-signin input[type="checkbox"] {
-  opacity: 0.4;
+.form-signin input[type="username"]:focus, 
+.form-signin input[type="password"]:focus {
+  box-shadow: none;
+  border-color: #337ab7;
+}
+
+.btn {
+  background-color: #607d8b;
+  color: white;
 }

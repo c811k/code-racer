@@ -22,7 +22,7 @@ class Play extends Component {
         value: "",
         topEditor: "",
         time: 0,
-        username: "",
+        username: "coderider",
         hasBeenClicked: false,
         topScore: {
             player: "",
@@ -63,18 +63,20 @@ class Play extends Component {
         }, cb);
     };
 
-    handleCurrentUser = () => {
+    handleCurrentUser = (cb) => {
         axios.get("/api/profile").then(res => {
-            this.setState({
-                username: res.data.username,
-            });
-        });
+            if(res.data.username) {
+                this.setState({
+                    username: res.data.username,
+                });
+            }
+        }, cb);
     };
 
     displayLeaderboard = () => {
         return (
             <div>
-                <div className="alert alert-secondary rounded-top mt-5 shadow">
+                <div className="alert alert-secondary rounded-top mt-5">
                     LEADERBOARD
                 </div>
                 <hr className="my-3" />
@@ -95,7 +97,10 @@ class Play extends Component {
     };
 
     handleCountDown = () => {
-        this.setState({time: 0});
+        this.setState({
+            hasBeenClicked: true,
+            time: 0
+        });
         this.resetGame(() => {
             var countdown = setInterval(() => {
                 this.setState({
@@ -246,8 +251,8 @@ class Play extends Component {
                                 }}
                                 setOptions={{
                                     fontSize: '10pt',
-                                    minLines: 12,
-                                    maxLines: 12,
+                                    minLines: 14,
+                                    maxLines: 14,
                                     tabSize: 2,
                                 }}
                             />
@@ -273,8 +278,8 @@ class Play extends Component {
                                 }}
                                 setOptions={{
                                     fontSize: '10pt',
-                                    minLines: 12,
-                                    maxLines: 12,
+                                    minLines: 14,
+                                    maxLines: 14,
                                     tabSize: 2,
                                     behavioursEnabled: false
                                 }}
@@ -283,7 +288,7 @@ class Play extends Component {
                         </div>
 
                         <div className="col-md-3" id="scoreboard">
-                            <div className="alert alert-secondary shadow" id="language">
+                            <div className="alert alert-secondary" id="language">
                                 LANGUAGE: JAVASCRIPT
                             </div>
                             <PromptMenu

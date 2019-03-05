@@ -25,7 +25,7 @@ class Profile extends Component {
             this.props.history.push("/login");
         })
     } 
-
+    
     render() {
         return (
             <div class="jumbotron text-center">
