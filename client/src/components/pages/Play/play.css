@@ -2,12 +2,9 @@
     margin: 50px
 }
 
-.list-group-item {
-    opacity: 0.85;
-}
-
 .progress {
     height: 50px;
+    color: #eceff1;
 }
 
 #prompt {
@@ -15,9 +12,10 @@
 }
 
 #scoreboard {
-    background: rgba(255, 255, 255, .40);
     padding-top: 15px;
     padding-bottom: 15px;
+    background-color: #607d8b;
+
 }
 
 #language {
@@ -29,17 +27,20 @@
 #prompts {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    background-color: #455a64;
 }
 
-
-#countdown {
-    position: absolute;
-    left: 48%;
-    top: 5px;
+#prompts:hover {
+    background-color: #37474f;
+    color: #ffffff;
 }
 
+#prompts:focus {
+    box-shadow: none;
+    color: #ffffff;
+}
 
-.ace_editor {
-    border-radius: 6px;
-    opacity: 0.9;
+.alert {
+    background-color: #eceff1;
+    border: none;
 }

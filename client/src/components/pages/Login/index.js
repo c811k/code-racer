@@ -72,10 +72,10 @@ class Auth extends Component {
             <div>
 
                 <div className="login-tab btn-group btn-group-toggle">
-                    <div className={"login-register text-center btn btn-light " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
+                    <div className={"login-register text-center btn btn-light border-0 " + (this.state.isLoginOpen ? "active" : null)} onClick={this.showLoginBox}>
                         LOGIN
                     </div>
-                    <div className={"login-register text-center btn btn-light " + (this.state.isRegisterOpen ? "active" : null)} onClick={this.showRegisterBox}>
+                    <div className={"login-register text-center btn btn-light border-0 " + (this.state.isRegisterOpen ? "active" : null)} onClick={this.showRegisterBox}>
                         REGISTER
                     </div>
                 </div>

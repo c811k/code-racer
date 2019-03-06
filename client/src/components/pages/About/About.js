@@ -20,24 +20,21 @@ function About() {
     var list = {
         listStyleType: "none",
         paddingLeft: "0px",
-        color: "grey"
+        color: "#607d8b"
     }
     return (
         <div>
             <div className="container mt-5">
-                <div className="row text-center">
+                <div className="row">
                 <div className="col-md-12">
-                    <h2 className="alert alert-secondary mb-5">
-                        <div className="mb-2"><img className="mr-3" src="https://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" /></div>
-                        MEET OUR TEAM
-                    </h2>
+                <h3 className="border-bottom pb-3"><img className="mr-3" src="https://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" />MEET OUR TEAM</h3>
                 </div>
                 </div>
                 <div className="row">
                     <div className="col-md-3">
                         <div style={ourTeam}>
                             <div className="pic">
-                                <img style={style} width={150} height={200} alt="900x500" src={Calebimage} />
+                                <img style={style} width={150} height={200} alt="900x500" className="pro" src={Calebimage} />
                             </div>
                             <h3 className="title mt-5">Caleb Kang</h3>
                             <span className="post">Web Developer</span>

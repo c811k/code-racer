@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 router.get("/api/users", (req, res) => {
-    User.find({"time": {"$exists": true }}).sort({time: 1}).limit(4).then((data) => {
+    User.find({"time": {"$exists": true }}).sort({time: 1}).limit(5).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -39,11 +39,11 @@ router.post("/api/user", (req, res) => {
     });
 });
 
-router.put("/api/user/:username/:time", (req, res) => {
+router.put("/api/user/:username/:time/:promptName", (req, res) => {
     User.findOneAndUpdate({
         username: req.params.username
     }, { 
-        $set: {time: req.params.time}
+        $set: {time: req.params.time, prompt: req.params.promptName}
     }, {
         new: true
     }).then(data => {

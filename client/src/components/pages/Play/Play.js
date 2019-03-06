@@ -8,7 +8,7 @@ import Timer from "../../Timer/Timer";
 import Footer from "../../Footer/Footer";
 import timeFormat from "../../utils/timeFormat.js";
 import axios from "axios";
-import Example from "../Modal/Modal";
+import Modal from "../Modal/Modal";
 import "brace/mode/javascript";
 import "brace/theme/tomorrow_night";
 import 'brace/ext/language_tools';
@@ -21,8 +21,9 @@ class Play extends Component {
         percentage: 0,
         value: "",
         topEditor: "",
+        prompt: "forLoop",
         time: 0,
-        username: "",
+        username: "coderider",
         hasBeenClicked: false,
         topScore: {
             player: "",
@@ -63,18 +64,20 @@ class Play extends Component {
         }, cb);
     };
 
-    handleCurrentUser = () => {
+    handleCurrentUser = (cb) => {
         axios.get("/api/profile").then(res => {
-            this.setState({
-                username: res.data.username,
-            });
-        });
+            if(res.data.username) {
+                this.setState({
+                    username: res.data.username,
+                });
+            }
+        }, cb);
     };
 
     displayLeaderboard = () => {
         return (
             <div>
-                <div className="alert alert-secondary rounded-top mt-5 shadow">
+                <div className="alert alert-secondary rounded-top border-0 mt-5">
                     LEADERBOARD
                 </div>
                 <hr className="my-3" />
@@ -85,7 +88,6 @@ class Play extends Component {
                             key={p._id}
                             username={p.username}
                             time={p.time}
-                            topScore={this.state.topScore}
                             />
                         );
                     })}
@@ -94,14 +96,23 @@ class Play extends Component {
         );
     };
 
+    showTimer = () => {
+        this.setState({
+            hasBeenClicked: true        
+        });
+        
+    }
+
     handleCountDown = () => {
-        this.setState({time: 0});
+        this.setState({
+            time: 0
+        });
         this.resetGame(() => {
             var countdown = setInterval(() => {
                 this.setState({
                     count: this.state.count - 1
                 }, () => {
-                    if (this.state.count === 0 && !this.state.hasBeenClicked) {
+                    if (this.state.count === 0) {
                         clearInterval(countdown);
                         this.handleTimer();
                     }
@@ -123,11 +134,13 @@ class Play extends Component {
 
     handlePrompt = event => {
         event.preventDefault();
-        axios.get(`/api/prompt/${event.target.value}`).then(res => {
-            var data = res.data;
+        var promptName = event.target.value;
 
+        axios.get("/api/prompt/" + promptName).then(res => {
+            var data = res.data;
             this.setState({
-                topEditor: data
+                topEditor: data,
+                prompt: promptName
             });
         });
     };
@@ -167,7 +180,7 @@ class Play extends Component {
 
     handleTimer = () => {
         var timer = 0;
-        if (!this.state.hasBeenClicked) {
+        // if (!this.state.hasBeenClicked) {
 
             var Timer = setInterval(() => {
                 timer++;
@@ -182,16 +195,16 @@ class Play extends Component {
                     
                 }
             }, 1);
-        }
+        // }
     };
 
     handlePost = () => {
         if(this.state.username !=="coderider") {
             axios.get("/api/users/" + this.state.username).then(res => {
                 if(!(res.data[0].time)) {
-                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425));
+                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425) + "/" + this.state.prompt);
                 } else if(timeFormat(this.state.time * 425) < res.data[0].time) {
-                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425));
+                    axios.put("/api/user/" + this.state.username + "/" + timeFormat(this.state.time * 425) + "/" + this.state.prompt);
                 } else {
                     console.log("Keep Practicing!");
                 }
@@ -222,8 +235,9 @@ class Play extends Component {
                         <div className="col-md-9">
 
                             {/* Modal */}
-                            <Example 
+                            <Modal 
                                 finished={this.state.finished} userTime={this.state.time}
+                                topTime={this.state.topScore.time}
                             />
 
                             <Timer
@@ -246,8 +260,8 @@ class Play extends Component {
                                 }}
                                 setOptions={{
                                     fontSize: '10pt',
-                                    minLines: 12,
-                                    maxLines: 12,
+                                    minLines: 14,
+                                    maxLines: 14,
                                     tabSize: 2,
                                 }}
                             />
@@ -273,8 +287,8 @@ class Play extends Component {
                                 }}
                                 setOptions={{
                                     fontSize: '10pt',
-                                    minLines: 12,
-                                    maxLines: 12,
+                                    minLines: 14,
+                                    maxLines: 14,
                                     tabSize: 2,
                                     behavioursEnabled: false
                                 }}
@@ -283,11 +297,12 @@ class Play extends Component {
                         </div>
 
                         <div className="col-md-3" id="scoreboard">
-                            <div className="alert alert-secondary shadow" id="language">
+                            <div className="alert alert-secondary" id="language">
                                 LANGUAGE: JAVASCRIPT
                             </div>
                             <PromptMenu
                                 handlePrompt={this.handlePrompt}
+                                prompt={this.state.prompt}
                             />
                             {this.displayTopPlayer()}
                             {this.displayLeaderboard()}

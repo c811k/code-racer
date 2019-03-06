@@ -12,6 +12,7 @@ const userSchema = new Schema({
         require: true
     },
     time: Number,
+    prompt: String,
     token: {
         type: String,
         default: null

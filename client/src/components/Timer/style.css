@@ -1,5 +1,8 @@
 #timer {
-    position: absolute;
-    left: 43%;
-    top: 5px;
+    background-color: #607d8b;
+    
+}
+
+.btn.rounded-0.my-1:focus {
+    box-shadow: none;
 }

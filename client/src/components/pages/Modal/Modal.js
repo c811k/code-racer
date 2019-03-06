@@ -46,7 +46,7 @@ class Example extends React.Component {
             </h5>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="outline-secondary border-0" onClick={this.handleClose}>
+            <Button variant="outline-secondary border-0 rounded-0" onClick={this.handleClose}>
               Close
             </Button>
           </Modal.Footer>
