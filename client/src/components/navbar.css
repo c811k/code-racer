@@ -1,11 +1,11 @@
-#profile {
+/* #profile {
     font-size: 18px;
-}
+} */
 
 nav {
     /* background-color: #337ab7; */
     background-color: #607d8b;
-    padding-left: 20px;
+    
 }
 ul li:after,
 ul li:before {
@@ -29,5 +29,5 @@ ul li:after {
   height: 2px;
 }
 ul li:hover:after {
-  width: 100%;
+  width: 75%;
 }

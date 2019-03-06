@@ -3,9 +3,9 @@ import "./promptmenu.css";
 
 function PromptMenu(props) {
     return(
-        <div className="btn-group btn-block mb-1" role="group">
+        <div className="btn-group btn-block mb-1 border-0" role="group">
             <button id="prompts" type="button" className="alert-light btn btn-light btn-lg dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            PROMPT
+            {props.prompt}
             </button>
             
             <div className="dropdown-menu col-md-12" aria-labelledby="prompts">
@@ -30,6 +30,7 @@ function PromptMenu(props) {
                 <button className="dropdown-item btn-block" value="hashFunction" onClick={props.handlePrompt}>hashFunction</button>
             </div>
         </div>
+
     );
 }
 
