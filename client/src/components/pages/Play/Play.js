@@ -229,7 +229,7 @@ class Play extends Component {
 
     render() {
         return (
-            <div>
+            <div id="play">
                 <div className="play">
                     <div className="row text-center">
                         <div className="col-md-9">
