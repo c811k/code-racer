@@ -1,6 +1,5 @@
 
 #home {
-    margin-top: 40px;
     height: 100vh;
     background:
         linear-gradient(
@@ -18,33 +17,16 @@
     display: block
 }
 
-.slowtyper {
-    width: 100%;
-    height: 60%;
-    border-radius: 25px;
-    background: black;
-    padding: 15px; 
-}
-
-
-.fasttyper {
-    width: 100%;
-    height: 60%;
-    border-radius: 25px;
-    background: black;
-    padding: 15px; 
-}
-
 #welcome {
     text-align: left;
     padding: 30px
 }
 
-
+/* 
 .topspace {
     margin-bottom: -300px;
-}
-
+} */
+/* 
 .midcontainer {
     margin-bottom: -120px;
 }
@@ -57,7 +39,7 @@
     margin-bottom: 40px;
     background-color:white;
 }
-
+ */
 .alert-secondary {
    background-color: white;
    border: 0px;
@@ -76,11 +58,12 @@ h1 {
 
 .text-white {
     position: relative;
-    bottom: 100px;
+    bottom: -100px;
 }
 
 
 .playButton {
+    bottom: -300px;
     border: none;
 	background: #3a7999;
 	color: #f2f2f2;
