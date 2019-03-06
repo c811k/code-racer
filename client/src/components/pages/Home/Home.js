@@ -12,7 +12,20 @@ function Home() {
     return(
         <div>
 
-        <div className="container" id="title">
+            <div id="home">
+	<div className="row">
+		<div className="col-md-12 text-center">
+			<div className="jumbotron mt-5 bg-transparent" id="header">
+				<h1 className="text-white mt-5 headTitle"><strong>C O D E  R A C E R</strong></h1>
+				<Link to="/play" className=" playButton">
+                PLAY NOW
+                </Link>
+			</div>
+		</div>
+	</div>
+</div>
+
+       {/*  <div className="container" id="title">
             
             <div className="row">
                 <div className="col-md-12 topspace">
@@ -20,42 +33,7 @@ function Home() {
                 </div>
             </div>
         
-           {/*  <div className="container topcontainer">
-                <div className="row">
-                   <div className="col-md-6">
-                        <div className="alert welcome alert-secondary" id="welcome">
-                        <h1>Motivation</h1>
-                        To get you from
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <img className="slowtyper" src={slowtyper} alt="slowtyper" />
-                    </div>
-                    <div className="col-md-3">
-                        <img className="fasttyper" src={fasttyper} alt="fasttyper" />
-                    </div>
-                </div>
-            </div> */}
-        
-           {/*  <div className="row midcontainer">
-                <div className="col-md-5">
-                    <img className="slowtyper" src={slowtyper} alt="slowtyper" />
-                </div>
-
-                <div className="col-md-2">
-                    <h1 className="alert alert-secondary">TO</h1> 
-                </div>
-
-                <div className="col-md-5">
-                    <img className="fasttyper" src={fasttyper} alt="fasttyper" />
-                </div>
-            </div> */}
-        
-            {/* <div className="row bottomcontainer">
-                <div className="col-md-12">
-                    <h1 className="alert alert-secondary">WELL PROVE IT!</h1>
-                </div>
-            </div> */}
+           
         
             <br></br>
 
@@ -70,7 +48,7 @@ function Home() {
                     </Link>
                 </div>
             </div>
-        </div>
+        </div> */}
         <Footer />
         </div>
     );

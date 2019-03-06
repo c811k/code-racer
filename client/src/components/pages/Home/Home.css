@@ -1,5 +1,15 @@
+
 #home {
     margin-top: 40px;
+    height: 100vh;
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0.75)
+        ),
+        url("./images/frontPageGif.gif");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .loadingGif {
@@ -51,4 +61,40 @@
 .alert-secondary {
    background-color: white;
    border: 0px;
+}
+
+
+#header {
+    height: 100vh;
+}
+
+h1 {
+    font-size: 85px;
+}
+
+
+
+.text-white {
+    position: relative;
+    bottom: 100px;
+}
+
+
+.playButton {
+    border: none;
+	background: #3a7999;
+	color: #f2f2f2;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	position: relative;
+	box-sizing: border-box;
+	transition: all 500ms ease; 
+      
+}
+
+
+
+.playButton:hover {
+    color: white;
 }
