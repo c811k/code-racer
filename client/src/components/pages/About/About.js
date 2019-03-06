@@ -24,7 +24,7 @@ function About() {
     }
     return (
         <div>
-            <div className="container mt-5">
+            <div className="container mt-5" id="about">
                 <div className="row">
                 <div className="col-md-12">
                 <h3 className="border-bottom pb-3"><img className="mr-3" src="https://cdn.onlinewebfonts.com/svg/img_363996.png" alt="logo" height="40" width="40" />MEET OUR TEAM</h3>
