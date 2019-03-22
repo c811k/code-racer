@@ -1,7 +1,7 @@
 # Code Racer
 
 
-<img src="./client/src/components/pages/Home/images/frontPageGif.gif">
+<img src="./client/src/components/pages/Home/images/background1.gif">
 
 
 ## Compete To Get The Best Time!
