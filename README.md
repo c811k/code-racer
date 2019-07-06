@@ -1,7 +1,7 @@
 # Code Racer
 
 
-<img src="./client/src/components/pages/Home/images/frontPageGif.gif">
+<img src="./client/src/components/pages/Home/images/background1.gif">
 
 
 ## Compete To Get The Best Time!
@@ -29,9 +29,9 @@ https://coderacer-app.herokuapp.com/
 ### Jonathan Talavera
 <img src="./client/src/components/pages/About/images/jonathanCR.jpeg">
 
-linkedin.com/in/jonathantalavera
+<a href="https://www.linkedin.com/in/jonathantalavera">Jonathan's LinkedIn</a>
 
-github.com/jtala
+https://www.github.com/jtala
 
 
 ### Caleb Kang
