@@ -36,7 +36,7 @@ https://www.github.com/jtala
 
 ### Caleb Kang
 
-<img src="./client/src/components/pages/About/images/calebCR.jpg">
+<img src="./client/src/components/pages/About/images/calebCR.jpg" =250x>
 
 github.com/c811k
 
