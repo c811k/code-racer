@@ -27,33 +27,34 @@ https://coderacer-app.herokuapp.com/
 # Primary Contributors
 
 ### Jonathan Talavera
-<img src="./client/src/components/pages/About/images/jonathanCR.jpeg">
+<img src="./client/src/components/pages/About/images/jonathanCR.jpeg" width="250 />
 
 <a href="https://www.linkedin.com/in/jonathantalavera">Jonathan's LinkedIn</a>
 
 https://www.github.com/jtala
 
-
 ### Caleb Kang
 
-<img src="./client/src/components/pages/About/images/calebCR.jpg" =250x>
+<img src="./client/src/components/pages/About/images/calebCR.jpg" width="250" />
 
-github.com/c811k
+<a href="https://www.linkedin.com/in/calebkang">Caleb's LinkedIn</a>
 
-bhk811@gmail.com
+https://www.github.com/c811k
+
+:email: bhk811@gmail.com
 
 ### Irwing Gameros
 
-<img src="./client/src/components/pages/About/images/irwingCR.jpg">
+<img src="./client/src/components/pages/About/images/irwingCR.jpg" width="250" />
 
-github.com/digibite
+https://www.github.com/digibite
 
-iguknow@gmail.com
+:email: iguknow@gmail.com
 
 ### Clint Forster
 
-<img src="./client/src/components/pages/About/images/clintCR.jpg">
+<img src="./client/src/components/pages/About/images/clintCR.jpg" width="250" />
 
-github.com/clintForster
+https://www.github.com/clintForster
 
-clinte.forster@gmail.com
+:email: clinte.forster@gmail.com
