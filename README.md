@@ -27,7 +27,7 @@ https://coderacer-app.herokuapp.com/
 # Primary Contributors
 
 ### Jonathan Talavera
-<img src="./client/src/components/pages/About/images/jonathanCR.jpeg" width="250 />
+<img src="./client/src/components/pages/About/images/jonathanCR.jpeg" width="250" />
 
 <a href="https://www.linkedin.com/in/jonathantalavera">Jonathan's LinkedIn</a>
 
