@@ -1,30 +1,50 @@
-# Code Racer
+# Code Racer 🏎️ 
 
+Code Racer is a full-stack MERN application for practicing coding challenges through a React frontend backed by a Node/Express API and MongoDB. The project focuses on building and deploying a real-world full-stack workflow from development to production.
 
 <img src="./client/src/components/pages/Home/images/background1.gif">
 
+---
 
 ## Compete To Get The Best Time!
 
-Registering and Logging In is recommended to keep track of your times in the Leaderboard, but not necessary! 
+Registering and Logging In is recommended to keep track of your times in the Leaderboard, but not necessary! Click play now and when the countdown is done, begin typing to move the progress bar towards completion!
 
-Click play now and when the countdown is done, begin typing to move the progress bar towards completion!
+---
 
 ## Deployed Website
 
-https://coderacer-app.herokuapp.com/
+https://code-racer.onrender.com
 
-## Built With
+---
+
+## 🚀 Features
+
+* Interactive coding prompts
+* RESTful API for handling challenges
+* MongoDB-backed data persistence
+* React frontend served from Express in production
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**
+
+* React
+* JavsScript (ES6)
+* HTML5 / CSS3
+* Bootstrap
+
+**Backend**
 
 * Node.js
-* MongoDB
-* React
-* Ace Code Editor
-* Express
+* Express.js
+* MongoDB (Mongoose)
 
+---
 
-
-# Primary Contributors
+## Primary Contributors
 
 ### Jonathan Talavera
 <img src="./client/src/components/pages/About/images/jonathanCR.jpeg" width="250" />
